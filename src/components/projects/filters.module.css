@@ -36,6 +36,21 @@
   }
 }
 
+/* Phones: no sideways scroll. Categories wrap, and the Technology toggle
+   drops to its own line so nothing is half-hidden behind it. */
+@media (max-width: 767px) {
+  .bar {
+    flex-wrap: wrap;
+  }
+
+  .scroller {
+    flex: 1 1 100%;
+    flex-wrap: wrap;
+    overflow-x: visible;
+    mask-image: none;
+  }
+}
+
 .chip {
   display: inline-flex;
   flex: none;
