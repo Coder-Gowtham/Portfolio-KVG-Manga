@@ -115,5 +115,8 @@ describe('home page', () => {
     expect(linkedin).toHaveAttribute('target', '_blank')
     expect(linkedin).toHaveAttribute('rel', expect.stringContaining('noopener'))
     expect(screen.getByRole('link', { name: /mail gowtham/i })).toHaveAttribute('href', `mailto:${profile.email}`)
+    const instagram = screen.getByRole('link', { name: /open instagram/i })
+    expect(instagram).toHaveAttribute('href', 'https://www.instagram.com/gowtham_kv_/')
+    expect(instagram).toHaveAttribute('target', '_blank')
   })
 })

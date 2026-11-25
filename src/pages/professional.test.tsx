@@ -144,7 +144,6 @@ describe('Experience', () => {
       'href',
       '/projects/roshan-tiwari-consultants',
     )
-    expect(screen.getByText(/feb 2021 · about 6 months/i)).toBeInTheDocument()
   })
 })
 

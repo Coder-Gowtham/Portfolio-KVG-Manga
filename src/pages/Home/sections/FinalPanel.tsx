@@ -12,6 +12,7 @@ const COMMANDS: Record<string, string> = {
   email: 'mail gowtham',
   linkedin: 'open linkedin',
   github: 'open github',
+  instagram: 'open instagram',
 }
 
 /** Final panel: the drone relays contact commands. One of the two "loud" panels on the page. */
