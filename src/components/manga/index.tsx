@@ -17,7 +17,7 @@ export interface ChapterHeadingProps {
 export function ChapterHeading({ number, title, kicker, lede, level = 1, glitch = false, id }: ChapterHeadingProps) {
   const Heading = `h${level}` as 'h1' | 'h2' | 'h3'
   return (
-    <header className={s.chapter}>
+    <header className={s.chapter} data-reveal-item>
       <p className={s.kicker}>
         <span className={s.kickerTag}>{number}</span>
         {kicker && <span>{kicker}</span>}
@@ -53,7 +53,7 @@ export function MangaPanel({
   ...rest
 }: MangaPanelProps) {
   return (
-    <Tag className={cx(s.frame, neon && s.frameNeon, className)} {...rest}>
+    <Tag className={cx(s.frame, neon && s.frameNeon, className)} data-reveal-item {...rest}>
       <div
         className={cx(
           s.outer,

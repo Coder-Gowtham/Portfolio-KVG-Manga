@@ -4,12 +4,12 @@ import { useMediaQuery } from '../../hooks/useMediaQuery'
 import { useSecret } from './secretStore'
 import s from './secrets.module.css'
 
-/** Secret perk: the bug-hunter drone trails the cursor. Mouse/trackpad only, never with reduced motion. */
+/** The bug-hunter drone trails the cursor on every page. Mouse/trackpad only, never with reduced motion. */
 export function DroneFollower() {
-  const { unlocked, droneFollow } = useSecret()
+  const { droneFollow } = useSecret()
   const fine = useMediaQuery('(pointer: fine)')
   const calm = useMediaQuery('(prefers-reduced-motion: reduce)')
-  const on = unlocked && droneFollow && fine && !calm
+  const on = droneFollow && fine && !calm
   const el = useRef<HTMLDivElement>(null)
 
   useEffect(() => {

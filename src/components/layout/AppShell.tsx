@@ -3,13 +3,13 @@ import { Outlet, ScrollRestoration, useLocation, useNavigation } from 'react-rou
 import { cx } from '../../utils/cx'
 import { DroneFollower } from '../../features/secrets/DroneFollower'
 import { UnlockBanner, useSecretKeys } from '../../features/secrets/SecretTrigger'
+import { useRevealAll } from '../../hooks/useRevealAll'
 import { MascotSprite } from '../manga/MascotSprite'
 import { Shuriken } from '../manga/Mascot'
 import { BottomNav } from './BottomNav'
 import { Footer } from './Footer'
 import { HudRail } from './HudRail'
 import { MenuSheet } from './MenuSheet'
-import { TopBar } from './TopBar'
 import s from './layout.module.css'
 
 export function AppShell() {
@@ -18,10 +18,10 @@ export function AppShell() {
   const [menuOpen, setMenuOpen] = useState(false)
   const mainRef = useRef<HTMLElement>(null)
   const lastPath = useRef(pathname)
+  // Counts client-side page changes; 0 on first load, so the cover intro plays alone.
+  const [turns, setTurns] = useState(0)
   useSecretKeys()
-
-  // Recruiter page swaps the decorative rail for a plain top bar (spec §2).
-  const plain = pathname.startsWith('/recruiter')
+  useRevealAll(mainRef, pathname)
 
   // Close the menu and move focus to the new page on navigation, so screen
   // reader and keyboard users start at the top of the new content.
@@ -30,20 +30,27 @@ export function AppShell() {
     // Compare paths rather than counting renders: StrictMode runs effects twice.
     if (lastPath.current === pathname) return
     lastPath.current = pathname
+    setTurns((t) => t + 1)
     mainRef.current?.focus({ preventScroll: true })
   }, [pathname])
 
   return (
-    <div className={cx(s.shell, !plain && s.shellRail)}>
+    <div className={cx(s.shell, s.shellRail)}>
       <a href="#main" className={`${s.skip} no-print`}>
         Skip to content
       </a>
       <MascotSprite />
-      {plain ? <TopBar /> : <HudRail />}
+      {/* Same frame on every page, the Hire brief included, so navigation never jumps. */}
+      <HudRail />
 
       <main id="main" ref={mainRef} tabIndex={-1} className={s.main}>
-        <Outlet />
+        {/* Keyed per page so each page change replays the enter animation. */}
+        <div key={pathname} className={cx(s.page, turns > 0 && s.pageEnter)}>
+          <Outlet />
+        </div>
       </main>
+      {/* Manga page-turn: an ink panel sweeps off-screen as the new page lands. */}
+      {turns > 0 && <span key={`turn-${turns}`} className={`${s.pageTurn} no-print`} aria-hidden="true" />}
 
       <Footer />
       <BottomNav menuOpen={menuOpen} onMenu={() => setMenuOpen((o) => !o)} />

@@ -1,5 +1,6 @@
 import { MangaPanel, Sfx, SpeechBubble } from '../../../components/manga'
-import { Drone, Mascot } from '../../../components/manga/Mascot'
+import { QuestBoard } from '../../../components/manga/QuestBoard'
+import { Drone } from '../../../components/manga/Mascot'
 import { CopyButton } from '../../../components/ui/CopyButton'
 import { InkButton } from '../../../components/ui/InkButton'
 import { home } from '../../../data/home'
@@ -13,7 +14,7 @@ const COMMANDS: Record<string, string> = {
   github: 'open github',
 }
 
-/** 07 · Final panel: mask down, contact commands. */
+/** Final panel: the drone relays contact commands. One of the two "loud" panels on the page. */
 export function FinalPanel() {
   const ref = useReveal<HTMLElement>()
   const links = profile.links.filter((l) => l.id in COMMANDS)
@@ -23,9 +24,8 @@ export function FinalPanel() {
       <MangaPanel as="div" surface="paper" slant="left" neon className={s.final}>
         <div className={s.finalGrid}>
           <div className={s.finalArt}>
-            <Sfx text="ニヤ" size="2rem" className={s.finalSfx} />
-            <Mascot className={s.finalMascot} mask="down" />
-            <Drone className={s.finalDrone} />
+            <Sfx text="ピピッ" size="2rem" className={s.finalSfx} />
+            <Drone className={s.finalDroneHero} />
           </div>
           <div className={s.finalText}>
             <p className={s.finalKicker}>
@@ -35,6 +35,7 @@ export function FinalPanel() {
               {home.closing.bubble}
             </h2>
             <p>{home.closing.lede}</p>
+            <QuestBoard />
             <div className={s.terminal}>
               <p className={s.terminalBar} aria-hidden="true">
                 <span />
@@ -63,7 +64,7 @@ export function FinalPanel() {
               <CopyButton value={profile.email} label="Copy email" />
             </div>
             <SpeechBubble tail="right" className={s.finalBubble}>
-              Relax. I only hunt bugs.
+              Beep. Message relayed to KVG.
             </SpeechBubble>
           </div>
         </div>

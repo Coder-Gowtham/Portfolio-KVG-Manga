@@ -17,28 +17,42 @@ describe('Works page', () => {
   it('filters by category, updates the shareable URL and announces the count', async () => {
     const user = userEvent.setup()
     const router = renderAt('/projects')
-    await screen.findByRole('heading', { level: 1, name: /series index/i })
-    expect(screen.getByRole('status')).toHaveTextContent('Showing 6 of 6 series')
+    await screen.findByRole('heading', { level: 1, name: /mission log/i })
+    expect(screen.getByRole('status')).toHaveTextContent('Showing 6 of 6 missions')
 
+    expect(screen.queryByRole('button', { name: /clear filters/i })).not.toBeInTheDocument()
     await user.click(screen.getByRole('button', { name: /personal project/i }))
-    expect(screen.getByRole('status')).toHaveTextContent('Showing 2 of 6 series')
+    expect(screen.getByRole('status')).toHaveTextContent('Showing 2 of 6 missions')
     expect(router.state.location.search).toBe('?cat=personal')
     expect(screen.getByRole('button', { name: /personal project/i })).toHaveAttribute('aria-pressed', 'true')
+    expect(screen.getByRole('button', { name: /clear filters/i })).toBeInTheDocument()
+  })
+
+  it('keeps technology chips behind a toggle until needed', async () => {
+    const user = userEvent.setup()
+    renderAt('/projects')
+    await screen.findByRole('heading', { level: 1, name: /mission log/i })
+    const toggle = screen.getByRole('button', { name: /technology/i })
+    expect(toggle).toHaveAttribute('aria-expanded', 'false')
+    expect(screen.queryByRole('button', { name: 'Redis' })).not.toBeInTheDocument()
+    await user.click(toggle)
+    expect(toggle).toHaveAttribute('aria-expanded', 'true')
+    expect(screen.getByRole('button', { name: 'Redis' })).toBeInTheDocument()
   })
 
   it('restores filters from the URL and combines category + technology', async () => {
     renderAt('/projects?cat=professional&tech=mysql')
-    await screen.findByRole('heading', { level: 1, name: /series index/i })
+    await screen.findByRole('heading', { level: 1, name: /mission log/i })
     const titles = screen.getAllByRole('article').map((a) => within(a).getByRole('heading').textContent)
-    expect(titles).toEqual(['Times Black', 'YEIDA'])
+    expect(titles).toEqual(['Times Black'])
   })
 
   it('shows an empty state that clears filters', async () => {
     const user = userEvent.setup()
     renderAt('/projects?cat=professional&tech=redis')
-    expect(await screen.findByText(/no series match/i)).toBeInTheDocument()
+    expect(await screen.findByText(/no missions match/i)).toBeInTheDocument()
     await user.click(screen.getAllByRole('button', { name: /clear filters/i })[0]!)
-    expect(screen.getByRole('status')).toHaveTextContent('Showing 6 of 6 series')
+    expect(screen.getByRole('status')).toHaveTextContent('Showing 6 of 6 missions')
   })
 })
 
@@ -99,11 +113,70 @@ describe('Experience', () => {
   it('switches between latest-first and from-the-beginning order', async () => {
     const user = userEvent.setup()
     renderAt('/experience')
-    await screen.findByRole('heading', { level: 1, name: /chapters of an engineer/i })
+    await screen.findByRole('heading', { level: 1, name: /the story so far/i })
     const roles = () => screen.getAllByRole('heading', { level: 2 }).map((h) => h.textContent)
     expect(roles()[0]).toMatch(/career break/i)
+    expect(screen.queryByText(/plot twist/i)).toBeInTheDocument()
     await user.click(screen.getByRole('button', { name: /from the beginning/i }))
-    expect(roles()[0]).toMatch(/b\.tech/i)
+    expect(roles().slice(0, 4)).toEqual([
+      expect.stringMatching(/b\.tech/i),
+      'Customer Care Executive',
+      'Customer Care Associate',
+      'Self-taught developer',
+    ])
+  })
+
+  it('keeps each chapter to a short summary, with no bullet lists', async () => {
+    renderAt('/experience')
+    await screen.findByRole('heading', { level: 1, name: /the story so far/i })
+    const timeline = screen.getByRole('list', { name: /career chapters/i })
+    expect(timeline.querySelectorAll('article ul:not([aria-label$="technologies"])')).toHaveLength(0)
+    expect(screen.getByText('Aug 2018 – Aug 2020')).toBeInTheDocument()
+    const niveus = screen.getByRole('heading', { name: /cloud associate/i }).closest('article')!
+    expect(within(niveus).getByRole('link', { name: 'Times Black' })).toHaveAttribute('href', '/projects/times-black')
+    expect(within(niveus).getByText('Savings Account')).toBeInTheDocument()
+    expect(within(niveus).getByText('Credit cards')).toBeInTheDocument()
+    const indie = screen.getByRole('heading', { name: /career break/i }).closest('article')!
+    expect(within(indie).getByRole('link', { name: 'Roshan Tiwari Consultants' })).toHaveAttribute(
+      'href',
+      '/projects/roshan-tiwari-consultants',
+    )
+    expect(screen.getByText(/feb 2021 · about 6 months/i)).toBeInTheDocument()
+  })
+})
+
+describe('Contact quest board', () => {
+  it('fills the subject from a picked quest, and leaves a typed subject alone', async () => {
+    const user = userEvent.setup()
+    renderAt('/contact')
+    await screen.findByRole('heading', { level: 1 })
+    const board = screen.getByRole('list', { name: /pick a quest type/i })
+    await user.click(within(board).getByRole('button', { name: /contract role/i }))
+    expect(within(board).getByRole('button', { name: /contract role/i })).toHaveAttribute('aria-pressed', 'true')
+    const subject = screen.getByLabelText(/subject/i)
+    expect(subject).toHaveValue('Contract role: ')
+    await user.type(subject, 'API work')
+    await user.click(within(board).getByRole('button', { name: /freelance project/i }))
+    expect(subject).toHaveValue('Freelance project: API work')
+    await user.clear(subject)
+    await user.type(subject, 'My own subject')
+    await user.click(within(board).getByRole('button', { name: /collaboration/i }))
+    expect(subject).toHaveValue('My own subject')
+  })
+})
+
+describe('Contact host mascot', () => {
+  it('pulls the mask up when tapped, and back down on a second tap', async () => {
+    const user = userEvent.setup()
+    renderAt('/contact')
+    await screen.findByRole('heading', { level: 1 })
+    const [host] = screen.getAllByRole('button', { name: /netrunner: mask up/i })
+    expect(host).toHaveAttribute('aria-pressed', 'false')
+    await user.click(host!)
+    expect(host).toHaveAttribute('aria-pressed', 'true')
+    expect(screen.getAllByText('Say the word.').length).toBeGreaterThan(0)
+    await user.click(host!)
+    expect(host).toHaveAttribute('aria-pressed', 'false')
   })
 })
 
@@ -114,6 +187,8 @@ describe('Recruiter', () => {
     const quick = screen.getByRole('region', { name: /quick actions/i })
     expect(within(quick).getByRole('link', { name: /résumé/i })).toHaveAttribute('href', profile.resume.href)
     expect(within(quick).getByRole('link', { name: /email/i })).toHaveAttribute('href', `mailto:${profile.email}`)
+    expect(screen.getByText('Looking for')).toBeInTheDocument()
+    expect(screen.getByText(/full-time, contract, freelance and collaborations/i)).toBeInTheDocument()
     expect(screen.getByRole('link', { name: /phone/i })).toHaveAttribute('href', 'tel:+917067277125')
     // The site footer may link Instagram; the recruiter content itself must not.
     expect(within(screen.getByRole('main')).queryByText(/instagram/i)).not.toBeInTheDocument()

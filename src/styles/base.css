@@ -149,7 +149,7 @@ button {
 }
 
 [data-reveal='in'] {
-  animation: ink-wipe var(--dur-slow) var(--ease-ink);
+  animation: ink-wipe var(--dur-slow) var(--ease-ink) var(--reveal-delay, 0ms) backwards;
 }
 
 @keyframes ink-wipe {

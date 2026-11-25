@@ -76,27 +76,95 @@
   text-transform: uppercase;
 }
 
-/* Header with an action pose: stacked on phones, side by side from 768px */
-.head {
-  display: grid;
-  gap: var(--s-2);
+/* Count + clear on one line */
+.countRow {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--s-2) var(--s-4);
+  margin-top: calc(-1 * var(--s-2));
 }
 
-.headArt {
-  justify-self: end;
-  width: clamp(130px, 40vw, 170px);
-  margin-top: calc(-1 * var(--s-3));
+.count {
+  margin: 0;
 }
 
-@media (min-width: 768px) {
-  .head {
-    grid-template-columns: minmax(0, 1fr) auto;
-    align-items: end;
-    gap: var(--s-5);
+.clear {
+  min-height: 36px;
+  padding: 0;
+  background: none;
+  border: 0;
+  color: var(--neon-yellow);
+  font-family: var(--font-mono);
+  font-size: var(--fs-mono);
+  text-decoration: underline;
+  text-underline-offset: 4px;
+  cursor: pointer;
+}
+
+.clear:focus-visible {
+  outline: 2px solid var(--focus-on-night);
+  outline-offset: 3px;
+}
+
+/* Mascot interlude between rows: a slim full-width beat, never a whole screen */
+.grid > .interlude {
+  grid-column: 1 / -1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--s-3);
+  padding-block: var(--s-2);
+}
+
+.interludeArt {
+  flex: none;
+  width: clamp(120px, 34vw, 180px);
+}
+
+.interludeBubble {
+  max-width: 16rem;
+}
+
+/* ---------- Mission-control stage ---------- */
+.works {
+  position: relative;
+  isolation: isolate;
+  min-height: 100%;
+  overflow-x: clip; /* target-lock brackets on edge-to-edge cards never widen the page */
+}
+
+/* Cards deal in, staggered, after a filter change */
+.deal > li {
+  animation: deal 380ms var(--ease-impact) calc(var(--i, 0) * 55ms) backwards;
+}
+
+@keyframes deal {
+  from {
+    opacity: 0;
+    transform: translateY(18px) rotate(-1.5deg) scale(0.97);
   }
+}
 
-  .headArt {
-    width: clamp(170px, 20vw, 240px);
-    margin-top: 0;
+/* The mission counter flickers like a HUD update */
+.countFlash {
+  animation: count-flash 360ms steps(3, end);
+}
+
+@keyframes count-flash {
+  0% {
+    color: var(--neon-magenta);
+    text-shadow: 2px 0 var(--neon-cyan);
+  }
+  60% {
+    color: var(--neon-yellow);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .deal > li,
+  .countFlash {
+    animation: none;
   }
 }

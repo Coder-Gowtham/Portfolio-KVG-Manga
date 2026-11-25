@@ -1,7 +1,7 @@
 import type { Quote } from '../types/content'
 
 /**
- * Quotes for the Fun Zone terminal.
+ * Quotes for the Showdown quotes terminal.
  * Real quotes: short, with attribution and a documented primary source.
  * Original lines are tagged `original` and shown as "Original — KVG".
  */

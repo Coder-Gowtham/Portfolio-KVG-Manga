@@ -1,0 +1,138 @@
+/* Mission-control backdrop. Decorative, behind the content, pointer-events: none. */
+.backdrop {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  overflow: hidden;
+  pointer-events: none;
+  background:
+    radial-gradient(55% 35% at 100% 0%, rgb(0 229 255 / 0.12), transparent 70%),
+    radial-gradient(45% 30% at 0% 70%, rgb(255 42 109 / 0.1), transparent 70%);
+}
+
+/* Hex grid, fading out towards the bottom */
+.hex {
+  position: absolute;
+  inset: 0;
+  opacity: 0.22;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='56' height='98' viewBox='0 0 56 98'%3E%3Cpath d='M28 66L0 50V16L28 0l28 16v34L28 66zm0 32L0 82V66l28 16 28-16v16L28 98z' fill='none' stroke='%2300E5FF' stroke-width='1'/%3E%3C/svg%3E");
+  background-size: 56px 98px;
+  mask-image: linear-gradient(180deg, #000, transparent 85%);
+}
+
+/* Radar in the top-right corner */
+.radar {
+  position: absolute;
+  top: -90px;
+  right: -90px;
+  width: min(460px, 90vw);
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background:
+    radial-gradient(circle, transparent 0 24%, rgb(0 229 255 / 0.22) 24.3% 24.8%, transparent 25.1% 49%, rgb(0 229 255 / 0.2) 49.3% 49.8%, transparent 50.1% 74%, rgb(0 229 255 / 0.18) 74.3% 74.8%, transparent 75.1%),
+    linear-gradient(transparent calc(50% - 0.5px), rgb(0 229 255 / 0.15) 0 calc(50% + 0.5px), transparent 0),
+    linear-gradient(90deg, transparent calc(50% - 0.5px), rgb(0 229 255 / 0.15) 0 calc(50% + 0.5px), transparent 0);
+  opacity: 0.7;
+}
+
+@media (min-width: 1024px) {
+  .radar {
+    top: -140px;
+    right: -120px;
+    width: 560px;
+  }
+}
+
+.sweep {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: conic-gradient(from 0deg, rgb(0 229 255 / 0.35), transparent 22%);
+  animation: sweep 6s linear infinite;
+}
+
+@keyframes sweep {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.blip {
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--neon-magenta);
+  box-shadow: 0 0 10px var(--neon-magenta);
+  animation: blip 3s ease-out infinite;
+}
+
+@keyframes blip {
+  0%,
+  100% {
+    opacity: 0;
+    transform: scale(0.5);
+  }
+  15% {
+    opacity: 1;
+    transform: scale(1.2);
+  }
+  60% {
+    opacity: 0.2;
+  }
+}
+
+/* A slow HUD scan line travelling down the page */
+.scan {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  height: 120px;
+  background: linear-gradient(transparent, rgb(0 229 255 / 0.07) 80%, rgb(0 229 255 / 0.35) 99%, transparent);
+  animation: scan 9s linear infinite;
+}
+
+@keyframes scan {
+  from {
+    transform: translateY(-120px);
+  }
+  to {
+    transform: translateY(calc(100vh * 4));
+  }
+}
+
+.reticle {
+  position: absolute;
+  width: 40px;
+  height: 40px;
+  color: rgb(245 229 0 / 0.35);
+  animation: reticle 4s ease-in-out infinite;
+}
+
+@keyframes reticle {
+  50% {
+    transform: rotate(45deg) scale(1.15);
+    color: rgb(255 42 109 / 0.5);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sweep,
+  .blip,
+  .scan,
+  .reticle {
+    animation: none;
+  }
+
+  .scan,
+  .blip {
+    display: none;
+  }
+}
+
+@media print {
+  .backdrop {
+    display: none;
+  }
+}

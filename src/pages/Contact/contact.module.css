@@ -23,20 +23,158 @@
   }
 }
 
-.headArt {
+/* ---------- The host (mascot) ---------- */
+.host {
+  display: grid;
+  justify-items: end;
+  gap: var(--s-2);
+  animation: host-rise 560ms var(--ease-impact) 200ms backwards;
+}
+
+/* Top-right on tablet/desktop, a sign-off at the bottom on phones */
+.hostTop {
   display: none;
 }
 
 @media (min-width: 768px) {
-  .headArt {
+  .hostTop {
     display: grid;
-    justify-items: end;
-    gap: var(--s-2);
+  }
+
+  .hostBottom {
+    display: none;
   }
 }
 
+.hostBottom {
+  grid-auto-flow: column;
+  align-items: end;
+  justify-content: center;
+  margin-top: var(--s-2);
+}
+
+.hostBubble {
+  transform-origin: 85% 100%;
+  animation:
+    bubble-pop 380ms var(--ease-impact) 650ms backwards,
+    bubble-float 3.2s ease-in-out 1.1s infinite;
+}
+
+.hostLine {
+  display: inline-block;
+  animation: line-swap 220ms var(--ease-impact);
+}
+
+.hostButton {
+  position: relative;
+  display: grid;
+  place-items: center;
+  padding: 0;
+  background: none;
+  border: 0;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.hostButton:focus-visible {
+  outline: 2px solid var(--focus-on-night);
+  outline-offset: 4px;
+}
+
+.hostButton .hostLines {
+  inset: -30%; /* wider than the mascot, faded into a circle */
+  width: auto;
+  height: auto;
+  mask-image: radial-gradient(circle, #000 35%, transparent 70%);
+  opacity: 0;
+  transform: scale(0.6);
+  transition:
+    opacity var(--dur-fast) linear,
+    transform var(--dur-base) var(--ease-impact);
+}
+
 .mascot {
+  position: relative;
   width: 130px;
+  transform-origin: 50% 90%;
+  animation: nod 6s ease-in-out 2s infinite;
+  transition: filter var(--dur-base) linear;
+}
+
+/* Mask up: speed lines burst, he hops and glows */
+.ready .hostLines {
+  opacity: 0.55;
+  transform: scale(1.1);
+}
+
+.ready .mascot {
+  animation: hop 360ms var(--ease-impact);
+  filter: drop-shadow(0 0 10px rgb(0 229 255 / 0.55));
+}
+
+@keyframes host-rise {
+  from {
+    opacity: 0;
+    transform: translateY(28px);
+  }
+}
+
+@keyframes bubble-pop {
+  from {
+    opacity: 0;
+    transform: scale(0.5) rotate(-6deg);
+  }
+}
+
+@keyframes bubble-float {
+  50% {
+    transform: translateY(-4px);
+  }
+}
+
+@keyframes line-swap {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+}
+
+/* A small head tilt every few seconds, like he's listening */
+@keyframes nod {
+  0%,
+  78%,
+  100% {
+    transform: rotate(0deg);
+  }
+  84% {
+    transform: rotate(-4deg);
+  }
+  90% {
+    transform: rotate(3deg);
+  }
+  95% {
+    transform: rotate(-1deg);
+  }
+}
+
+@keyframes hop {
+  40% {
+    transform: translateY(-10px) scale(1.05);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .host,
+  .hostBubble,
+  .hostLine,
+  .mascot,
+  .ready .mascot {
+    animation: none;
+  }
+
+  .hostLines {
+    transition: none;
+  }
 }
 
 .grid {
@@ -226,4 +364,32 @@ textarea.input {
   font-family: var(--font-mono);
   text-decoration: underline;
   text-underline-offset: 4px;
+}
+
+/* ---------- Quest board ---------- */
+.board {
+  display: grid;
+  gap: var(--s-3);
+}
+
+.boardTitle {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: var(--fs-h3);
+  text-transform: uppercase;
+}
+
+.boardLede {
+  margin: 0;
+  color: var(--text-on-night-muted);
+}
+
+.boardList {
+  margin-top: var(--s-2);
+}
+
+@media (min-width: 1024px) {
+  .boardList {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
 }

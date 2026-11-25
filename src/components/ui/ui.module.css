@@ -133,3 +133,34 @@
   font-size: 1.1em;
   line-height: 1;
 }
+
+/* ---------- Motion: glitch on hover (mouse/trackpad only), press on tap ---------- */
+@media (hover: hover) {
+  .btn:not(.command):hover {
+    animation: btn-glitch 240ms steps(2, end) 1;
+  }
+}
+
+@keyframes btn-glitch {
+  0% {
+    text-shadow:
+      -2px 0 var(--neon-cyan),
+      2px 0 var(--neon-magenta);
+  }
+  50% {
+    text-shadow:
+      2px 0 var(--neon-cyan),
+      -2px 0 var(--neon-yellow);
+  }
+  100% {
+    text-shadow: none;
+  }
+}
+
+.btn:active {
+  transform: translate(1px, 1px) scale(0.98);
+}
+
+.copy:active {
+  transform: scale(0.97);
+}

@@ -6,13 +6,15 @@ import { QuickDraw } from './games/QuickDraw'
 import { CyberOracle } from './horoscope/CyberOracle'
 import { QuotesTerminal } from './quotes/QuotesTerminal'
 
-/** Every Fun Zone module, registered once (spec §4.6). Add a module here and the hub picks it up. */
+/** Every Showdown module, registered once (spec §4.6). Add a module here and the hub picks it up. */
 export interface FunModule {
   id: string
   title: string
   kicker: string
   blurb: string
   surface: 'paper' | 'night' | 'terminal'
+  /** Verb on the fold-out button on small screens (default "Play"). */
+  action?: string
   Component: ComponentType
 }
 
@@ -39,6 +41,7 @@ export const funModules: FunModule[] = [
     kicker: 'Daily transmission',
     blurb: 'Pick a sign, get a dev fortune. Fictional, for fun.',
     surface: 'night',
+    action: 'Open',
     Component: CyberOracle,
   },
   {
@@ -47,6 +50,7 @@ export const funModules: FunModule[] = [
     kicker: 'Words to code by',
     blurb: 'A quote a day, random pulls, and favourites you can save.',
     surface: 'terminal',
+    action: 'Open',
     Component: QuotesTerminal,
   },
   {

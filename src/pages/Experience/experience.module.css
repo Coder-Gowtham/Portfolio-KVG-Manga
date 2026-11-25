@@ -173,6 +173,12 @@
   text-underline-offset: 4px;
 }
 
+/* Episodes without a project page: same weight, no link styling */
+.episodeLabel {
+  padding: var(--s-1) 0;
+  font-weight: 600;
+}
+
 @media (min-width: 1024px) {
   .timeline {
     padding-left: 0;
@@ -206,27 +212,195 @@
   }
 }
 
-/* Header with an action pose: stacked on phones, side by side from 768px */
-.head {
-  display: grid;
-  gap: var(--s-2);
+/* Mascot interlude inside the timeline: a slim beat, not a header */
+.interlude {
+  position: relative;
+  z-index: 4; /* above the glowing spine */
+  display: flex;
+  align-items: center;
+  gap: var(--s-3);
+  min-width: 0;
 }
 
-.headArt {
-  justify-self: end;
-  width: clamp(130px, 40vw, 170px);
-  margin-top: calc(-1 * var(--s-3));
+.interludeArt {
+  flex: none;
+  width: clamp(110px, 30vw, 150px);
 }
 
-@media (min-width: 768px) {
-  .head {
-    grid-template-columns: minmax(0, 1fr) auto;
-    align-items: end;
-    gap: var(--s-5);
+.interludeBubble {
+  max-width: 15rem;
+}
+
+@media (min-width: 1024px) {
+  .interlude {
+    justify-self: center;
+    padding: var(--s-2) var(--s-4);
+    background: var(--ink);
+  }
+}
+
+/* ---------- Night-city stage + story progress ---------- */
+.arc {
+  position: relative;
+  isolation: isolate;
+  min-height: 100%;
+  padding-bottom: min(220px, 30vw);
+}
+
+.timelineWrap {
+  --progress: 0;
+  --spine-x: 14px;
+  position: relative;
+}
+
+/* Neon fill over the spine, scaled by reading progress */
+.spineFill {
+  position: absolute;
+  top: 0;
+  left: var(--spine-x);
+  z-index: 1;
+  width: 3px;
+  height: 100%;
+  background: linear-gradient(var(--neon-magenta), var(--neon-cyan));
+  box-shadow: 0 0 10px var(--neon-cyan);
+  transform-origin: top;
+  transform: scaleY(var(--progress));
+  pointer-events: none;
+}
+
+/* The orb at the reading point */
+.orb {
+  position: absolute;
+  top: calc(var(--progress) * 100%);
+  left: calc(var(--spine-x) + 1.5px);
+  z-index: 2;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: #fff;
+  box-shadow:
+    0 0 0 3px var(--neon-cyan),
+    0 0 18px 6px rgb(0 229 255 / 0.6);
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  animation: orb-pulse 1.4s ease-in-out infinite;
+}
+
+@keyframes orb-pulse {
+  50% {
+    box-shadow:
+      0 0 0 3px var(--neon-magenta),
+      0 0 26px 10px rgb(255 42 109 / 0.5);
+  }
+}
+
+.timelineWrap .timeline::before {
+  background: rgb(255 255 255 / 0.12);
+}
+
+/* Nodes light up as the story reaches them */
+.node {
+  z-index: 3;
+  transition:
+    background-color var(--dur-base) var(--ease-ink),
+    box-shadow var(--dur-base) var(--ease-ink),
+    transform var(--dur-base) var(--ease-impact);
+}
+
+.chapter[data-lit] .node {
+  background: var(--neon-cyan);
+  box-shadow: 0 0 14px var(--neon-cyan);
+  transform: rotate(45deg) scale(1.15);
+}
+
+.current[data-lit] .node {
+  background: var(--neon-magenta);
+  box-shadow: 0 0 16px var(--neon-magenta);
+}
+
+/* The current arc keeps a radar pulse */
+.current .node::after {
+  content: '';
+  position: absolute;
+  inset: -8px;
+  border: 2px solid var(--neon-magenta);
+  animation: radar 1.8s ease-out infinite;
+}
+
+@keyframes radar {
+  from {
+    opacity: 0.9;
+    transform: scale(0.6);
+  }
+  to {
+    opacity: 0;
+    transform: scale(1.6);
+  }
+}
+
+/* Cards: a small lift and neon edge on hover */
+@media (hover: hover) {
+  .card {
+    transition:
+      transform var(--dur-fast) var(--ease-ink),
+      box-shadow var(--dur-fast) var(--ease-ink);
   }
 
-  .headArt {
-    width: clamp(170px, 20vw, 240px);
-    margin-top: 0;
+  .card:hover {
+    transform: translate(-2px, -2px);
+    box-shadow: 8px 8px 0 var(--neon-cyan);
   }
+
+  .current .card:hover {
+    box-shadow: 8px 8px 0 var(--neon-magenta);
+  }
+}
+
+@media (min-width: 1024px) {
+  .spineFill,
+  .orb {
+    left: 50%;
+  }
+
+  .spineFill {
+    transform: translateX(-50%) scaleY(var(--progress));
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .orb,
+  .current .node::after {
+    animation: none;
+  }
+}
+
+@media print {
+  .spineFill,
+  .orb {
+    display: none;
+  }
+}
+
+/* ---------- Margin note: a handwritten aside in the panel ---------- */
+.note {
+  position: relative;
+  margin: var(--s-1) 0 0;
+  padding: var(--s-2) var(--s-3) var(--s-2) var(--s-5);
+  font-family: var(--font-sfx);
+  font-size: 0.95rem;
+  line-height: 1.5;
+  color: var(--ink);
+  background: rgb(245 229 0 / 0.35);
+  border-left: 3px solid var(--neon-magenta);
+  transform: rotate(-0.6deg);
+}
+
+/* A small heart-shaped ink mark, like a doodle in the margin */
+.note::before {
+  content: '♥';
+  position: absolute;
+  left: var(--s-2);
+  top: var(--s-2);
+  font-size: 0.8rem;
+  color: var(--neon-magenta);
 }

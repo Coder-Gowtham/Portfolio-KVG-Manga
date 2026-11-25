@@ -59,7 +59,9 @@ export function ScreenshotGallery({ media, title }: { media: MediaItem[]; title:
             {isReal(m) ? (
               m.kind === 'video' ? (
                 <figure className={s.figure}>
-                  <video className={s.video} src={m.src} controls preload="none" aria-label={m.alt} />
+                  <video className={s.video} src={m.src} controls preload="none" aria-label={m.alt}>
+                    <track kind="captions" src={m.captions} srcLang="en" label="English" default />
+                  </video>
                   {m.caption && <figcaption>{m.caption}</figcaption>}
                 </figure>
               ) : (

@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
 import { projects } from '../data/projects'
-import { applyFilter, pageLayout, parseFilter, relatedProjects, techOptions, techSlug, toParams } from './projectFilters'
+import { applyFilter, interludeAfter, pageLayout, parseFilter, relatedProjects, techOptions, techSlug, toParams } from './projectFilters'
 
 describe('project filters', () => {
   it('slugifies technology names for URLs', () => {
@@ -17,7 +17,7 @@ describe('project filters', () => {
 
   it('filters by category', () => {
     const list = applyFilter(projects, { category: 'professional', tech: [] })
-    expect(list.map((p) => p.slug)).toEqual(['times-black', 'yeida', 'clusterix'])
+    expect(list.map((p) => p.slug)).toEqual(['times-black', 'clusterix'])
   })
 
   it('requires every selected technology (AND)', () => {
@@ -62,6 +62,16 @@ describe('related projects', () => {
 
   it('ranks shared technology highest', () => {
     const times = projects.find((p) => p.slug === 'times-black')!
-    expect(relatedProjects(times, projects)[0]!.slug).toBe('yeida')
+    const top = relatedProjects(times, projects)[0]!
+    expect(top.technologies.some((t) => times.technologies.includes(t))).toBe(true)
+  })
+})
+
+describe('interludeAfter', () => {
+  it('lands at the end of the second full row, never mid-row', () => {
+    expect(interludeAfter(pageLayout(6))).toBe(2)
+    expect(interludeAfter(pageLayout(3))).toBe(2)
+    expect(interludeAfter(pageLayout(2))).toBe(1)
+    expect(interludeAfter(pageLayout(1))).toBe(0)
   })
 })

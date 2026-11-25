@@ -1,19 +1,21 @@
 import { Seo } from '../../app/Seo'
 import { home } from '../../data/home'
 import { Abilities } from './sections/Abilities'
-import { ArcStrip } from './sections/ArcStrip'
 import { Cover } from './sections/Cover'
 import { Featured } from './sections/Featured'
 import { FinalPanel } from './sections/FinalPanel'
-import { NowSerialising } from './sections/NowSerialising'
-import { Recap } from './sections/Recap'
-import { TrainingArc } from './sections/TrainingArc'
+import { NowBuilding } from './sections/NowBuilding'
+import { HomeBackdrop } from './HomeBackdrop'
 import s from './home.module.css'
 
-/** Home: one issue of Weekly KVG, cover to final panel (Phase 2 spec §3). */
+/**
+ * Home: a short read. Five sections; only the cover and the final panel get the
+ * full manga treatment, everything between stays calm. Depth lives on the inner pages.
+ */
 export default function HomePage() {
   return (
-    <>
+    <div className={s.stage}>
+      <HomeBackdrop />
       <Seo />
       <p className={s.hud}>
         <span className={s.hudDot} aria-hidden="true" />
@@ -23,14 +25,11 @@ export default function HomePage() {
       </p>
       <div className={s.home}>
         <Cover />
-        <Recap />
         <Abilities />
         <Featured />
-        <ArcStrip />
-        <NowSerialising />
-        <TrainingArc />
+        <NowBuilding />
         <FinalPanel />
       </div>
-    </>
+    </div>
   )
 }

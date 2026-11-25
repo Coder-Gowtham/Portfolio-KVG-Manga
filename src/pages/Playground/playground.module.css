@@ -207,3 +207,79 @@ a.cabinet:focus-visible {
   color: var(--neon-cyan);
   text-underline-offset: 3px;
 }
+
+/* ---------- Collapsible game windows (small screens) ---------- */
+.toggle {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--s-3);
+  width: 100%;
+  min-height: 48px;
+  padding: 0;
+  background: none;
+  border: 0;
+  color: inherit;
+  font: inherit;
+  text-align: left;
+  text-transform: inherit;
+  cursor: pointer;
+}
+
+.toggle:focus-visible {
+  outline: 2px solid var(--neon-yellow);
+  outline-offset: 4px;
+}
+
+.toggleHint {
+  flex: none;
+  padding: var(--s-1) var(--s-3);
+  font-family: var(--font-mono);
+  font-size: var(--fs-micro);
+  letter-spacing: 0.08em;
+  color: var(--ink);
+  background: var(--neon-cyan);
+  border: 2px solid var(--ink);
+  box-shadow: 2px 2px 0 var(--neon-magenta);
+  transition: transform var(--dur-fast) var(--ease-impact);
+}
+
+.toggle[aria-expanded='true'] .toggleHint {
+  background: var(--steel);
+  color: var(--paper);
+  box-shadow: none;
+}
+
+.toggle:active .toggleHint {
+  transform: scale(0.94);
+}
+
+.moduleBlurb {
+  margin: var(--s-1) 0 0;
+  font-size: var(--fs-small);
+  opacity: 0.75;
+}
+
+/* Collapsed: the header is the whole window */
+.anchor .moduleHead:only-child {
+  margin-bottom: 0;
+}
+
+/* The window unfolds like a panel sliding down */
+.moduleBody {
+  animation: unfold 320ms var(--ease-ink);
+  transform-origin: top;
+}
+
+@keyframes unfold {
+  from {
+    opacity: 0;
+    clip-path: inset(0 0 100% 0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .moduleBody {
+    animation: none;
+  }
+}

@@ -77,10 +77,10 @@ export function Cover() {
           {profile.name}
         </h1>
         <p className={s.coverRole}>{profile.role}</p>
+        <SpeechBubble className={s.catchphrase}>{home.cover.catchphrase}</SpeechBubble>
         <p className={s.nextArc}>
           <span>{profile.nextArc.label}</span> {profile.nextArc.title}
         </p>
-        <SpeechBubble className={s.coverBubble}>{profile.headline}</SpeechBubble>
         <p className={s.coverIntro}>{profile.intro}</p>
         <div className={s.ctas}>
           <InkButton to="/projects">Explore projects</InkButton>

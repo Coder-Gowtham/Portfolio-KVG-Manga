@@ -1,0 +1,180 @@
+/* Quest board: notices pinned to a board. Shared by Home and Contact. */
+.quests {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--s-3) var(--s-2);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+/* 2 × 2 once each notice has room for "Collaboration" on one line */
+@media (min-width: 480px) {
+  .quests {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+.item {
+  display: grid;
+  min-width: 0;
+}
+
+.quest {
+  position: relative;
+  display: grid;
+  gap: 2px;
+  min-width: 0;
+  padding: var(--s-2) var(--s-3);
+  text-align: left;
+  font: inherit;
+  background: var(--paper-2);
+  color: var(--ink);
+  border: var(--line-2) solid var(--ink);
+  box-shadow: 3px 3px 0 var(--ink);
+  transform: rotate(calc((var(--i) - 1.5) * 0.6deg));
+  transition:
+    transform var(--dur-fast) var(--ease-impact),
+    box-shadow var(--dur-fast) var(--ease-ink),
+    background-color var(--dur-fast) linear;
+}
+
+/* The pin */
+.quest::before {
+  content: '';
+  position: absolute;
+  top: -5px;
+  left: 50%;
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: var(--neon-magenta);
+  border: 1.5px solid var(--ink);
+  transform: translateX(-50%);
+}
+
+.item:nth-child(2) .quest::before {
+  background: var(--neon-cyan);
+}
+
+.item:nth-child(3) .quest::before {
+  background: var(--neon-yellow);
+}
+
+.item:nth-child(4) .quest::before {
+  background: #4ade80;
+}
+
+@media (hover: hover) {
+  .quest:hover {
+    transform: rotate(0deg) translateY(-3px);
+    box-shadow: 5px 5px 0 var(--neon-magenta);
+  }
+}
+
+.tag {
+  font-family: var(--font-mono);
+  font-size: var(--fs-micro);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--graphite);
+}
+
+.title {
+  overflow-wrap: anywhere;
+  font-family: var(--font-display);
+  font-size: 0.95rem;
+  line-height: 1.15;
+  text-transform: uppercase;
+}
+
+/* Phones: one compact line per notice (tag, then title) */
+@media (max-width: 479px) {
+  .quest {
+    grid-auto-flow: column;
+    justify-content: start;
+    align-items: baseline;
+    gap: var(--s-2);
+    padding-block: var(--s-2);
+  }
+
+  .tag {
+    min-width: 6.5em;
+  }
+}
+
+/* Interactive notices (Contact) */
+.button {
+  min-height: 44px;
+  cursor: pointer;
+}
+
+.button:focus-visible {
+  outline: 3px solid var(--neon-cyan);
+  outline-offset: 3px;
+}
+
+.button:active {
+  transform: rotate(0deg) scale(0.97);
+}
+
+.button[aria-pressed='true'] {
+  background: var(--neon-yellow);
+  box-shadow: 5px 5px 0 var(--neon-magenta);
+  transform: rotate(0deg) translateY(-2px);
+}
+
+.button[aria-pressed='true'] .tag {
+  color: var(--ink);
+}
+
+/* "Accepted" stamp on the picked notice */
+.button[aria-pressed='true']::after {
+  content: 'Accepted';
+  position: absolute;
+  right: var(--s-2);
+  top: var(--s-1);
+  padding: 0 var(--s-1);
+  font-family: var(--font-display);
+  font-size: 0.6rem;
+  text-transform: uppercase;
+  color: var(--neon-magenta);
+  border: 2px solid var(--neon-magenta);
+  transform: rotate(-8deg);
+  animation: accept 260ms var(--ease-impact);
+}
+
+@keyframes accept {
+  from {
+    opacity: 0;
+    transform: rotate(-8deg) scale(1.8);
+  }
+}
+
+/* Notices get pinned up one by one: when their panel reveals, or on mount */
+:global([data-reveal='in']) .item,
+.entrance .item {
+  animation: pin-up 420ms var(--ease-impact) calc(300ms + var(--i) * 90ms) backwards;
+}
+
+@keyframes pin-up {
+  from {
+    opacity: 0;
+    transform: translateY(-14px) rotate(-6deg);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :global([data-reveal='in']) .item,
+  .entrance .item,
+  .button[aria-pressed='true']::after {
+    animation: none;
+  }
+}
+
+/* Very small phones: the yellow notice already shows the pick; skip the stamp */
+@media (max-width: 399px) {
+  .button[aria-pressed='true']::after {
+    display: none;
+  }
+}

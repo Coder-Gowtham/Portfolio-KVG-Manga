@@ -1,48 +1,73 @@
+/* Compact filter bar: no boxed panel, one row of chips. */
 .filters {
   display: grid;
-  gap: var(--s-4);
-  padding: var(--s-4);
-  background: var(--ink-2);
-  border: var(--line-2) solid var(--steel);
-}
-
-.group {
-  display: grid;
   gap: var(--s-2);
+  min-width: 0;
 }
 
-.label {
-  font-family: var(--font-mono);
-  font-size: var(--fs-micro);
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: var(--neon-cyan);
-}
-
-.chips {
+.bar {
   display: flex;
-  flex-wrap: wrap;
+  align-items: center;
   gap: var(--s-2);
+  min-width: 0;
+}
+
+/* Category chips: one row; scrolls sideways on narrow screens instead of wrapping */
+.scroller {
+  position: relative; /* contains the sr-only labels, so they never widen the page */
+  display: flex;
+  gap: var(--s-2);
+  flex: 1;
+  min-width: 0;
+  overflow-x: auto;
+  scrollbar-width: none;
+  padding-block: 2px;
+  /* fade the last chip so it reads as "more this way" */
+  mask-image: linear-gradient(90deg, #000 calc(100% - 24px), transparent);
+}
+
+.scroller::-webkit-scrollbar {
+  display: none;
+}
+
+@media (min-width: 768px) {
+  .scroller {
+    mask-image: none;
+  }
 }
 
 .chip {
   display: inline-flex;
+  flex: none;
   align-items: center;
   gap: var(--s-2);
-  min-height: 44px;
+  min-height: 40px;
   padding: 0 var(--s-3);
   background: transparent;
   color: var(--text-on-night);
-  border: var(--line-1) solid var(--steel);
+  border: 1px solid var(--steel);
   font-family: var(--font-mono);
   font-size: var(--fs-mono);
+  white-space: nowrap;
+  cursor: pointer;
   transition:
     background var(--dur-fast) var(--ease-ink),
     border-color var(--dur-fast) var(--ease-ink);
 }
 
+@media (pointer: coarse) {
+  .chip {
+    min-height: 44px;
+  }
+}
+
 .chip:hover {
   border-color: var(--neon-cyan);
+}
+
+.chip:focus-visible {
+  outline: 2px solid var(--focus-on-night);
+  outline-offset: -2px;
 }
 
 .chip[aria-pressed='true'] {
@@ -52,92 +77,61 @@
   font-weight: 600;
 }
 
-.techChip {
-  min-height: 40px;
+.count {
+  font-size: var(--fs-micro);
+  color: var(--neon-cyan);
+}
+
+.chip[aria-pressed='true'] .count {
+  color: var(--ink);
+}
+
+.techToggle {
+  border-style: dashed;
+  color: var(--neon-cyan);
+}
+
+.techToggle[aria-expanded='true'] {
+  border-style: solid;
+  border-color: var(--neon-cyan);
+}
+
+.plus {
+  font-size: 1rem;
+  line-height: 1;
+  color: var(--neon-magenta);
+}
+
+.selected {
+  padding: 0 6px;
+  background: var(--neon-yellow);
+  color: var(--ink);
   font-size: var(--fs-micro);
 }
 
-/* Keep 44px touch targets on coarse pointers */
+.techChips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s-2);
+  padding: var(--s-3);
+  border: 1px dashed rgb(0 229 255 / 0.35);
+}
+
+.techChips[hidden] {
+  display: none;
+}
+
+.techChip {
+  min-height: 36px;
+  font-size: var(--fs-micro);
+}
+
 @media (pointer: coarse) {
   .techChip {
     min-height: 44px;
   }
 }
 
-.count {
-  padding: 0 6px;
-  background: var(--ink);
-  color: var(--neon-cyan);
-  font-size: var(--fs-micro);
-}
-
-.chip[aria-pressed='true'] .count {
-  background: var(--ink);
-  color: var(--neon-yellow);
-}
-
-.techBox {
-  border-top: 1px dashed var(--steel);
-  padding-top: var(--s-3);
-}
-
-.techSummary {
-  display: flex;
-  align-items: center;
-  gap: var(--s-3);
-  min-height: 44px;
-  cursor: pointer;
-  font-family: var(--font-mono);
-  font-size: var(--fs-micro);
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: var(--neon-cyan);
-}
-
-.techSummary {
-  list-style: none;
-}
-
-.techSummary::-webkit-details-marker {
-  display: none;
-}
-
-.techSummary::before {
-  content: '+';
-  display: inline-grid;
-  place-items: center;
-  width: 22px;
-  height: 22px;
-  border: 1px solid var(--neon-magenta);
-  color: var(--neon-magenta);
-  font-size: 1rem;
-  line-height: 1;
-}
-
-.techBox[open] .techSummary::before {
-  content: '−';
-}
-
-.techChips {
-  padding-top: var(--s-2);
-}
-
-.selected {
-  padding: 0 var(--s-2);
-  background: var(--neon-yellow);
-  color: var(--ink);
-  letter-spacing: 0.04em;
-}
-
-.clear {
-  justify-self: start;
-  min-height: 44px;
-  padding: 0 var(--s-2);
-  background: none;
-  border: 0;
-  color: var(--neon-yellow);
-  font-family: var(--font-mono);
-  font-size: var(--fs-mono);
-  text-decoration: underline;
-  text-underline-offset: 4px;
+.chip:active {
+  transform: scale(0.96);
 }

@@ -9,7 +9,7 @@ import { experience } from '../../data/experience'
 import { featuredProjects } from '../../data/projects'
 import { profile } from '../../data/profile'
 import { skills } from '../../data/skills'
-import { formatRange } from '../../utils/labels'
+import { periodLabel } from '../../utils/labels'
 import s from './recruiter.module.css'
 
 /**
@@ -18,7 +18,7 @@ import s from './recruiter.module.css'
  */
 export default function RecruiterPage() {
   const links = profile.links.filter((l) => l.showOnRecruiter)
-  const jobs = experience.filter((e) => e.kind !== 'education')
+  const jobs = experience.filter((e) => e.kind !== 'education' && e.track !== 'origin')
   const education = experience.find((e) => e.kind === 'education')
 
   return (
@@ -74,7 +74,7 @@ export default function RecruiterPage() {
           <CopyButton value={profile.email} label="Copy email" className={s.copy} />
         </div>
 
-        <section aria-labelledby="contact-title" className={s.section}>
+        <section aria-labelledby="contact-title" className={s.section} data-reveal-item>
           <h2 id="contact-title" className={s.h2}>
             Contact
           </h2>
@@ -96,7 +96,7 @@ export default function RecruiterPage() {
           </ul>
         </section>
 
-        <section aria-labelledby="skills-title" className={s.section}>
+        <section aria-labelledby="skills-title" className={s.section} data-reveal-item>
           <h2 id="skills-title" className={s.h2}>
             Technical skills
           </h2>
@@ -110,14 +110,14 @@ export default function RecruiterPage() {
           </dl>
         </section>
 
-        <section aria-labelledby="snapshot-title" className={s.section}>
+        <section aria-labelledby="snapshot-title" className={s.section} data-reveal-item>
           <h2 id="snapshot-title" className={s.h2}>
             Experience snapshot
           </h2>
           <ol className={s.snapshot}>
             {jobs.map((e) => (
               <li key={e.id}>
-                <p className={s.snapDates}>{formatRange(e.startDate, e.endDate)}</p>
+                <p className={s.snapDates}>{periodLabel(e)}</p>
                 <p className={s.snapRole}>
                   <strong>{e.role}</strong> · {e.organization}
                 </p>
@@ -128,7 +128,7 @@ export default function RecruiterPage() {
           {education && (
             <p className={s.education}>
               <strong>Education:</strong> {education.role}, {education.organization} (
-              {education.startDate.slice(0, 4)}–{education.endDate?.slice(0, 4)})
+              {education.startDate?.slice(0, 4)}–{education.endDate?.slice(0, 4)})
             </p>
           )}
           <p>
@@ -138,7 +138,7 @@ export default function RecruiterPage() {
           </p>
         </section>
 
-        <section aria-labelledby="work-title" className={s.section}>
+        <section aria-labelledby="work-title" className={s.section} data-reveal-item>
           <h2 id="work-title" className={s.h2}>
             Featured work
           </h2>

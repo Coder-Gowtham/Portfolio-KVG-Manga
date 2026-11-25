@@ -162,3 +162,64 @@
     min-height: 240px;
   }
 }
+
+/* No screenshots by design: a text-only panel with a neon top edge instead of art */
+.textOnly {
+  grid-template-rows: 1fr;
+  border-top: 4px solid var(--neon-cyan);
+}
+
+/* Press feedback on tap */
+.tile:active {
+  transform: translate(0, 0) scale(0.99);
+  transition-duration: var(--dur-instant);
+}
+
+/* ---------- Target lock (hover / keyboard focus) ---------- */
+.lock {
+  position: absolute;
+  inset: -6px;
+  z-index: 2;
+  pointer-events: none;
+  opacity: 0;
+  transform: scale(1.06);
+  transition:
+    opacity var(--dur-fast) var(--ease-ink),
+    transform var(--dur-base) var(--ease-impact);
+  --c: var(--neon-yellow);
+  background:
+    linear-gradient(var(--c), var(--c)) top left / 18px 2px,
+    linear-gradient(var(--c), var(--c)) top left / 2px 18px,
+    linear-gradient(var(--c), var(--c)) top right / 18px 2px,
+    linear-gradient(var(--c), var(--c)) top right / 2px 18px,
+    linear-gradient(var(--c), var(--c)) bottom left / 18px 2px,
+    linear-gradient(var(--c), var(--c)) bottom left / 2px 18px,
+    linear-gradient(var(--c), var(--c)) bottom right / 18px 2px,
+    linear-gradient(var(--c), var(--c)) bottom right / 2px 18px;
+  background-repeat: no-repeat;
+}
+
+.tile:hover .lock,
+.tile:focus-within .lock {
+  opacity: 1;
+  transform: scale(1);
+}
+
+/* Speed lines on the art drift a touch while targeted */
+@media (hover: hover) {
+  .tile:hover .lines {
+    animation: lines-drift 1.2s linear infinite;
+  }
+}
+
+@keyframes lines-drift {
+  to {
+    transform: scale(1.06) rotate(1deg);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tile:hover .lines {
+    animation: none;
+  }
+}

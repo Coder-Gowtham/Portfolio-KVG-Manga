@@ -355,47 +355,6 @@
   color: var(--ink);
 }
 
-/* ---------- Plain top bar (Recruiter page, desktop) ---------- */
-.topBar {
-  display: none;
-}
-
-@media (min-width: 1024px) {
-  .topBar {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: var(--s-4);
-    padding: var(--s-3) var(--page-pad);
-    background: var(--ink);
-    border-bottom: var(--line-1) solid var(--neon-cyan);
-  }
-}
-
-.topBarBrand {
-  font-family: var(--font-display);
-  text-decoration: none;
-}
-
-.topBarLinks {
-  display: flex;
-  gap: var(--s-5);
-  margin: 0;
-  padding: 0;
-  list-style: none;
-  font-family: var(--font-mono);
-}
-
-.topBarLinks a {
-  text-decoration: none;
-  color: var(--text-on-night-muted);
-}
-
-.topBarLinks a:hover,
-.topBarLinks a[aria-current='page'] {
-  color: var(--neon-magenta);
-}
-
 /* ---------- Footer ---------- */
 .footer {
   border-top: var(--line-1) solid var(--steel);
@@ -454,4 +413,55 @@
   font-family: var(--font-mono);
   font-size: var(--fs-micro);
   color: var(--text-on-night-muted);
+}
+
+/* ---------- Page transitions ---------- */
+.page {
+  min-width: 0;
+}
+
+.pageEnter {
+  animation: page-enter 320ms var(--ease-ink) 120ms backwards;
+}
+
+@keyframes page-enter {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+}
+
+/* Ink panel with a neon edge, sliding away like a turned manga page */
+.pageTurn {
+  position: fixed;
+  inset: 0 -20vw 0 -20vw;
+  z-index: calc(var(--z-toast) - 1);
+  pointer-events: none;
+  background: var(--ink);
+  border-left: 6px solid var(--neon-magenta);
+  box-shadow: -10px 0 0 var(--neon-cyan);
+  transform: skewX(-12deg) translateX(0);
+  animation: page-turn 460ms var(--ease-impact) forwards;
+}
+
+@keyframes page-turn {
+  to {
+    transform: skewX(-12deg) translateX(140vw);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pageTurn {
+    display: none;
+  }
+
+  .pageEnter {
+    animation: none;
+  }
+}
+
+@media print {
+  .pageTurn {
+    display: none;
+  }
 }

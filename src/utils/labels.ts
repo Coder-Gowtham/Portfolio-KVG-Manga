@@ -27,3 +27,9 @@ export function formatMonth(ym: string): string {
 export function formatRange(start: string, end?: string): string {
   return `${formatMonth(start)} – ${end ? formatMonth(end) : 'Present'}`
 }
+
+/** Dates when confirmed, otherwise the stated duration (never an invented month). */
+export function periodLabel(e: { startDate?: string; endDate?: string; period?: string }): string {
+  if (e.startDate && !e.endDate && e.period) return `${formatMonth(e.startDate)} · ${e.period}`
+  return e.startDate ? formatRange(e.startDate, e.endDate) : (e.period ?? '')
+}

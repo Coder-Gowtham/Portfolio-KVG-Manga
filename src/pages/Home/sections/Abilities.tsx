@@ -1,74 +1,66 @@
-import { useState } from 'react'
-import { ChapterHeading } from '../../../components/manga'
-import { skills } from '../../../data/skills'
-import { useMediaQuery } from '../../../hooks/useMediaQuery'
-import { useReveal } from '../../../hooks/useReveal'
+import { Link } from 'react-router'
+import { ChapterHeading, Stamp } from '../../../components/manga'
+import { home } from '../../../data/home'
+import { profile } from '../../../data/profile'
+import { logoColour, stack, type StackItem } from '../../../data/stack'
 import { cx } from '../../../utils/cx'
 import s from '../home.module.css'
 
-/**
- * 03 · Abilities. Phones: accordion with the first two categories open.
- * Desktop: every category open in an asymmetric panel grid.
- */
-export function Abilities() {
-  const ref = useReveal<HTMLElement>()
-  const desktop = useMediaQuery('(min-width: 1024px)')
-  const [open, setOpen] = useState<Set<string>>(() => new Set(skills.slice(0, 2).map((c) => c.id)))
-
+function TechLogo({ item }: { item: StackItem }) {
+  if ('badge' in item.icon) {
+    return (
+      <span className={s.logoBadge} aria-hidden="true">
+        {item.icon.badge}
+      </span>
+    )
+  }
   return (
-    <section ref={ref} className={s.section} aria-labelledby="abilities-title">
+    <svg viewBox="0 0 24 24" className={s.logoSvg} aria-hidden="true" focusable="false">
+      <path d={item.icon.path} fill={logoColour(item.icon.hex)} />
+    </svg>
+  )
+}
+
+/** Abilities: the stack as a board of official logos, grouped by role. Calm style. */
+export function Abilities() {
+  return (
+    <section className={s.section} aria-labelledby="abilities-title">
       <ChapterHeading
         id="abilities-title"
         number="STATS"
         kicker="Skill tree"
         title="Abilities"
         level={2}
-        lede="What I use, and what I use it for. No made-up percentages."
+        lede={`About ${profile.experienceYears} years on both sides of the stack. ${home.glance.text}`}
       />
-      <div className={s.abilities}>
-        {skills.map((cat) => {
-          const isOpen = desktop || open.has(cat.id)
-          return (
-            <details
-              key={cat.id}
-              className={cx(s.ability, desktop && s.abilityStatic)}
-              open={isOpen}
-              onToggle={(e) => {
-                if (desktop) return
-                const nowOpen = e.currentTarget.open
-                setOpen((prev) => {
-                  if (prev.has(cat.id) === nowOpen) return prev
-                  const next = new Set(prev)
-                  if (nowOpen) next.add(cat.id)
-                  else next.delete(cat.id)
-                  return next
-                })
-              }}
-            >
-              <summary
-                className={s.abilitySummary}
-                tabIndex={desktop ? -1 : undefined}
-                onClick={(e) => {
-                  // On desktop every category stays open.
-                  if (desktop) e.preventDefault()
-                }}
-              >
-                <span className={s.abilityKicker}>{cat.kicker}</span>
-                <span className={s.abilityTitle}>{cat.title}</span>
-                <span className={s.abilityCount}>{cat.skills.length}</span>
-              </summary>
-              <ul className={s.skillList}>
-                {cat.skills.map((k) => (
-                  <li key={k.name} className={s.skill}>
-                    <span className={s.skillName}>{k.name}</span>
-                    <span className={s.skillNote}>{k.note}</span>
-                  </li>
-                ))}
-              </ul>
-            </details>
-          )
-        })}
-      </div>
+      <p className={s.calmLinks}>
+        <Link to="/experience">Read the full arc →</Link>
+        <Link to="/recruiter">Skills with details →</Link>
+      </p>
+
+      <ul className={s.board}>
+        {stack.map((g) => (
+          <li key={g.id} className={cx(s.group, g.training && s.groupTraining)} data-reveal-item>
+            <div className={s.groupHead}>
+              <h3 className={s.groupTitle}>{g.title}</h3>
+              {g.training ? <Stamp status="training" /> : <span className={s.groupKicker}>{g.kicker}</span>}
+            </div>
+            <ul className={s.logos} aria-label={`${g.title} tools`}>
+              {g.items.map((it) => (
+                <li key={it.name} className={s.logoTile}>
+                  <TechLogo item={it} />
+                  <span className={s.logoName}>{it.name}</span>
+                </li>
+              ))}
+            </ul>
+            {g.also && (
+              <p className={s.also}>
+                <span className={s.alsoLabel}>Also</span> {g.also.join(' · ')}
+              </p>
+            )}
+          </li>
+        ))}
+      </ul>
     </section>
   )
 }

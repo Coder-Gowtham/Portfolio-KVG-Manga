@@ -3,24 +3,30 @@
 Cyberpunk × manga portfolio for a backend-focused full-stack developer.
 React 19 · TypeScript (strict) · Vite 7 · React Router 7 · CSS Modules. No UI kit.
 
-> **Status: Phase 6 (Fun Zone) done.** Home, Works, project detail, Career Arc, Recruiter, Contact, plus the
-> Omake arcade: Quick-draw, Memory match, Bug hunt, Neon typer, the Cyber-oracle (fictional fortunes) and a quotes terminal, and the
+> **Status: Phase 6 (Showdown, formerly Fun Zone) done.** Home, Works, project detail, Career Arc, Recruiter, Contact, plus the
+> Showdown arcade: Quick-draw, Memory match, Bug hunt, Neon typer, the Cyber-oracle (fictional fortunes) and a quotes terminal, and the
 > hidden chapter "Ch.∞: Origin of the Mask". Phase 7 is QA and deploy. See `docs/phase-2-design-spec.md`.
 
-### Fun Zone modules
+### Showdown modules
 
 Each module lives in `src/features/` and is registered once in `src/features/registry.ts`; the hub page
 renders whatever is registered. Game logic is kept in plain TypeScript files (`memory.ts`, `reaction.ts`,
 `oracle.ts`, `quotes.ts`) with unit tests in `src/features/fun.test.ts`. Scores, favourites and the secret
 state live in `localStorage` under `kvg:*` keys and never leave the visitor's device.
 
+**Tech logos:** the home Abilities board (`src/data/stack.ts`) uses official marks from
+[Simple Icons](https://simpleicons.org) (CC0). Tools it does not carry (AWS, OpenAI, Codex, BullMQ, Apigee, Sinon) show a
+plain text badge rather than an imitation logo. Brand colours that are too dark for the card switch to paper.
+
 **Mascot poses:** `src/components/manga/MascotAction.tsx` adds four action poses built from the approved
 sprite layers: `slash` (Works, 404), `draw` (Career Arc), `power` (Home training arc) and `throw` (project
 pages, above the episode links). Use `<MascotAction action="…" />`; pass `label` when it carries meaning.
 
 **Hidden chapter:** type `sudo kvg` (or the Konami code) anywhere outside a form field, or tap the footer
-KVG patch five times. Unlocking adds the "Off-duty skin" (mask down site-wide) and an optional drone that
-follows the cursor (mouse only, disabled for reduced motion).
+KVG patch five times. Unlocking adds the "Off-duty skin" (mask down site-wide) and a switch for the cursor drone.
+
+**Cursor drone:** the bug-hunter drone follows the mouse on every page for everyone (mouse/trackpad only,
+never with reduced motion). It can be switched off from the hidden chapter; the choice is saved on the device.
 
 ### Contact form delivery
 
@@ -48,7 +54,7 @@ Requires Node 20.19+ (Vite 7).
 | Projects (add one = add one object) | `src/data/projects.ts` |
 | Career timeline | `src/data/experience.ts` |
 | Skills (described, never rated) | `src/data/skills.ts` |
-| Fun Zone quotes | `src/data/quotes.ts` |
+| Showdown quotes | `src/data/quotes.ts` |
 | Home copy (status strip, cover lines, recap, closing) | `src/data/home.ts` |
 | Page titles / descriptions | `src/app/routes.ts` |
 | Colours, type, spacing, motion | `src/styles/tokens.css` |
@@ -120,4 +126,3 @@ React 19.2 + esbuild, a stand-in router, and headless Chromium:
 **Not yet run against the real packages:** `npm run check` (official types, ESLint, Vitest, Vite build)
 and `npm run test:e2e`. Run `npm run check` once after `npm install`. If anything fails, the error
 output is enough to fix it in the next session.
-# Portfolio-KVG-Manga

@@ -19,7 +19,7 @@ export function TerminalWindow({
   labelledBy?: string
 }) {
   return (
-    <Tag className={cx(s.window, s[accent], className)} aria-labelledby={labelledBy}>
+    <Tag className={cx(s.window, s[accent], className)} aria-labelledby={labelledBy} data-reveal-item>
       <p className={s.bar} aria-hidden={labelledBy ? true : undefined}>
         <span className={s.dot} />
         <span className={s.dot} />

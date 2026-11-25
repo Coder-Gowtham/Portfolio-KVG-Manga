@@ -47,3 +47,15 @@ describe('mailto builder', () => {
     expect(decodeURIComponent(buildMailto('me@example.com', valid))).toContain('subject=Portfolio enquiry from Asha')
   })
 })
+
+describe('quest subjects', () => {
+  const base = { name: 'Asha', email: 'a@b.co', message: 'Hello there, a role for you.', website: '' }
+  it('turns a bare quest subject into "<quest> · from <name>"', () => {
+    const url = buildMailto('me@x.dev', { ...base, subject: 'Contract role: ' })
+    expect(decodeURIComponent(url)).toContain('subject=Contract role · from Asha')
+  })
+  it('keeps a quest subject the visitor extended', () => {
+    const url = buildMailto('me@x.dev', { ...base, subject: 'Contract role: React dashboard' })
+    expect(decodeURIComponent(url)).toContain('subject=Contract role: React dashboard')
+  })
+})

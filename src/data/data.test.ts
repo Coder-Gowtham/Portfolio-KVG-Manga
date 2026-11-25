@@ -4,6 +4,7 @@ import { experience } from './experience'
 import { profile } from './profile'
 import { skills } from './skills'
 import { metaFor, prerenderPaths } from '../app/routes'
+import { contrast, logoColour, stack } from './stack'
 
 /** Every user-facing string in a project, for content-rule checks. */
 const projectText = (p: (typeof projects)[number]) =>
@@ -77,13 +78,22 @@ describe('profile, experience, skills', () => {
     for (const l of profile.links.filter((l) => !['email', 'phone'].includes(l.id))) expect(l.href).toMatch(/^https:\/\//)
   })
 
-  it('orders experience newest first with valid dates', () => {
-    const starts = experience.map((e) => e.startDate)
-    expect([...starts].sort().reverse()).toEqual(starts)
+  it('orders experience newest first, with real dates or a stated period (never both missing)', () => {
+    const chapters = experience.map((e) => e.chapter)
+    expect(chapters).toEqual([...chapters].sort((a, b) => b - a))
+    expect(new Set(chapters).size).toBe(chapters.length)
+    const dated = experience.filter((e) => e.startDate).map((e) => e.startDate!)
+    expect([...dated].sort().reverse()).toEqual(dated)
     for (const e of experience) {
-      expect(e.startDate).toMatch(/^\d{4}-\d{2}$/)
-      if (e.endDate) expect(e.endDate >= e.startDate).toBe(true)
+      if (e.startDate) expect(e.startDate).toMatch(/^\d{4}-\d{2}$/)
+      if (e.startDate && e.endDate) expect(e.endDate >= e.startDate).toBe(true)
+      if (!e.startDate && e.kind === 'job') expect(e.period, e.id).toBeTruthy()
     }
+  })
+
+  it('keeps the origin story (customer care, self-taught) between B.Tech and the first developer job', () => {
+    const order = [...experience].reverse().map((e) => e.id)
+    expect(order.slice(0, 5)).toEqual(['btech', 'teleperformance', 'tech-mahindra', 'self-taught', 'niveus'])
   })
 
   it('links experience only to existing projects', () => {
@@ -112,5 +122,41 @@ describe('route metadata', () => {
     expect(metaFor('/playground/secret').noindex).toBe(true)
     expect(metaFor('/projects/vector-mind').noindex).toBe(true)
     expect(metaFor('/projects/does-not-exist').noindex).toBe(true)
+  })
+})
+
+describe('abilities stack', () => {
+  it('covers every skill group with at least one item', () => {
+    expect(stack.map((g) => g.id).sort()).toEqual(['ai', 'backend', 'databases', 'devops', 'frontend', 'testing', 'tools'])
+    for (const g of stack) expect(g.items.length).toBeGreaterThan(0)
+  })
+  it('keeps every logo readable on the dark card (3:1)', () => {
+    for (const g of stack)
+      for (const it of g.items) if ('hex' in it.icon) expect(contrast(logoColour(it.icon.hex), '#1D1D27')).toBeGreaterThanOrEqual(3)
+  })
+  it('swaps black brand marks to paper', () => {
+    expect(logoColour('000000')).toBe('#EDEBE4')
+    expect(logoColour('61DAFB')).toBe('#61DAFB')
+  })
+})
+
+describe('project media', () => {
+  it('lists no media for projects marked noMedia, and drops YEIDA from Works', () => {
+    for (const p of projects) if (p.noMedia) expect(p.media ?? []).toHaveLength(0)
+    expect(projects.some((p) => p.slug === 'yeida')).toBe(false)
+  })
+
+  it('lists the Roshan Tiwari Consultants site as live client work', () => {
+    const rtc = projects.find((p) => p.slug === 'roshan-tiwari-consultants')!
+    expect(rtc.category).toBe('freelance')
+    expect(rtc.demoUrl).toBe('https://www.roshantiwariconsultants.com/')
+    const order = projects.filter((p) => p.featured).sort((a, b) => a.featuredOrder! - b.featuredOrder!).map((p) => p.slug)
+    expect(order.indexOf('roshan-tiwari-consultants')).toBe(order.indexOf('loglens-ai') + 1)
+  })
+
+  it('gives every published video a captions track', () => {
+    for (const p of projects)
+      for (const m of p.media ?? [])
+        if (m.kind === 'video' && m.src) expect(m.captions, `${p.slug}: ${m.alt}`).toMatch(/\.vtt$/)
   })
 })

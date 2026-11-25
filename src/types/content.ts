@@ -21,6 +21,8 @@ export interface MediaItem {
   width?: number
   height?: number
   caption?: string
+  /** WebVTT captions file. Required for every video (WCAG 1.2.2); a data test enforces it. */
+  captions?: string
   approvedForPublic: boolean
 }
 
@@ -58,6 +60,8 @@ export interface Project {
   architecture?: { summary: string; diagram?: MediaItem }
   lessons?: string[]
   media?: MediaItem[]
+  /** True when the project will never show screenshots: tiles render text-only, no placeholder. */
+  noMedia?: boolean
   demoUrl?: string
   githubUrl?: string
   visibility: Visibility
@@ -69,18 +73,27 @@ export interface Project {
 export interface ExperienceEntry {
   id: string
   chapter: number
-  kind: 'job' | 'education' | 'independent'
+  kind: 'job' | 'education' | 'independent' | 'learning'
+  /** 'origin' = the road before the first developer role (shown on the Career Arc, not on the Recruiter snapshot). */
+  track?: 'developer' | 'origin'
   organization: string
   role: string
   location?: string
   workMode?: 'remote' | 'onsite' | 'hybrid'
-  startDate: string
-  /** Undefined = present. */
+  /** YYYY-MM. Omit when the exact month is not confirmed; `period` is shown instead. */
+  startDate?: string
+  /** Undefined = present (when startDate is set). */
   endDate?: string
+  /** Shown when exact dates are not confirmed, e.g. "About 1 year". */
+  period?: string
+  /** A short personal line, shown as a handwritten margin note. */
+  note?: string
   summary?: string
   responsibilities: string[]
   technologies: string[]
   projectSlugs?: string[]
+  /** Episodes without their own project page: plain labels, or external links (opened in a new tab). */
+  episodes?: (string | { label: string; href: string })[]
   /** Only confirmed achievements. No invented metrics. */
   achievements?: string[]
   needsInput?: string[]

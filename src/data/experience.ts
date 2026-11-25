@@ -2,29 +2,31 @@ import type { ExperienceEntry } from '../types/content'
 
 /**
  * Newest first. Source: résumé "GOWTHAM_KV_RESUME_FULLSTACK" (23 Nov 2026)
- * + Gowtham's answers. No invented achievements or metrics.
+ * + Gowtham's answers (25 Nov 2026: customer care and self-taught chapters).
+ * No invented achievements, metrics or dates: unconfirmed months use `period`.
+ * Summaries stay short; the Career Arc shows no bullet lists.
  */
 export const experience: ExperienceEntry[] = [
   {
     id: 'independent-2026',
-    chapter: 4,
+    chapter: 7,
     kind: 'independent',
     organization: 'Independent',
     role: 'Career break & independent work',
     startDate: '2026-05',
-    summary: 'Levelling up skills, recharging, building a construction ERP for a client, and starting the AI integration arc.',
+    summary:
+      'Levelling up skills, recharging, building a construction ERP for a client, creating the website for Roshan Tiwari Consultants, and starting the AI integration arc.',
     responsibilities: [
       'Building VSCC ERP: web ERP and phone app for a construction group',
       'Built LogLens AI, an AI-assisted log analysis tool (React, Node.js, OpenAI API)',
       'Learning to integrate LLM features into real products',
     ],
     technologies: ['React', 'TypeScript', 'Node.js', 'Express', 'PostgreSQL', 'Docker', 'AWS', 'Redis', 'BullMQ', 'OpenAI API'],
-    projectSlugs: ['vscc-erp', 'loglens-ai'],
-    needsInput: ['Approve public wording'],
+    projectSlugs: ['vscc-erp', 'roshan-tiwari-consultants', 'loglens-ai'],
   },
   {
     id: 'innoscripta',
-    chapter: 3,
+    chapter: 6,
     kind: 'job',
     organization: 'Innoscripta SE',
     role: 'Full Stack Developer',
@@ -32,7 +34,8 @@ export const experience: ExperienceEntry[] = [
     location: 'Remote',
     startDate: '2025-09',
     endDate: '2026-04',
-    summary: 'Frontend-heavy work on Clusterix, extending the open-source ONLYOFFICE JavaScript editors.',
+    summary:
+      'Extended the open-source ONLYOFFICE JavaScript editors for Clusterix: side panels, toolbars and UI components toward a Google Docs-like experience.',
     responsibilities: [
       'Developed and customised frontend functionality for Clusterix by extending the ONLYOFFICE JavaScript codebase across document, spreadsheet and presentation editors',
       'Built and modified interactive UI components: side panels, toolbar and ribbon actions, dropdown menus, layouts and Clusterix-specific components',
@@ -45,7 +48,7 @@ export const experience: ExperienceEntry[] = [
   },
   {
     id: 'niveus',
-    chapter: 2,
+    chapter: 5,
     kind: 'job',
     organization: 'Niveus Solutions',
     role: 'Cloud Associate (Backend Engineer)',
@@ -53,7 +56,8 @@ export const experience: ExperienceEntry[] = [
     location: 'Mangalore',
     startDate: '2022-05',
     endDate: '2025-08',
-    summary: 'Node.js/Express microservices for fintech onboarding and loan journeys.',
+    summary:
+      'Node.js/Express microservices for fintech onboarding and loan journeys. Built the orchestration framework behind the Customer Acquisition Platform, co-owned Times Black and owned a YEIDA loan journey through UAT.',
     responsibilities: [
       'Developed and maintained Node.js/Express REST APIs across fintech microservices: new endpoints, business logic, validation and customer onboarding workflows',
       "Built the initial backend orchestration framework for the Customer Acquisition Platform (CAP), turning the solution architect's design into a reusable Node.js/Express structure",
@@ -64,7 +68,49 @@ export const experience: ExperienceEntry[] = [
       'Deployed microservices through Jenkins CI/CD and diagnosed UAT/production issues using GCP application logs',
     ],
     technologies: ['Node.js', 'Express', 'JavaScript', 'MySQL', 'REST APIs', 'Microservices', 'GCP', 'Jenkins'],
-    projectSlugs: ['times-black', 'yeida'],
+    projectSlugs: ['times-black'],
+    episodes: ['Credit cards', 'Savings Account'],
+  },
+  {
+    id: 'self-taught',
+    chapter: 4,
+    kind: 'learning',
+    track: 'origin',
+    organization: 'YouTube & Udemy',
+    role: 'Self-taught developer',
+    summary: 'Taught myself web development from YouTube and Udemy courses. This is the arc that led to my first developer role.',
+    responsibilities: [],
+    technologies: ['HTML', 'CSS', 'JavaScript', 'React', 'Node.js'],
+  },
+  {
+    id: 'tech-mahindra',
+    chapter: 3,
+    kind: 'job',
+    track: 'origin',
+    organization: 'Tech Mahindra',
+    role: 'Customer Care Associate',
+    workMode: 'remote',
+    location: 'Remote',
+    startDate: '2021-01',
+    endDate: '2021-06',
+    summary: 'Six months as a customer care associate at Tech Mahindra.',
+    note: 'Somewhere between the calls, I started wondering how the software on my screen was actually built. That question never left.',
+    responsibilities: [],
+    technologies: [],
+  },
+  {
+    id: 'teleperformance',
+    chapter: 2,
+    kind: 'job',
+    track: 'origin',
+    organization: 'Teleperformance',
+    role: 'Customer Care Executive',
+    location: 'Jaipur',
+    period: '2019 – 2020',
+    summary: 'My first job after engineering, in customer care at Teleperformance.',
+    note: 'Every call was someone having a bad day. I learned to listen first, and that patience still shows up every time I read a bug report.',
+    responsibilities: [],
+    technologies: [],
   },
   {
     id: 'btech',

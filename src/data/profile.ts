@@ -18,6 +18,7 @@ export const profile: Profile = {
     text: 'Training to become an AI integrator: wiring LLM features into real products, from prompts and structured outputs to background AI jobs that keep apps fast.',
   },
   location: 'Bilaspur, Chhattisgarh',
+  employmentPreferences: 'Full-time, contract, freelance and collaborations; remote, hybrid or on-site, any role across the stack',
   email: 'gowthamkv.210@gmail.com',
   phone: '+91-7067277125',
   links: [
@@ -56,5 +57,4 @@ export const profile: Profile = {
     fileName: 'gowtham-kv-resume.pdf',
     available: true,
   },
-  needsInput: ['Employment preferences (remote / hybrid / onsite, roles)', 'Approve intro wording'],
 }

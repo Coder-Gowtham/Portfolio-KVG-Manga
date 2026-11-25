@@ -9,22 +9,33 @@ export interface SecretState {
   unlocked: boolean
   /** "Off-duty skin": the mascot wears his mask down everywhere. */
   offDuty: boolean
-  /** The drone follows the cursor (fine pointers only, never with reduced motion). */
+  /** The drone follows the cursor: on by default for everyone (fine pointers only, never with reduced motion). */
   droneFollow: boolean
   /** Transient: the unlock banner is showing. Not persisted. */
   banner: boolean
 }
 
 const KEY = 'secret'
-const DEFAULT: SecretState = { unlocked: false, offDuty: false, droneFollow: false, banner: false }
+const DEFAULT: SecretState = { unlocked: false, offDuty: false, droneFollow: true, banner: false }
 
-let state: SecretState = { ...DEFAULT, ...readJSON<Partial<SecretState>>(KEY, {}), banner: false }
+/* Stored as `droneOff` so the old opt-in setting (droneFollow: false) from earlier visits is ignored. */
+interface Saved {
+  unlocked?: boolean
+  offDuty?: boolean
+  droneOff?: boolean
+}
+const saved = readJSON<Saved>(KEY, {})
+let state: SecretState = {
+  ...DEFAULT,
+  unlocked: saved.unlocked ?? false,
+  offDuty: saved.offDuty ?? false,
+  droneFollow: !(saved.droneOff ?? false),
+}
 const listeners = new Set<() => void>()
 
 function set(next: Partial<SecretState>) {
   state = { ...state, ...next }
-  const { banner: _banner, ...persisted } = state
-  writeJSON(KEY, persisted)
+  writeJSON(KEY, { unlocked: state.unlocked, offDuty: state.offDuty, droneOff: !state.droneFollow } satisfies Saved)
   listeners.forEach((l) => l())
 }
 

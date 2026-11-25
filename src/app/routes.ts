@@ -35,8 +35,8 @@ export const staticMeta: Record<string, RouteMeta> = {
     description: `Email, LinkedIn, GitHub and a contact form for ${profile.name}.`,
   },
   '/playground': {
-    title: `Omake: Fun Zone — ${profile.name}`,
-    description: 'Bonus chapter: mini-games, a cyber-oracle, quotes and a hidden chapter.',
+    title: `Showdown — ${profile.name}`,
+    description: 'Step into the arena: reflex, memory and typing mini-games, a cyber-oracle, quotes and a hidden chapter.',
   },
   '/playground/secret': {
     title: `Hidden chapter — ${profile.name}`,

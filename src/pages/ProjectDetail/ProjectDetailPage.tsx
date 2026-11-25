@@ -94,7 +94,8 @@ export default function ProjectDetailPage() {
               <p className={s.links}>
                 {project.demoUrl && (
                   <a href={project.demoUrl} target="_blank" rel="noopener noreferrer">
-                    Live demo<span className="sr-only"> (opens in a new tab)</span>
+                    {project.category === 'freelance' ? 'Visit live site' : 'Live demo'}
+                    <span className="sr-only"> (opens in a new tab)</span>
                   </a>
                 )}
                 {project.githubUrl && (
@@ -136,8 +137,8 @@ export default function ProjectDetailPage() {
 
         {project.visibility === 'restricted' && (
           <p className={s.notice}>
-            <strong>Confidential work.</strong> Details here are limited to what's publicly shareable; client names,
-            internal data and screens stay private.
+            <strong>Confidential work.</strong> Details here are limited to what's publicly shareable; internal data
+            and screens stay private.
           </p>
         )}
 
@@ -158,7 +159,7 @@ export default function ProjectDetailPage() {
 
         {/* 3 · My role vs team */}
         {(project.responsibilities?.length || project.teamContext) && (
-          <section aria-labelledby="role-title" className={s.section}>
+          <section aria-labelledby="role-title" className={s.section} data-reveal-item>
             <SectionTitle id="role-title" kicker="Dossier">
               My part in it
             </SectionTitle>
@@ -185,7 +186,7 @@ export default function ProjectDetailPage() {
 
         {/* 4 · Features & roadmap */}
         {(hasFeatures || hasPlanned) && (
-          <section aria-labelledby="features-title" className={s.section}>
+          <section aria-labelledby="features-title" className={s.section} data-reveal-item>
             <SectionTitle id="features-title" kicker="Abilities unlocked">
               {builtModules.length ? 'Modules' : 'Features'}
             </SectionTitle>
@@ -235,7 +236,7 @@ export default function ProjectDetailPage() {
 
         {/* 5 · Engineering notes */}
         {hasNotes && (
-          <section aria-labelledby="notes-title" className={s.section}>
+          <section aria-labelledby="notes-title" className={s.section} data-reveal-item>
             <SectionTitle id="notes-title" kicker="Behind the panels">
               Engineering notes
             </SectionTitle>
@@ -289,7 +290,7 @@ export default function ProjectDetailPage() {
 
         {/* 6 · Media */}
         {project.media?.length ? (
-          <section aria-labelledby="media-title" className={s.section}>
+          <section aria-labelledby="media-title" className={s.section} data-reveal-item>
             <SectionTitle id="media-title" kicker="Panels">
               Screens
             </SectionTitle>
@@ -299,7 +300,7 @@ export default function ProjectDetailPage() {
 
         {/* 7 · Related */}
         {related.length > 0 && (
-          <section aria-labelledby="related-title" className={s.section}>
+          <section aria-labelledby="related-title" className={s.section} data-reveal-item>
             <SectionTitle id="related-title" kicker="Crossovers">
               Related series
             </SectionTitle>

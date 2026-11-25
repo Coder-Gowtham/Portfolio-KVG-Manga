@@ -1,4 +1,4 @@
-import { useId, useRef, useState, type ChangeEvent, type FormEvent } from 'react'
+import { useEffect, useId, useRef, useState, type ChangeEvent, type FormEvent } from 'react'
 import { Stamp } from '../../components/manga'
 import { Drone } from '../../components/manga/Mascot'
 import {
@@ -21,7 +21,14 @@ const ORDER: Field[] = ['name', 'email', 'subject', 'message']
  * Validated contact form. On submit it opens the visitor's email app with the
  * message pre-filled; the UI says exactly that, never "message sent".
  */
-export function ContactForm({ openMail = (url: string) => window.location.assign(url) }: { openMail?: (url: string) => void }) {
+export function ContactForm({
+  openMail = (url: string) => window.location.assign(url),
+  presetSubject,
+}: {
+  openMail?: (url: string) => void
+  /** Subject prefix from the quest board. Replaces only a prefix it set itself; never the visitor's own text. */
+  presetSubject?: string
+}) {
   const uid = useId()
   const id = (f: string) => `${uid}-${f}`
   const [values, setValues] = useState<ContactValues>(EMPTY)
@@ -30,6 +37,18 @@ export function ContactForm({ openMail = (url: string) => window.location.assign
   const [status, setStatus] = useState<'idle' | 'opened'>('idle')
   const [shake, setShake] = useState<Field | null>(null)
   const refs = useRef<Partial<Record<Field, HTMLInputElement | HTMLTextAreaElement | null>>>({})
+  const lastPreset = useRef('')
+
+  useEffect(() => {
+    const next = presetSubject ?? ''
+    const prev = lastPreset.current
+    lastPreset.current = next
+    setValues((v) => {
+      // The visitor wrote their own subject: leave it alone.
+      if (v.subject && (!prev || !v.subject.startsWith(prev))) return v
+      return { ...v, subject: next + (prev ? v.subject.slice(prev.length) : '') }
+    })
+  }, [presetSubject])
 
   const set = (f: keyof ContactValues) => (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const next = { ...values, [f]: e.target.value }

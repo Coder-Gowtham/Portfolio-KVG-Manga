@@ -12,7 +12,7 @@ export const NAV = {
   arc: { to: '/experience', label: 'Arc', chapter: 'CH.02' },
   hire: { to: '/recruiter', label: 'Hire', chapter: 'HIRE' },
   contact: { to: '/contact', label: 'Contact', chapter: 'CH.03' },
-  omake: { to: '/playground', label: 'Fun Zone', chapter: 'OMAKE' },
+  omake: { to: '/playground', label: 'Showdown', chapter: 'VS' },
 } satisfies Record<string, NavItem>
 
 /** Bottom bar: four destinations + Menu. Keep it at five slots. */

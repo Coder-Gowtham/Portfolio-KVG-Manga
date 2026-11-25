@@ -1,4 +1,4 @@
-import { useEffect, useReducer, useRef, useState, type KeyboardEvent, type MouseEvent } from 'react'
+import { useEffect, useReducer, useRef, useState, type MouseEvent } from 'react'
 import { cx } from '../../utils/cx'
 import { readJSON, writeJSON } from '../../utils/storage'
 import { GRID, ROUND_MS, huntReducer, huntVerdict, initialHunt, timeLeft } from './hunt'
@@ -55,17 +55,24 @@ export function BugHunt() {
 
   const hit = (cell: number) => dispatch({ type: 'hit', cell, now: performance.now() })
 
-  const onKeyDown = (e: KeyboardEvent) => {
-    if (!playing || !/^[1-9]$/.test(e.key)) return
-    e.preventDefault()
-    hit(Number(e.key) - 1)
-  }
+  // Number keys 1–9 squash a bug while a round runs (ignored inside form fields).
+  useEffect(() => {
+    if (!playing) return
+    const onKey = (e: KeyboardEvent) => {
+      if (!/^[1-9]$/.test(e.key) || e.ctrlKey || e.metaKey || e.altKey) return
+      if (e.target instanceof Element && e.target.closest('input, textarea, select, [contenteditable="true"]')) return
+      e.preventDefault()
+      dispatch({ type: 'hit', cell: Number(e.key) - 1, now: performance.now() })
+    }
+    window.addEventListener('keydown', onKey)
+    return () => window.removeEventListener('keydown', onKey)
+  }, [playing])
 
   const left = timeLeft(state)
   const seconds = Math.ceil(left / 1000)
 
   return (
-    <div className={s.hunt} onKeyDown={onKeyDown}>
+    <div className={s.hunt}>
       <div className={s.huntBar}>
         <p className={s.counter}>
           Score <strong>{state.score}</strong>

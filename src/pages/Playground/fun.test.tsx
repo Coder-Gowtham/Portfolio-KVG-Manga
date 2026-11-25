@@ -24,16 +24,37 @@ beforeEach(() => {
 
 afterEach(() => vi.useRealTimers())
 
-describe('Fun Zone hub', () => {
+describe('Showdown hub', () => {
   it('lists every registered module as a cabinet', async () => {
     renderAt('/playground')
-    await screen.findByRole('heading', { level: 1, name: /fun zone/i })
+    await screen.findByRole('heading', { level: 1, name: /showdown/i })
     for (const name of ['Quick-draw', 'Memory match', 'Cyber-oracle', 'Quotes terminal', 'Bug hunt', 'Neon typer']) {
       expect(screen.getByRole('heading', { level: 2, name })).toBeInTheDocument()
     }
     const nav = screen.getByRole('navigation', { name: /arcade cabinets/i })
     expect(within(nav).getAllByRole('link')).toHaveLength(6)
     expect(within(nav).queryByText(/coming soon/i)).not.toBeInTheDocument()
+  })
+})
+
+describe('Showdown on small screens', () => {
+  it('folds every game window until it is opened', async () => {
+    const user = userEvent.setup()
+    vi.stubGlobal('matchMedia', (q: string) => ({
+      matches: q.includes('max-width: 767px'),
+      media: q,
+      addEventListener: () => {},
+      removeEventListener: () => {},
+    }))
+    renderAt('/playground')
+    await screen.findByRole('heading', { level: 1, name: /showdown/i })
+    const toggle = screen.getByRole('button', { name: /quick-draw/i })
+    expect(toggle).toHaveAttribute('aria-expanded', 'false')
+    expect(screen.queryByRole('button', { name: /tap to start/i })).not.toBeInTheDocument()
+    await user.click(toggle)
+    expect(toggle).toHaveAttribute('aria-expanded', 'true')
+    expect(screen.getByRole('button', { name: /tap to start/i })).toBeInTheDocument()
+    vi.unstubAllGlobals()
   })
 })
 

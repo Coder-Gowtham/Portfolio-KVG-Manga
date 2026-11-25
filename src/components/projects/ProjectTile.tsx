@@ -19,19 +19,26 @@ export function ProjectTile({ project, size, index }: { project: Project; size: 
   const placeholder = project.status === 'placeholder'
 
   return (
-    <article className={cx(s.tile, s[size], index % 2 ? s.slantLeft : s.slantRight, placeholder && s.ghost)}>
-      <div className={s.media}>
-        <SpeedLines className={s.lines} cx={index % 2 ? 80 : 20} cy={30} seed={index + 11} inner={18} />
-        {media?.src && media.approvedForPublic ? (
-          <img className={s.img} src={media.src} alt={media.alt} loading="lazy" decoding="async" />
-        ) : placeholder ? (
-          <span className={s.soon} aria-hidden="true">
-            ???
-          </span>
-        ) : (
-          <MediaPlaceholder item={media} title={project.title} className={s.ph} />
-        )}
-      </div>
+    <article
+      className={cx(s.tile, s[size], index % 2 ? s.slantLeft : s.slantRight, placeholder && s.ghost, project.noMedia && s.textOnly)}
+      data-reveal-item
+    >
+      {/* Target-lock brackets, shown on hover/focus */}
+      <span className={s.lock} aria-hidden="true" />
+      {!project.noMedia && (
+        <div className={s.media}>
+          <SpeedLines className={s.lines} cx={index % 2 ? 80 : 20} cy={30} seed={index + 11} inner={18} />
+          {media?.src && media.approvedForPublic ? (
+            <img className={s.img} src={media.src} alt={media.alt} loading="lazy" decoding="async" />
+          ) : placeholder ? (
+            <span className={s.soon} aria-hidden="true">
+              ???
+            </span>
+          ) : (
+            <MediaPlaceholder item={media} title={project.title} className={s.ph} />
+          )}
+        </div>
+      )}
       <div className={s.body}>
         <p className={s.meta}>
           <span>{CATEGORY_LABEL[project.category]}</span>

@@ -175,7 +175,7 @@ function Locked() {
             footer remembers every tap…
           </NarrationBox>
           <InkButton to="/playground" variant="secondary">
-            Back to the Fun zone
+            Back to the Showdown
           </InkButton>
         </div>
       </MangaPanel>
@@ -234,11 +234,11 @@ export default function SecretPage() {
                 checked={droneFollow}
                 onChange={secretStore.setDroneFollow}
                 label="Drone follows cursor"
-                hint="Mouse or trackpad only. Stays off if your device asks for reduced motion."
+                hint="On for everyone with a mouse or trackpad. Switch it off here; it stays off on this device. Never shown with reduced motion."
               />
               <div className={s.perkActions}>
                 <InkButton to="/playground" variant="secondary">
-                  Back to the Fun zone
+                  Back to the Showdown
                 </InkButton>
                 <button type="button" className={s.relock} onClick={secretStore.lock}>
                   Seal the chapter again

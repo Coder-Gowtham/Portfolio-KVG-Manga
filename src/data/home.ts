@@ -10,22 +10,13 @@ export const home = {
     /** Cover lines shown over the art. Keep them short. */
     lines: ['React.js', 'Node.js', 'Full stack', 'Fintech arc'],
     newArc: { label: 'NEW ARC!', title: 'VSCC ERP', slug: 'vscc-erp' },
+    /** The mascot's catchphrase, shown beside the name. */
+    catchphrase: 'Relax. I only hunt bugs.',
   },
-  /** "Previously on…": the manga recap, three narration boxes. */
-  recap: [
-    {
-      kicker: 'Origin',
-      text: 'A full stack developer with about four years across React and JavaScript front ends and Node.js/Express back ends.',
-    },
-    {
-      kicker: 'The fintech arc',
-      text: 'At Niveus Solutions: Node.js microservices for credit-card onboarding and loan journeys, starting with the orchestration framework behind the Customer Acquisition Platform.',
-    },
-    {
-      kicker: 'The frontend arc',
-      text: 'At Innoscripta: extended the ONLYOFFICE JavaScript editors for Clusterix. Now building a construction ERP and opening a new arc in AI integration.',
-    },
-  ],
+  /** "At a glance": one short paragraph. The stack itself is the Abilities board (data/stack.ts). */
+  glance: {
+    text: 'Node.js microservices for fintech onboarding at Niveus, ONLYOFFICE editor front ends at Innoscripta, and now a construction ERP built end to end.',
+  },
   /** "Next arc" panel: what the AI-integration training covers. Goals, not claims. */
   training: {
     drills: [
@@ -37,6 +28,6 @@ export const home = {
   },
   closing: {
     bubble: 'Got a quest? Ping me.',
-    lede: 'Open to full-time roles and interesting builds. Replies are fastest by email.',
+    lede: 'Quest board is open. Pick a type and send it over; replies are fastest by email.',
   },
 } as const

@@ -85,6 +85,26 @@ export function pageLayout(count: number): TileSize[] {
 }
 
 
+const SPAN: Record<TileSize, number> = { wide: 6, regular: 3, tall: 2 }
+
+/**
+ * Where the mascot interlude goes: at the end of the second full row (wide tile +
+ * the next row), so it never splits a row. Falls back to the end of the list.
+ */
+export function interludeAfter(sizes: TileSize[]): number {
+  let filled = 0
+  let rows = 0
+  for (let i = 0; i < sizes.length; i++) {
+    filled += SPAN[sizes[i]!]
+    if (filled >= 6) {
+      filled = 0
+      rows++
+      if (rows === 2 && i < sizes.length - 1) return i
+    }
+  }
+  return sizes.length - 1
+}
+
 /** Up to three related series: shared technologies first, then same category. */
 export function relatedProjects(project: Project, all: Project[], max = 3): Project[] {
   const mine = new Set(project.technologies.map(techSlug))

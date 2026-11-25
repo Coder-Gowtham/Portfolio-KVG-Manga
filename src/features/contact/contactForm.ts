@@ -1,3 +1,4 @@
+import { quests } from '../../data/quests'
 /**
  * Contact form logic, kept free of React so it can be unit-tested.
  *
@@ -52,7 +53,13 @@ export const isBot = (v: ContactValues) => v.website.trim().length > 0
 
 /** Builds the mailto: link for the visitor's email app. */
 export function buildMailto(to: string, v: ContactValues): string {
-  const subject = v.subject.trim() || `Portfolio enquiry from ${v.name.trim()}`
+  const name = v.name.trim()
+  const typed = v.subject.trim().replace(/[\s:—-]+$/, '')
+  const subject = !typed
+    ? `Portfolio enquiry from ${name}`
+    : quests.some((q) => q.title === typed)
+      ? `${typed} · from ${name}`
+      : typed
   const body = `${v.message.trim()}\n\n— ${v.name.trim()}\nReply to: ${v.email.trim()}`
   return `mailto:${to}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`
 }

@@ -1,0 +1,73 @@
+/* Idle life for the mascot and drone. Transform/opacity only; all of it stops
+   under prefers-reduced-motion (global rule in base.css plus the block below). */
+.breathe {
+  transform-box: view-box;
+  transform-origin: 50% 100%;
+  animation: breathe 3.6s ease-in-out infinite;
+}
+
+@keyframes breathe {
+  50% {
+    transform: translateY(-1.2px) scaleY(1.008);
+  }
+}
+
+.scan {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: scan 3.2s linear infinite;
+}
+
+@keyframes scan {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.iris {
+  animation: flicker 5s steps(1, end) infinite;
+}
+
+/* A quick double flicker every few seconds, like the eye re-targeting */
+@keyframes flicker {
+  0%,
+  86%,
+  90%,
+  100% {
+    opacity: 1;
+  }
+  88%,
+  92% {
+    opacity: 0.35;
+  }
+}
+
+.drone {
+  animation: drone-bob 2.6s ease-in-out infinite;
+}
+
+@keyframes drone-bob {
+  50% {
+    transform: translateY(-4px) rotate(2deg);
+  }
+}
+
+.led {
+  animation: led 1.4s steps(2, end) infinite;
+}
+
+@keyframes led {
+  50% {
+    opacity: 0.15;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .breathe,
+  .scan,
+  .iris,
+  .drone,
+  .led {
+    animation: none;
+  }
+}

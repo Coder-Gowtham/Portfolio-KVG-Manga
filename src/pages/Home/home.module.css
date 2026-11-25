@@ -46,6 +46,13 @@
 }
 
 /* ---------- Page rhythm ---------- */
+/* Stage for the home backdrop: isolates it under the content */
+.stage {
+  position: relative;
+  isolation: isolate;
+  overflow-x: clip;
+}
+
 .home {
   display: grid;
   gap: var(--section-gap);
@@ -58,22 +65,6 @@
   display: grid;
   gap: var(--s-4);
   min-width: 0;
-}
-
-.sectionCta {
-  display: flex;
-  margin: 0;
-}
-
-.textLink {
-  font-family: var(--font-mono);
-  color: var(--neon-cyan);
-  text-underline-offset: 4px;
-  padding-block: var(--s-2);
-}
-
-.textLink:hover {
-  color: var(--neon-yellow);
 }
 
 /* ---------- 01 · Cover ---------- */
@@ -324,8 +315,17 @@
   line-height: 1.35;
 }
 
-.coverBubble {
+/* The catchphrase: loud enough to be noticed next to the name */
+.catchphrase {
   justify-self: start;
+  margin: var(--s-1) 0 var(--s-2) var(--s-2);
+  padding: var(--s-2) var(--s-4);
+  font-family: var(--font-display);
+  font-size: clamp(0.95rem, 3.6vw, 1.15rem);
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  box-shadow: 4px 4px 0 var(--neon-magenta);
+  transform: rotate(-2deg);
 }
 
 .coverIntro {
@@ -349,7 +349,7 @@
 
 @media (min-width: 768px) {
   .art {
-    aspect-ratio: 16 / 11;
+    aspect-ratio: 16 / 10;
   }
 
   .coverMascot {
@@ -361,7 +361,11 @@
     width: 60%;
     right: 0;
   }
+}
 
+/* The intro paragraph is desktop-only: on phones and tablets the catchphrase
+   carries the personality and the CTAs stay above the fold. */
+@media (min-width: 1024px) {
   .coverIntro {
     display: block;
   }
@@ -410,7 +414,7 @@
   }
 
   .masthead,
-  .art {
+.art {
     min-width: 0;
   }
 
@@ -460,409 +464,6 @@
   }
 }
 
-/* ---------- 02 · Previously on… ---------- */
-.recap {
-  display: grid;
-  gap: var(--s-5);
-  margin: 0;
-  padding: 0;
-  list-style: none;
-}
-
-.recapBox {
-  position: relative;
-  display: grid;
-  gap: var(--s-2);
-  padding: var(--s-5) var(--s-4) var(--s-4);
-  background: var(--paper);
-  color: var(--ink);
-  border: var(--line-2) solid var(--ink);
-  box-shadow: 5px 5px 0 var(--neon-cyan);
-}
-
-.recapBox:nth-child(2) {
-  margin-left: var(--s-5);
-  box-shadow: 5px 5px 0 var(--neon-magenta);
-}
-
-.recapNo {
-  position: absolute;
-  top: -0.7em;
-  right: var(--s-3);
-  font-family: var(--font-display);
-  font-size: 2rem;
-  line-height: 1;
-  color: var(--neon-yellow);
-  -webkit-text-stroke: 1.5px var(--ink);
-  paint-order: stroke fill;
-}
-
-.recapKicker {
-  font-family: var(--font-mono);
-  font-size: var(--fs-micro);
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: var(--graphite);
-}
-
-@media (min-width: 900px) {
-  .recap {
-    grid-template-columns: repeat(3, 1fr);
-    align-items: start;
-  }
-
-  .recapBox:nth-child(2) {
-    margin: var(--s-7) 0 0;
-  }
-
-  .recapBox:nth-child(3) {
-    margin-top: var(--s-4);
-  }
-}
-
-/* ---------- 03 · Abilities ---------- */
-.abilities {
-  display: grid;
-  gap: var(--gutter);
-}
-
-@media (min-width: 1024px) {
-  .abilities {
-    grid-template-columns: 1.25fr 1fr;
-  }
-
-  .abilities > :nth-child(odd) .skillList {
-    grid-template-columns: 1fr 1fr;
-  }
-}
-
-.ability {
-  background: var(--paper);
-  color: var(--ink);
-  border: var(--line-2) solid var(--ink);
-}
-
-.ability[open] {
-  box-shadow: 4px 4px 0 var(--neon-cyan);
-}
-
-.abilitySummary {
-  display: grid;
-  grid-template-columns: 1fr auto auto;
-  grid-template-areas:
-    'kicker count chev'
-    'title count chev';
-  align-items: center;
-  column-gap: var(--s-3);
-  min-height: 56px;
-  padding: var(--s-3) var(--s-4);
-  cursor: pointer;
-  list-style: none;
-}
-
-.abilitySummary::-webkit-details-marker {
-  display: none;
-}
-
-.abilitySummary::after {
-  content: '';
-  grid-area: chev;
-  width: 10px;
-  height: 10px;
-  border-right: 2.5px solid var(--ink);
-  border-bottom: 2.5px solid var(--ink);
-  transform: rotate(45deg) translateY(-3px);
-  transition: transform var(--dur-fast) var(--ease-ink);
-}
-
-.ability[open] .abilitySummary::after {
-  transform: rotate(-135deg) translateY(-3px);
-}
-
-.abilitySummary:focus-visible {
-  outline: 3px solid var(--ink);
-  outline-offset: -6px;
-  box-shadow: none;
-}
-
-.abilityStatic .abilitySummary {
-  cursor: default;
-}
-
-.abilityStatic .abilitySummary::after {
-  display: none;
-}
-
-.abilityKicker {
-  grid-area: kicker;
-  font-family: var(--font-mono);
-  font-size: var(--fs-micro);
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: var(--graphite);
-}
-
-.abilityTitle {
-  grid-area: title;
-  font-family: var(--font-display);
-  font-size: var(--fs-h3);
-  text-transform: uppercase;
-  line-height: 1.1;
-}
-
-.abilityCount {
-  grid-area: count;
-  display: grid;
-  place-items: center;
-  min-width: 28px;
-  height: 28px;
-  background: var(--ink);
-  color: var(--neon-cyan);
-  font-family: var(--font-mono);
-  font-size: var(--fs-micro);
-}
-
-.skillList {
-  display: grid;
-  gap: var(--s-3);
-  margin: 0;
-  padding: var(--s-1) var(--s-4) var(--s-4);
-  list-style: none;
-  border-top: 1px dashed var(--ink);
-  padding-top: var(--s-3);
-}
-
-.skill {
-  display: grid;
-  gap: 2px;
-}
-
-.skillName {
-  font-weight: 600;
-}
-
-.skillNote {
-  font-size: var(--fs-small);
-  color: var(--graphite);
-}
-
-/* ---------- 04 · Featured spreads ---------- */
-.spreads {
-  display: grid;
-  gap: var(--s-8);
-}
-
-/* ---------- 05 · Career arc strip ---------- */
-.arc {
-  display: grid;
-  grid-auto-flow: column;
-  grid-auto-columns: min(80%, 280px);
-  gap: var(--gutter);
-  margin: 0 calc(-1 * var(--page-pad));
-  padding: var(--s-2) var(--page-pad) var(--s-4);
-  list-style: none;
-  overflow-x: auto;
-  overscroll-behavior-x: contain;
-  scroll-snap-type: x mandatory;
-  scroll-padding-inline: var(--page-pad);
-  scrollbar-color: var(--neon-magenta) var(--ink-2);
-}
-
-@media (min-width: 1024px) {
-  .arc {
-    grid-auto-flow: row;
-    grid-template-columns: repeat(4, 1fr);
-    margin: 0;
-    padding: var(--s-2) 0 var(--s-4);
-    overflow: visible;
-  }
-}
-
-.arcTile {
-  position: relative;
-  display: grid;
-  align-content: start;
-  gap: var(--s-2);
-  min-height: 210px;
-  padding: var(--s-5) var(--s-4);
-  background: var(--ink-2);
-  border: 2px solid var(--steel);
-  overflow: hidden;
-  scroll-snap-align: start;
-}
-
-.arcCurrent {
-  border-color: var(--neon-magenta);
-  background:
-    radial-gradient(color-mix(in srgb, var(--neon-magenta) 35%, transparent) 1px, transparent 1.2px) 0 0 / 5px 5px,
-    var(--ink-2);
-}
-
-.arcNo {
-  position: absolute;
-  right: -4px;
-  bottom: -22px;
-  font-family: var(--font-display);
-  font-size: 6.5rem;
-  line-height: 1;
-  color: transparent;
-  -webkit-text-stroke: 1.5px var(--steel);
-  pointer-events: none;
-}
-
-.arcCurrent .arcNo {
-  -webkit-text-stroke-color: var(--neon-magenta);
-}
-
-.arcDates {
-  font-family: var(--font-mono);
-  font-size: var(--fs-micro);
-  color: var(--neon-cyan);
-  letter-spacing: 0.04em;
-}
-
-.arcRole {
-  position: relative;
-  font-size: clamp(1rem, 1.5vw + 0.6rem, 1.25rem);
-  text-transform: uppercase;
-  overflow-wrap: anywhere;
-  hyphens: auto;
-}
-
-.arcOrg {
-  position: relative;
-  color: var(--text-on-night-muted);
-  font-size: var(--fs-small);
-}
-
-.arcNow {
-  position: relative;
-  justify-self: start;
-  margin-top: var(--s-2);
-  padding: 1px var(--s-2);
-  background: var(--neon-yellow);
-  color: var(--ink);
-  font-family: var(--font-mono);
-  font-size: var(--fs-micro);
-  text-transform: uppercase;
-}
-
-/* ---------- 06 · Now serialising ---------- */
-.nowLines {
-  z-index: -1;
-}
-
-.nowBody {
-  display: grid;
-  gap: var(--s-4);
-}
-
-.nowHead {
-  display: flex;
-  align-items: flex-start;
-  justify-content: space-between;
-  gap: var(--s-3);
-}
-
-.nowTitle {
-  font-size: var(--fs-h1);
-  line-height: 0.95;
-  text-transform: uppercase;
-}
-
-.nowSub {
-  margin-top: var(--s-2);
-  font-family: var(--font-mono);
-  font-size: var(--fs-mono);
-  color: var(--neon-yellow);
-}
-
-.nowBurst {
-  flex: none;
-  width: clamp(76px, 20vw, 110px);
-  transform: rotate(8deg);
-}
-
-.nowMeta {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: var(--s-3);
-}
-
-.nowStack {
-  display: flex;
-  flex-wrap: wrap;
-  gap: var(--s-2);
-  margin: 0;
-  padding: 0;
-  list-style: none;
-}
-
-.nowStack li {
-  padding: 2px var(--s-2);
-  border: 1px solid var(--neon-cyan);
-  color: var(--neon-cyan);
-  font-family: var(--font-mono);
-  font-size: var(--fs-micro);
-}
-
-.nowSummary {
-  max-width: 62ch;
-}
-
-.nowCols {
-  display: grid;
-  gap: var(--s-5);
-}
-
-@media (min-width: 900px) {
-  .nowCols {
-    grid-template-columns: 1.6fr 1fr;
-  }
-}
-
-.nowColTitle {
-  margin-bottom: var(--s-2);
-  font-family: var(--font-mono);
-  font-size: var(--fs-micro);
-  font-weight: 400;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: var(--neon-cyan);
-}
-
-.modules {
-  display: grid;
-  margin: 0;
-  padding: 0;
-  list-style: none;
-}
-
-.module {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: var(--s-3);
-  padding: var(--s-2) 0;
-  border-bottom: 1px solid var(--steel);
-}
-
-.moduleName {
-  font-weight: 500;
-}
-
-.modulesPlanned {
-  display: grid;
-  gap: var(--s-2);
-  margin: 0;
-  padding: 0 0 0 var(--s-3);
-  list-style: none;
-  border-left: 2px dashed var(--steel);
-  color: var(--text-on-night-muted);
-  font-size: var(--fs-small);
-}
-
 .nowCta {
   justify-self: start;
 }
@@ -886,22 +487,17 @@
   width: min(64vw, 280px);
 }
 
-.finalMascot {
-  width: 100%;
-}
-
 .finalSfx {
   position: absolute;
   top: 0;
-  left: -6%;
+  left: 0;
 }
 
-.finalDrone {
-  position: absolute;
-  top: 2%;
-  right: -10%;
-  width: 26%;
-  animation: hover 2.4s ease-in-out infinite;
+@media (min-width: 900px) {
+  .finalDroneHero {
+    width: 100%;
+    max-width: 260px;
+  }
 }
 
 @keyframes hover {
@@ -1027,44 +623,6 @@
   color: var(--neon-yellow);
 }
 
-/* ---------- Next arc: AI integration ---------- */
-.trainingLines {
-  z-index: -1;
-}
-
-.trainingGrid {
-  display: grid;
-  gap: var(--s-5);
-}
-
-@media (min-width: 900px) {
-  .trainingGrid {
-    grid-template-columns: minmax(0, 1.6fr) minmax(0, 1fr);
-    align-items: center;
-  }
-}
-
-.trainingText {
-  display: grid;
-  gap: var(--s-3);
-  justify-items: start;
-}
-
-.trainingLede {
-  font-size: 1.0625rem;
-  font-weight: 500;
-}
-
-.trainingSub {
-  margin-top: var(--s-2);
-  font-family: var(--font-mono);
-  font-size: var(--fs-micro);
-  font-weight: 400;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: var(--graphite);
-}
-
 .drills {
   display: grid;
   gap: var(--s-2);
@@ -1080,65 +638,498 @@
   align-items: baseline;
 }
 
-.drillNo {
+/* =====================================================================
+   Calm sections (between the loud cover and the loud final panel).
+   Plain ink, thin borders, no shadows, no speed lines.
+   ===================================================================== */
+.calmTitle {
+  margin: 0;
   font-family: var(--font-display);
-  font-size: 0.875rem;
-  padding: 0 6px;
-  background: var(--ink);
+  font-size: var(--fs-h3);
+  line-height: var(--lh-heading);
+  text-transform: uppercase;
+}
+
+.calmLinks {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s-2) var(--s-5);
+  margin: 0;
+  font-family: var(--font-mono);
+  font-size: var(--fs-mono);
+}
+
+.calmLinks a {
+  color: var(--neon-cyan);
+  text-decoration: none;
+  border-bottom: 1px solid rgb(0 229 255 / 0.4);
+  padding-block: var(--s-1);
+}
+
+.calmLinks a:hover {
+  border-bottom-color: var(--neon-cyan);
+}
+
+.calmLinks a:focus-visible {
+  outline: 2px solid var(--focus-on-night);
+  outline-offset: 3px;
+}
+
+/* ---------- Abilities board ---------- */
+.board {
+  display: grid;
+  gap: var(--s-3);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+@media (min-width: 768px) {
+  .board {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 1200px) {
+  .board {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  /* 7 groups: the training arc closes the board at full width */
+  .groupTraining {
+    grid-column: 1 / -1;
+  }
+}
+
+.group {
+  display: grid;
+  align-content: start;
+  gap: var(--s-3);
+  padding: var(--s-4);
+  background: var(--ink-2);
+  border: 1px solid rgb(255 255 255 / 0.12);
+}
+
+.groupTraining {
+  border-style: dashed;
+  border-color: rgb(245 229 0 / 0.5);
+}
+
+.groupHead {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--s-1) var(--s-3);
+}
+
+.groupTitle {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: 1.125rem;
+  text-transform: uppercase;
+}
+
+.groupKicker {
+  font-family: var(--font-mono);
+  font-size: var(--fs-micro);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--text-on-night-muted);
+}
+
+.logos {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(72px, 1fr));
+  gap: var(--s-2);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.logoTile {
+  display: grid;
+  justify-items: center;
+  align-content: start;
+  gap: var(--s-2);
+  padding: var(--s-3) var(--s-1);
+  text-align: center;
+  border: 1px solid transparent;
+  transition: border-color var(--dur-fast) linear;
+}
+
+.logoTile:hover {
+  border-color: rgb(0 229 255 / 0.35);
+}
+
+.logoSvg {
+  width: 32px;
+  height: 32px;
+}
+
+.logoBadge {
+  display: grid;
+  place-items: center;
+  width: 32px;
+  height: 32px;
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  font-weight: 700;
+  color: var(--text-on-night);
+  border: 1.5px dashed var(--steel);
+}
+
+.logoName {
+  font-family: var(--font-mono);
+  font-size: var(--fs-micro);
+  line-height: 1.3;
+  color: var(--text-on-night);
+  overflow-wrap: anywhere;
+}
+
+/* Phones: compact logo chips instead of tiles */
+@media (max-width: 767px) {
+  .logos {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--s-2);
+  }
+
+  .logoTile {
+    grid-auto-flow: column;
+    align-items: center;
+    gap: var(--s-2);
+    padding: var(--s-1) var(--s-3) var(--s-1) var(--s-2);
+    border-color: rgb(255 255 255 / 0.14);
+  }
+
+  .logoSvg,
+  .logoBadge {
+    width: 20px;
+    height: 20px;
+  }
+
+  .logoBadge {
+    width: auto;
+    min-width: 20px;
+    padding-inline: 2px;
+    font-size: 0.5625rem;
+  }
+
+  .group {
+    gap: var(--s-2);
+  }
+}
+
+.also {
+  margin: 0;
+  font-size: var(--fs-small);
+  color: var(--text-on-night-muted);
+}
+
+.alsoLabel {
+  margin-inline-end: var(--s-1);
+  font-family: var(--font-mono);
+  font-size: var(--fs-micro);
+  text-transform: uppercase;
+  color: var(--neon-cyan);
+}
+
+/* ---------- Selected works ---------- */
+.works {
+  display: grid;
+  gap: var(--s-4);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+@media (min-width: 768px) {
+  .works {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 1024px) {
+  .works {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+.works > li {
+  display: grid;
+}
+
+.work,
+.nowCard {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-2);
+  padding: var(--s-5);
+  background: var(--ink-2);
+  border: 1px solid rgb(255 255 255 / 0.12);
+  transition:
+    border-color var(--dur-fast) linear,
+    transform var(--dur-fast) var(--ease-ink);
+}
+
+.work:hover {
+  border-color: var(--neon-cyan);
+  transform: translateY(-2px);
+}
+
+.work:focus-within {
+  border-color: var(--neon-cyan);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .work:hover {
+    transform: none;
+  }
+}
+
+.workKicker {
+  margin: 0;
+  font-family: var(--font-mono);
+  font-size: var(--fs-micro);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--neon-magenta);
+}
+
+.workTitle {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: 1.375rem;
+  line-height: var(--lh-heading);
+  text-transform: uppercase;
+}
+
+/* Stretched link: the whole card is clickable, one tab stop. */
+.workLink {
+  color: inherit;
+  text-decoration: none;
+}
+
+.workLink::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+}
+
+.workLink:focus-visible {
+  outline: none;
+}
+
+.work:has(.workLink:focus-visible) {
+  outline: 2px solid var(--focus-on-night);
+  outline-offset: 3px;
+}
+
+.workSub {
+  margin: 0;
+  font-family: var(--font-mono);
+  font-size: var(--fs-mono);
   color: var(--neon-yellow);
 }
 
-.trainingMission {
+.workSummary {
+  margin: 0;
+  color: var(--text-on-night-muted);
+  line-height: var(--lh-body);
+}
+
+.work .workSummary {
+  display: -webkit-box;
+  -webkit-line-clamp: 4;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.workTags {
   display: flex;
   flex-wrap: wrap;
+  gap: var(--s-1) var(--s-3);
+  margin: var(--s-1) 0 0;
+  padding: 0;
+  list-style: none;
+  font-family: var(--font-mono);
+  font-size: var(--fs-micro);
+  color: var(--text-on-night-muted);
+}
+
+.workFoot {
+  display: flex;
   align-items: center;
-  gap: var(--s-2) var(--s-3);
+  justify-content: space-between;
+  gap: var(--s-3);
+  margin: auto 0 0;
+  padding-top: var(--s-3);
+}
+
+.workMore {
+  font-family: var(--font-mono);
+  font-size: var(--fs-mono);
+  color: var(--neon-cyan);
+}
+
+/* ---------- Building and training ---------- */
+.nowGrid {
+  display: grid;
+  gap: var(--s-4);
+}
+
+@media (min-width: 1024px) {
+  .nowGrid {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  }
+}
+
+.progress {
+  display: grid;
+  gap: var(--s-2);
   margin-top: var(--s-2);
 }
 
-.trainingMission span {
+.progressLabel {
+  margin: 0;
   font-family: var(--font-mono);
-  font-size: var(--fs-micro);
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  padding: 1px var(--s-2);
-  background: var(--neon-magenta);
-  color: var(--ink);
+  font-size: var(--fs-mono);
 }
 
-.trainingMission a {
-  font-weight: 600;
-  text-decoration-color: var(--neon-magenta);
-  text-decoration-thickness: 3px;
-  text-underline-offset: 5px;
-  padding-block: var(--s-2);
-}
-
-.trainingArt {
-  position: relative;
-  display: grid;
-  justify-items: center;
-  gap: var(--s-3);
-}
-
-.trainingPose {
-  width: min(62vw, 280px);
-}
-
-/* The drone now orbits the powering-up netrunner */
-.trainingDrone {
-  position: absolute;
-  top: 0;
-  right: 4%;
-  width: min(16vw, 72px);
-  animation: hover 2.4s ease-in-out infinite;
-}
-
-.trainingChip {
-  padding: 2px var(--s-2);
-  background: var(--ink);
+.progressLabel strong {
   color: var(--neon-cyan);
-  font-family: var(--font-mono);
-  font-size: var(--fs-micro);
-  letter-spacing: 0.06em;
+}
+
+.progressBar {
+  display: flex;
+  gap: 3px;
+}
+
+.seg {
+  flex: 1;
+  height: 8px;
+  background: var(--ink-3);
+  border: 1px solid var(--steel);
+}
+
+.seg-done {
+  background: var(--neon-cyan);
+  border-color: var(--neon-cyan);
+}
+
+.seg-testing,
+.seg-partly-done {
+  background: rgb(245 229 0 / 0.55);
+  border-color: var(--neon-yellow);
+}
+
+.nowCta {
+  align-self: flex-start;
+  margin-top: var(--s-2);
+}
+
+.arcCard {
+  padding-top: var(--s-5);
+}
+
+.arcPose {
+  align-self: flex-end;
+  width: 112px;
+  margin: calc(-1 * var(--s-6)) calc(-1 * var(--s-2)) calc(-1 * var(--s-7));
+  pointer-events: none;
+}
+
+.nowGrid,
+.section {
+  grid-template-columns: minmax(0, 1fr);
+}
+
+@media (min-width: 768px) {
+  .arcPose {
+    position: absolute;
+    top: calc(-1 * var(--s-4));
+    right: var(--s-2);
+    width: 132px;
+    margin: 0;
+  }
+
+  .arcCard .workKicker,
+  .arcCard .workTitle {
+    padding-right: 132px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .nowGrid {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  }
+}
+
+.stampRow {
+  margin: 0;
+}
+
+.drills {
+  display: grid;
+  gap: var(--s-2);
+  margin: 0;
+  padding: 0 0 0 var(--s-4);
+  color: var(--text-on-night);
+  font-size: var(--fs-small);
+  line-height: 1.5;
+}
+
+.drills li::marker {
+  color: var(--neon-magenta);
+}
+
+.mission {
+  color: var(--text-on-night-muted);
+}
+
+/* Final panel: the drone hosts it now */
+.finalDroneHero {
+  display: block;
+  width: min(52vw, 200px);
+  margin: var(--s-5) auto 0;
+  animation: hover 2.4s ease-in-out infinite alternate;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .finalDroneHero {
+    animation: none;
+  }
+}
+
+/* ---------- Hover & tap ---------- */
+.work:active {
+  transform: scale(0.99);
+  transition-duration: var(--dur-instant);
+}
+
+.logoSvg,
+.logoBadge {
+  transition: transform var(--dur-fast) var(--ease-impact);
+}
+
+@media (hover: hover) {
+  .logoTile:hover .logoSvg,
+  .logoTile:hover .logoBadge {
+    transform: scale(1.18) rotate(-6deg);
+  }
+
+  .group:hover {
+    border-color: rgb(0 229 255 / 0.4);
+  }
+}
+
+.logoTile:active .logoSvg,
+.logoTile:active .logoBadge {
+  transform: scale(1.18) rotate(-6deg);
+}
+
+.group {
+  transition: border-color var(--dur-fast) linear;
 }
