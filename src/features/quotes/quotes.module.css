@@ -1,0 +1,123 @@
+.terminal {
+  display: grid;
+  gap: var(--s-4);
+}
+
+.filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s-2);
+}
+
+.chip {
+  min-height: 40px;
+  padding: var(--s-1) var(--s-3);
+  font-family: var(--font-mono);
+  font-size: var(--fs-mono);
+  background: transparent;
+  color: var(--text-on-night);
+  border: 1.5px solid var(--steel);
+  cursor: pointer;
+}
+
+.chip:hover {
+  border-color: var(--neon-cyan);
+}
+
+.chip:focus-visible,
+.btn:focus-visible {
+  outline: 2px solid var(--focus-on-night);
+  outline-offset: 2px;
+}
+
+.chipOn {
+  background: var(--neon-cyan);
+  color: var(--ink);
+  border-color: var(--neon-cyan);
+}
+
+.cmd {
+  margin: 0;
+  font-family: var(--font-mono);
+  color: var(--neon-yellow);
+}
+
+.quote {
+  margin: 0;
+  display: grid;
+  gap: var(--s-3);
+  min-height: 9rem;
+  align-content: start;
+}
+
+.daily {
+  margin: 0;
+  justify-self: start;
+  padding: 2px var(--s-2);
+  font-family: var(--font-mono);
+  font-size: var(--fs-micro);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  background: var(--neon-magenta);
+  color: var(--ink);
+}
+
+.text {
+  margin: 0;
+}
+
+.text p {
+  margin: 0;
+  font-size: clamp(1.25rem, 4.5vw, 1.75rem);
+  font-weight: 600;
+  line-height: 1.35;
+  color: var(--text-on-night);
+}
+
+.caption {
+  display: grid;
+  gap: 2px;
+  font-family: var(--font-mono);
+  color: var(--neon-cyan);
+}
+
+.source {
+  font-size: var(--fs-micro);
+  color: var(--text-on-night-muted);
+}
+
+.empty {
+  margin: 0;
+  min-height: 9rem;
+  font-family: var(--font-mono);
+  color: var(--text-on-night-muted);
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s-2) var(--s-3);
+  align-items: center;
+}
+
+.btn {
+  min-height: 44px;
+  padding: var(--s-2) var(--s-4);
+  font-family: var(--font-mono);
+  font-size: var(--fs-mono);
+  background: var(--ink-2);
+  color: var(--text-on-night);
+  border: 1.5px solid var(--neon-cyan);
+  cursor: pointer;
+}
+
+.btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.btnOn {
+  background: var(--neon-yellow);
+  color: var(--ink);
+  border-color: var(--neon-yellow);
+}

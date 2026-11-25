@@ -1,0 +1,194 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+  scroll-padding-top: var(--s-5);
+}
+
+body {
+  margin: 0;
+  min-height: 100dvh;
+  background: var(--surface-night);
+  color: var(--text-on-night);
+  font-family: var(--font-body);
+  font-size: var(--fs-body);
+  line-height: var(--lh-body);
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+img,
+svg,
+video {
+  display: block;
+  max-width: 100%;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  margin: 0;
+  font-family: var(--font-display);
+  font-weight: 400;
+  line-height: var(--lh-heading);
+  letter-spacing: 0.01em;
+}
+
+p {
+  margin: 0;
+  max-width: var(--measure);
+}
+
+a {
+  color: inherit;
+}
+
+button,
+input,
+select,
+textarea {
+  font: inherit;
+  color: inherit;
+}
+
+button {
+  cursor: pointer;
+}
+
+:focus-visible {
+  outline: 2px solid var(--focus-on-night);
+  outline-offset: 2px;
+}
+
+.on-paper :focus-visible {
+  outline-color: var(--focus-on-paper);
+  box-shadow: 0 0 0 4px var(--neon-magenta);
+}
+
+::selection {
+  background: var(--neon-magenta);
+  color: var(--ink);
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* Surfaces */
+.on-paper {
+  background: var(--surface-paper);
+  color: var(--text-on-paper);
+}
+
+.on-night {
+  background: var(--surface-night);
+  color: var(--text-on-night);
+}
+
+/* Textures (spec §1.5): pure CSS, zero raster */
+.tone-ink {
+  background-image: radial-gradient(var(--ink) 0.9px, transparent 1px);
+  background-size: 4px 4px;
+}
+
+.tone-magenta {
+  background-image: radial-gradient(color-mix(in srgb, var(--neon-magenta) 60%, transparent) 1px, transparent 1.1px);
+  background-size: 4px 4px;
+}
+
+.scanlines {
+  background-image: repeating-linear-gradient(
+    to bottom,
+    rgb(255 255 255 / 0.04) 0 1px,
+    transparent 1px 3px
+  );
+}
+
+/* Page-level container */
+.page {
+  padding: var(--s-5) var(--page-pad) var(--section-gap);
+  max-width: calc(var(--content-max) + 2 * var(--page-pad));
+  margin-inline: auto;
+}
+
+.mono {
+  font-family: var(--font-mono);
+  font-size: var(--fs-mono);
+  letter-spacing: 0.02em;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Scroll reveal (see hooks/useReveal.ts): ink wipe left → right.
+   Ends with no clip so neon offsets and shadows aren't cut off. */
+[data-reveal='pending'] {
+  clip-path: inset(0 100% 0 0);
+}
+
+[data-reveal='in'] {
+  animation: ink-wipe var(--dur-slow) var(--ease-ink);
+}
+
+@keyframes ink-wipe {
+  from {
+    clip-path: inset(0 100% 0 0);
+  }
+  to {
+    clip-path: inset(-40px -40px -40px -40px);
+  }
+}
+
+/* ---------- Print (mainly the Recruiter page) ---------- */
+@media print {
+  .no-print {
+    display: none !important;
+  }
+
+  html,
+  body,
+  .on-paper,
+  .on-night {
+    background: #fff !important;
+    color: #000 !important;
+  }
+
+  main {
+    padding: 0 !important;
+  }
+
+  a[href^='http']::after,
+  a[href^='mailto:']::after,
+  a[href^='tel:']::after {
+    content: ' (' attr(href) ')';
+    font-size: 0.85em;
+  }
+
+  * {
+    box-shadow: none !important;
+    text-shadow: none !important;
+    animation: none !important;
+  }
+}

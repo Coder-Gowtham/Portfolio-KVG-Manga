@@ -1,0 +1,354 @@
+/* ===================== MediaPlaceholder ===================== */
+.placeholder {
+  position: relative;
+  margin: 0;
+  width: min(82%, 420px);
+  aspect-ratio: 16 / 10;
+  display: grid;
+  grid-template-rows: auto 1fr;
+  background: var(--ink);
+  border: var(--line-2) solid var(--ink);
+  box-shadow: 6px 6px 0 var(--neon-magenta);
+}
+
+.placeholderMobile {
+  width: min(42%, 180px);
+  aspect-ratio: 9 / 16;
+  border-radius: 14px;
+}
+
+.placeholderChrome {
+  display: flex;
+  gap: 5px;
+  padding: 6px 8px;
+  background: var(--ink-3);
+}
+
+.placeholderChrome span {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--steel);
+}
+
+.placeholderChrome span:first-child {
+  background: var(--neon-magenta);
+}
+
+.placeholderLabel {
+  display: grid;
+  place-content: center;
+  justify-items: center;
+  gap: var(--s-1);
+  padding: var(--s-3);
+  text-align: center;
+  color: var(--text-on-night-muted);
+  font-family: var(--font-mono);
+  font-size: var(--fs-micro);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  background:
+    repeating-linear-gradient(-45deg, transparent 0 10px, rgb(255 255 255 / 0.04) 10px 20px),
+    var(--ink-2);
+}
+
+.placeholderTag {
+  padding: 1px var(--s-2);
+  background: var(--neon-cyan);
+  color: var(--ink);
+}
+
+.placeholderSub {
+  color: var(--text-on-night);
+  text-transform: none;
+  letter-spacing: 0;
+  font-size: var(--fs-small);
+}
+
+/* ===================== ProjectShowcase ===================== */
+.showcase {
+  --slant: clamp(16px, 4vw, 48px);
+  display: grid;
+  gap: var(--gutter);
+  grid-template-areas:
+    'media'
+    'text';
+}
+
+.mediaPanel {
+  grid-area: media;
+  background: var(--ink);
+  padding: var(--line-2);
+  clip-path: var(--media-shape, none);
+}
+
+.mediaInner {
+  position: relative;
+  display: grid;
+  place-items: center;
+  min-height: clamp(200px, 56vw, 360px);
+  padding: var(--s-5) var(--s-4);
+  background: var(--paper);
+  overflow: hidden;
+  clip-path: var(--media-shape, none);
+  isolation: isolate;
+}
+
+.mediaLines {
+  z-index: -1;
+  opacity: 0.85;
+}
+
+.mediaPh,
+.mediaImg {
+  position: relative;
+}
+
+.mediaImg {
+  width: 100%;
+  height: auto;
+  border: var(--line-2) solid var(--ink);
+}
+
+.showcaseSfx {
+  position: absolute;
+  top: var(--s-3);
+  left: var(--s-3);
+}
+
+.textPanel {
+  grid-area: text;
+  display: grid;
+  gap: var(--s-3);
+  align-content: start;
+  padding: var(--s-5) var(--s-4);
+  border: var(--line-2) solid var(--neon-cyan);
+  background: var(--ink-2);
+  color: var(--text-on-night);
+}
+
+@media (min-width: 768px) {
+  .textPanel {
+    padding: var(--s-6);
+  }
+}
+
+.episode {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s-3);
+  font-family: var(--font-mono);
+  font-size: var(--fs-micro);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--neon-cyan);
+}
+
+.episode span:first-child {
+  background: var(--neon-magenta);
+  color: var(--ink);
+  padding: 0 var(--s-2);
+}
+
+.showcaseTitle {
+  font-size: var(--fs-h2);
+  text-transform: uppercase;
+  line-height: 1;
+}
+
+.showcaseSub {
+  font-family: var(--font-mono);
+  font-size: var(--fs-mono);
+  color: var(--neon-yellow);
+}
+
+.badges {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--s-2) var(--s-3);
+}
+
+.contribution,
+.org {
+  font-family: var(--font-mono);
+  font-size: var(--fs-micro);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.contribution {
+  padding: 1px var(--s-2);
+  border: 1px solid currentColor;
+}
+
+.stack {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s-2);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.stack li {
+  font-family: var(--font-mono);
+  font-size: var(--fs-micro);
+  padding: 2px var(--s-2);
+  border: 1px solid var(--steel);
+}
+
+.viewLink {
+  justify-self: start;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--s-2);
+  min-height: 44px;
+  font-family: var(--font-display);
+  font-size: var(--fs-small);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  text-decoration: none;
+  color: var(--neon-magenta);
+}
+
+.viewLink svg {
+  width: 1.4em;
+  height: 1.4em;
+  transition: transform var(--dur-fast) var(--ease-impact);
+}
+
+.viewLink:hover svg,
+.viewLink:focus-visible svg {
+  transform: translateX(6px);
+}
+
+/* ---- Layout A: impact (tall media, slanted bottom) ---- */
+.impact {
+  --media-shape: polygon(0 0, 100% 0, 100% calc(100% - var(--slant)), 0 100%);
+}
+
+.impact .mediaInner {
+  padding-bottom: calc(var(--s-5) + var(--slant));
+}
+
+/* ---- Layout B: split (text first on mobile, paper text panel) ---- */
+.split {
+  grid-template-areas:
+    'text'
+    'media';
+  --media-shape: polygon(0 var(--slant), 100% 0, 100% 100%, 0 100%);
+}
+
+.split .mediaInner {
+  padding-top: calc(var(--s-5) + var(--slant));
+}
+
+.split .textPanel {
+  background: var(--paper);
+  color: var(--text-on-paper);
+  border-color: var(--ink);
+}
+
+.split .episode {
+  color: var(--text-on-paper);
+}
+
+.split .showcaseSub {
+  color: var(--graphite);
+}
+
+.split .stack li {
+  border-color: var(--ink);
+}
+
+.split .viewLink {
+  color: var(--ink);
+  text-decoration: underline;
+  text-decoration-color: var(--neon-magenta);
+  text-decoration-thickness: 3px;
+  text-underline-offset: 6px;
+}
+
+/* ---- Layout C: close-up (wide media, overlapping caption panel) ---- */
+.closeup .mediaInner {
+  min-height: clamp(220px, 60vw, 420px);
+}
+
+.closeup .textPanel {
+  position: relative;
+  margin: calc(-1 * var(--s-6)) var(--s-3) 0;
+  border-color: var(--neon-magenta);
+  box-shadow: 6px 6px 0 var(--neon-cyan);
+}
+
+/* ---- Desktop spreads ---- */
+@media (min-width: 900px) {
+  .showcase {
+    --slant: 64px;
+    align-items: stretch;
+  }
+
+  .impact {
+    grid-template-columns: 1.25fr 1fr;
+    grid-template-areas: 'media text';
+    --media-shape: polygon(0 0, 100% 0, calc(100% - var(--slant)) 100%, 0 100%);
+  }
+
+  .impact .mediaInner {
+    height: 100%;
+    padding: var(--s-6) calc(var(--s-6) + var(--slant)) var(--s-6) var(--s-6);
+  }
+
+  .impact .textPanel {
+    align-self: end;
+    box-shadow: 6px 6px 0 var(--neon-magenta);
+  }
+
+  .split {
+    grid-template-columns: 1fr 1.25fr;
+    grid-template-areas: 'text media';
+    --media-shape: polygon(var(--slant) 0, 100% 0, 100% 100%, 0 100%);
+  }
+
+  .split .mediaInner {
+    height: 100%;
+    padding: var(--s-6) var(--s-6) var(--s-6) calc(var(--s-6) + var(--slant));
+  }
+
+  .split .textPanel {
+    align-self: start;
+  }
+
+  .closeup {
+    grid-template-columns: repeat(12, 1fr);
+    grid-template-areas: none;
+  }
+
+  .closeup .mediaPanel {
+    grid-column: 1 / -1;
+    grid-row: 1;
+  }
+
+  .closeup .mediaInner {
+    min-height: 560px;
+    align-items: start;
+    justify-items: end;
+    padding: var(--s-7) var(--s-8) var(--s-7) 0;
+  }
+
+  .closeup .textPanel {
+    grid-column: 1 / span 6;
+    grid-row: 1;
+    align-self: end;
+    margin: 0 0 var(--s-6) var(--s-6);
+  }
+}
+
+/* The split layout's media is slanted on its left edge: keep the SFX in the open corner. */
+@media (min-width: 900px) {
+  .split .showcaseSfx {
+    left: auto;
+    right: var(--s-4);
+  }
+}

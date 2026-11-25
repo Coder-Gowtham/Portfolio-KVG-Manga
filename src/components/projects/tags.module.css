@@ -1,0 +1,26 @@
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s-2);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.tags li {
+  padding: 2px var(--s-2);
+  border: 1px solid var(--steel);
+  color: var(--text-on-night);
+  font-family: var(--font-mono);
+  font-size: var(--fs-micro);
+  letter-spacing: 0.02em;
+}
+
+.paper li {
+  border-color: var(--ink);
+  color: var(--ink);
+}
+
+.tags .more {
+  border-style: dashed;
+}

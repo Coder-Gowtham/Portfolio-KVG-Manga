@@ -1,0 +1,481 @@
+.stack {
+  display: grid;
+  gap: var(--s-6);
+  min-width: 0;
+}
+
+.section {
+  display: grid;
+  gap: var(--s-4);
+  min-width: 0;
+}
+
+.back {
+  font-family: var(--font-mono);
+  font-size: var(--fs-mono);
+}
+
+.back a {
+  display: inline-block;
+  padding-block: var(--s-2);
+  color: var(--neon-cyan);
+}
+
+/* ---------- Splash ---------- */
+.splash {
+  position: relative;
+  display: grid;
+  gap: var(--s-5);
+  padding: var(--s-5) var(--s-4);
+  background: var(--ink-2);
+  border: var(--line-3) solid var(--neon-cyan);
+  box-shadow: 8px 8px 0 var(--neon-magenta);
+  overflow: hidden;
+  isolation: isolate;
+}
+
+@media (min-width: 900px) {
+  .splash {
+    grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
+    align-items: end;
+    padding: var(--s-7) var(--s-6) var(--s-6);
+  }
+}
+
+.splashLines {
+  z-index: -1;
+}
+
+.splashSfx {
+  position: absolute;
+  top: var(--s-3);
+  right: var(--s-4);
+}
+
+.splashText {
+  display: grid;
+  gap: var(--s-3);
+  min-width: 0;
+}
+
+.ep {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--s-2);
+  font-family: var(--font-mono);
+  font-size: var(--fs-mono);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--neon-cyan);
+}
+
+.ep span {
+  padding: 0 var(--s-2);
+  background: var(--neon-magenta);
+  color: var(--ink);
+}
+
+.title {
+  font-size: var(--fs-h1);
+  line-height: 0.95;
+  text-transform: uppercase;
+  overflow-wrap: break-word;
+  text-shadow:
+    -2px 0 var(--neon-cyan),
+    2px 0 var(--neon-magenta);
+}
+
+.subtitle {
+  font-family: var(--font-mono);
+  color: var(--neon-yellow);
+}
+
+.badges {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--s-2) var(--s-3);
+}
+
+.chip {
+  padding: 1px var(--s-2);
+  border: 1px solid currentColor;
+  font-family: var(--font-mono);
+  font-size: var(--fs-micro);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s-3);
+}
+
+.links a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  padding: 0 var(--s-4);
+  border: var(--line-1) solid var(--neon-cyan);
+  color: var(--neon-cyan);
+  font-family: var(--font-mono);
+  text-decoration: none;
+}
+
+.links a:hover {
+  background: var(--neon-cyan);
+  color: var(--ink);
+}
+
+.facts {
+  display: grid;
+  grid-template-columns: max-content minmax(0, 1fr);
+  gap: var(--s-2) var(--s-4);
+  margin: 0;
+  padding: var(--s-4);
+  background: var(--ink);
+  border: 1px solid var(--steel);
+}
+
+.facts dt {
+  font-family: var(--font-mono);
+  font-size: var(--fs-micro);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--neon-cyan);
+  padding-top: 3px;
+}
+
+.facts dd {
+  margin: 0;
+  min-width: 0;
+}
+
+.notice {
+  max-width: none;
+  padding: var(--s-3) var(--s-4);
+  border-left: 4px solid var(--neon-yellow);
+  background: color-mix(in srgb, var(--neon-yellow) 8%, var(--ink));
+  font-size: var(--fs-small);
+}
+
+/* ---------- Panels ---------- */
+.panelBody {
+  display: grid;
+  gap: var(--s-3);
+}
+
+.sectionHead {
+  display: grid;
+  gap: var(--s-1);
+}
+
+.sectionKicker {
+  font-family: var(--font-mono);
+  font-size: var(--fs-micro);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--neon-cyan);
+}
+
+:global(.on-paper) .sectionKicker {
+  color: var(--graphite);
+}
+
+.sectionTitle {
+  font-size: var(--fs-h2);
+  text-transform: uppercase;
+  line-height: 1;
+}
+
+.lede {
+  font-size: 1.125rem;
+  font-weight: 500;
+}
+
+.roleGrid,
+.featGrid {
+  display: grid;
+  gap: var(--gutter);
+}
+
+@media (min-width: 900px) {
+  .roleGrid {
+    grid-template-columns: minmax(0, 1.6fr) minmax(0, 1fr);
+    align-items: start;
+  }
+
+  .featGrid {
+    grid-template-columns: minmax(0, 1.6fr) minmax(0, 1fr);
+    align-items: start;
+  }
+}
+
+.didBox,
+.builtBox {
+  display: grid;
+  gap: var(--s-3);
+  padding: var(--s-5) var(--s-4);
+  background: var(--paper);
+  color: var(--ink);
+  border: var(--line-2) solid var(--ink);
+  box-shadow: 5px 5px 0 var(--neon-cyan);
+}
+
+.teamBox,
+.plannedBox {
+  display: grid;
+  gap: var(--s-3);
+  padding: var(--s-5) var(--s-4);
+  border: var(--line-2) dashed var(--steel);
+  color: var(--text-on-night);
+}
+
+.boxTitle {
+  font-family: var(--font-mono);
+  font-size: var(--fs-micro);
+  font-weight: 400;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.didBox .boxTitle,
+.builtBox .boxTitle {
+  color: var(--graphite);
+}
+
+.teamBox .boxTitle,
+.plannedBox .boxTitle {
+  color: var(--neon-yellow);
+}
+
+.list {
+  display: grid;
+  gap: var(--s-2);
+  margin: 0;
+  padding-left: var(--s-5);
+}
+
+.list li::marker {
+  color: var(--neon-magenta);
+  content: '▸ ';
+}
+
+.modules {
+  display: grid;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.modules li {
+  display: grid;
+  gap: var(--s-1);
+  padding: var(--s-3) 0;
+  border-bottom: 1px solid rgb(10 10 15 / 0.2);
+}
+
+.moduleHead {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--s-2);
+}
+
+.moduleName {
+  font-weight: 600;
+}
+
+.modules p {
+  font-size: var(--fs-small);
+  color: var(--graphite);
+}
+
+.planned {
+  display: grid;
+  gap: var(--s-2);
+  margin: 0;
+  padding-left: var(--s-4);
+  color: var(--text-on-night-muted);
+  font-size: var(--fs-small);
+}
+
+/* ---------- Engineering notes ---------- */
+.notes {
+  display: grid;
+  gap: var(--s-5) var(--gutter);
+}
+
+@media (min-width: 900px) {
+  .notes {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    align-items: start;
+  }
+
+  .notesWide {
+    grid-column: 1 / -1;
+  }
+}
+
+.challenges {
+  display: grid;
+  gap: var(--s-4);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.problem {
+  font-family: var(--font-mono);
+  font-size: var(--fs-mono);
+  color: var(--neon-magenta);
+}
+
+.solution {
+  margin-top: var(--s-1);
+}
+
+.solution span:first-child {
+  color: var(--neon-cyan);
+  font-family: var(--font-mono);
+}
+
+.termList {
+  display: grid;
+  gap: var(--s-2);
+  margin: 0;
+  padding-left: var(--s-4);
+}
+
+.termList li::marker {
+  content: '> ';
+  color: var(--neon-cyan);
+  font-family: var(--font-mono);
+}
+
+/* ---------- Related & episodes ---------- */
+.related {
+  display: grid;
+  gap: var(--gutter);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+@media (min-width: 768px) {
+  .related {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+.relatedLink {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: center;
+  gap: var(--s-1) var(--s-3);
+  min-height: 100%;
+  padding: var(--s-4);
+  background: var(--ink-2);
+  border: var(--line-2) solid var(--steel);
+  text-decoration: none;
+}
+
+.relatedLink:hover,
+.relatedLink:focus-visible {
+  border-color: var(--neon-cyan);
+}
+
+.relatedLink svg {
+  grid-row: 1 / span 2;
+  grid-column: 2;
+  width: 1.5em;
+  height: 1.5em;
+  color: var(--neon-magenta);
+}
+
+.relatedTitle {
+  font-family: var(--font-display);
+  text-transform: uppercase;
+}
+
+.relatedSub {
+  font-family: var(--font-mono);
+  font-size: var(--fs-micro);
+  color: var(--text-on-night-muted);
+}
+
+.episodes {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--gutter);
+  padding-top: var(--s-5);
+  border-top: 1px solid var(--steel);
+}
+
+.epLink {
+  display: grid;
+  gap: var(--s-1);
+  padding: var(--s-3);
+  min-width: 0;
+  border: var(--line-1) solid var(--steel);
+  text-decoration: none;
+}
+
+.epLink:last-child {
+  text-align: right;
+}
+
+.epLink:hover,
+.epLink:focus-visible {
+  border-color: var(--neon-magenta);
+}
+
+.epDir {
+  font-family: var(--font-mono);
+  font-size: var(--fs-micro);
+  color: var(--neon-cyan);
+}
+
+.epName {
+  font-family: var(--font-display);
+  text-transform: uppercase;
+  overflow-wrap: anywhere;
+}
+
+/* ---------- Placeholder project ---------- */
+.soon {
+  display: grid;
+  gap: var(--s-5);
+  align-items: center;
+}
+
+@media (min-width: 768px) {
+  .soon {
+    grid-template-columns: auto 1fr;
+  }
+}
+
+.soonDrone {
+  width: 120px;
+}
+
+/* One SFX per screen on phones: the splash text needs the space. */
+@media (max-width: 767px) {
+  .splashSfx {
+    display: none;
+  }
+}
+
+/* Kunai throw pointing at the next episode */
+.toNext {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: calc(-1 * var(--s-5));
+}
+
+.toNextArt {
+  width: clamp(170px, 48vw, 260px);
+}

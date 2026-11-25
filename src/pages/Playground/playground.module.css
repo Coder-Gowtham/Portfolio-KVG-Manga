@@ -1,0 +1,209 @@
+/* Grid-floor backdrop, shared look with Contact (spec §1.5) */
+.page {
+  background:
+    linear-gradient(transparent 0 calc(100% - 1px), rgb(0 229 255 / 0.12) 0) 0 0 / 100% 40px,
+    linear-gradient(90deg, transparent 0 calc(100% - 1px), rgb(0 229 255 / 0.08) 0) 0 0 / 40px 100%,
+    var(--ink);
+  color: var(--text-on-night);
+}
+
+.inner {
+  display: grid;
+  gap: var(--s-6);
+}
+
+.head {
+  display: grid;
+  gap: var(--s-4);
+  align-items: end;
+}
+
+@media (min-width: 768px) {
+  .head {
+    grid-template-columns: minmax(0, 1fr) auto;
+  }
+}
+
+.host {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: var(--s-2);
+}
+
+.hostDrone {
+  flex: none;
+  width: 72px;
+  animation: hover 2.4s ease-in-out infinite alternate;
+}
+
+@media (min-width: 768px) {
+  .host {
+    flex-direction: column;
+    align-items: flex-end;
+  }
+
+  .hostDrone {
+    width: 110px;
+  }
+}
+
+@keyframes hover {
+  to {
+    transform: translateY(-6px) rotate(3deg);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hostDrone {
+    animation: none;
+  }
+}
+
+/* ---------- Cabinet select ---------- */
+.cabinets {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--s-3);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+@media (min-width: 1024px) {
+  .cabinets {
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+  }
+}
+
+.cabinets li {
+  display: grid;
+}
+
+.cabinet {
+  position: relative;
+  display: grid;
+  align-content: start;
+  gap: var(--s-1);
+  min-height: 100%;
+  padding: var(--s-3);
+  background: var(--ink-2);
+  color: var(--text-on-night);
+  border: 1.5px solid var(--neon-cyan);
+  box-shadow: 4px 4px 0 var(--neon-magenta);
+  text-decoration: none;
+  transition: transform var(--dur-fast) var(--ease-ink);
+}
+
+a.cabinet:hover {
+  transform: translate(-2px, -2px);
+  box-shadow: 6px 6px 0 var(--neon-magenta);
+}
+
+a.cabinet:focus-visible {
+  outline: 2px solid var(--neon-yellow);
+  outline-offset: 3px;
+}
+
+.cabNum {
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  line-height: 1;
+  color: var(--neon-yellow);
+}
+
+.cabTitle {
+  font-family: var(--font-display);
+  font-size: 1rem;
+  text-transform: uppercase;
+  line-height: var(--lh-heading);
+}
+
+.cabBlurb {
+  font-size: var(--fs-small);
+  line-height: 1.4;
+  color: var(--text-on-night-muted);
+}
+
+.cabSoon {
+  border-style: dashed;
+  border-color: var(--steel);
+  box-shadow: none;
+  opacity: 0.7;
+}
+
+.cabSoon .cabNum {
+  color: var(--steel);
+}
+
+.soonTag {
+  justify-self: start;
+  margin-top: var(--s-1);
+  padding: 1px var(--s-2);
+  font-family: var(--font-mono);
+  font-size: var(--fs-micro);
+  text-transform: uppercase;
+  border: 1px solid var(--steel);
+}
+
+/* ---------- Module sections ---------- */
+.modules {
+  display: grid;
+  gap: var(--s-7);
+}
+
+@media (min-width: 1024px) {
+  .modules {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--s-7) var(--s-6);
+    align-items: start;
+  }
+}
+
+.anchor {
+  scroll-margin-top: var(--s-5);
+  min-width: 0;
+}
+
+.moduleHead {
+  margin-bottom: var(--s-4);
+}
+
+.moduleKicker {
+  margin: 0;
+  font-family: var(--font-mono);
+  font-size: var(--fs-mono);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--neon-magenta);
+}
+
+.moduleTitle {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: var(--fs-h2);
+  line-height: var(--lh-heading);
+  text-transform: uppercase;
+}
+
+/* ---------- Rumours ---------- */
+.rumours {
+  display: grid;
+  gap: var(--s-4);
+  max-width: var(--measure);
+}
+
+.rumours code {
+  font-family: var(--font-mono);
+  color: var(--neon-yellow);
+}
+
+.offDuty {
+  margin: 0;
+  color: var(--text-on-night-muted);
+}
+
+.inlineLink {
+  color: var(--neon-cyan);
+  text-underline-offset: 3px;
+}

@@ -1,0 +1,156 @@
+.gallery {
+  display: grid;
+  gap: var(--s-3);
+}
+
+.toggle {
+  display: flex;
+  gap: 0;
+  justify-self: start;
+  border: var(--line-1) solid var(--neon-cyan);
+}
+
+.toggle button {
+  min-height: 44px;
+  padding: 0 var(--s-4);
+  background: transparent;
+  border: 0;
+  color: var(--neon-cyan);
+  font-family: var(--font-mono);
+  font-size: var(--fs-mono);
+}
+
+.toggle button[aria-pressed='true'] {
+  background: var(--neon-cyan);
+  color: var(--ink);
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--gutter);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+@media (min-width: 768px) {
+  .grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 1024px) {
+  .grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+.item {
+  display: grid;
+  place-items: center;
+  min-height: 200px;
+  padding: var(--s-4);
+  background:
+    radial-gradient(rgb(10 10 15 / 0.25) 0.9px, transparent 1px) 0 0 / 4px 4px,
+    var(--paper);
+  border: var(--line-2) solid var(--ink);
+}
+
+.ph {
+  width: min(90%, 340px);
+}
+
+.mobile .ph {
+  width: min(44%, 160px);
+}
+
+.figure {
+  display: grid;
+  gap: var(--s-2);
+  margin: 0;
+  width: 100%;
+}
+
+.figure figcaption {
+  font-family: var(--font-mono);
+  font-size: var(--fs-micro);
+  color: var(--ink);
+}
+
+.thumb {
+  display: block;
+  padding: 0;
+  background: none;
+  border: var(--line-2) solid var(--ink);
+  cursor: zoom-in;
+}
+
+.thumb img {
+  width: 100%;
+  height: auto;
+}
+
+.thumb:focus-visible {
+  outline: 3px solid var(--neon-magenta);
+  outline-offset: 3px;
+}
+
+.video {
+  width: 100%;
+  border: var(--line-2) solid var(--ink);
+}
+
+.note {
+  font-family: var(--font-mono);
+  font-size: var(--fs-micro);
+  color: var(--text-on-night-muted);
+}
+
+.lightbox {
+  width: min(96vw, 1200px);
+  max-height: 92dvh;
+  padding: 0;
+  background: var(--ink);
+  color: var(--text-on-night);
+  border: var(--line-2) solid var(--neon-cyan);
+}
+
+.lightbox::backdrop {
+  background: rgb(10 10 15 / 0.88);
+}
+
+.full {
+  width: 100%;
+  max-height: calc(92dvh - 64px);
+  object-fit: contain;
+}
+
+.controls {
+  display: flex;
+  align-items: center;
+  gap: var(--s-2);
+  padding: var(--s-2) var(--s-3);
+  border-top: 1px solid var(--steel);
+}
+
+.caption {
+  flex: 1;
+  font-family: var(--font-mono);
+  font-size: var(--fs-micro);
+}
+
+.caption span {
+  color: var(--neon-cyan);
+}
+
+.controls button {
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  background: none;
+  border: var(--line-1) solid var(--neon-cyan);
+  color: var(--neon-cyan);
+  font-size: 1.25rem;
+}

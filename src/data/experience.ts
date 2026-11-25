@@ -1,0 +1,82 @@
+import type { ExperienceEntry } from '../types/content'
+
+/**
+ * Newest first. Source: résumé "GOWTHAM_KV_RESUME_FULLSTACK" (23 Nov 2026)
+ * + Gowtham's answers. No invented achievements or metrics.
+ */
+export const experience: ExperienceEntry[] = [
+  {
+    id: 'independent-2026',
+    chapter: 4,
+    kind: 'independent',
+    organization: 'Independent',
+    role: 'Career break & independent work',
+    startDate: '2026-05',
+    summary: 'Levelling up skills, recharging, building a construction ERP for a client, and starting the AI integration arc.',
+    responsibilities: [
+      'Building VSCC ERP: web ERP and phone app for a construction group',
+      'Built LogLens AI, an AI-assisted log analysis tool (React, Node.js, OpenAI API)',
+      'Learning to integrate LLM features into real products',
+    ],
+    technologies: ['React', 'TypeScript', 'Node.js', 'Express', 'PostgreSQL', 'Docker', 'AWS', 'Redis', 'BullMQ', 'OpenAI API'],
+    projectSlugs: ['vscc-erp', 'loglens-ai'],
+    needsInput: ['Approve public wording'],
+  },
+  {
+    id: 'innoscripta',
+    chapter: 3,
+    kind: 'job',
+    organization: 'Innoscripta SE',
+    role: 'Full Stack Developer',
+    workMode: 'remote',
+    location: 'Remote',
+    startDate: '2025-09',
+    endDate: '2026-04',
+    summary: 'Frontend-heavy work on Clusterix, extending the open-source ONLYOFFICE JavaScript editors.',
+    responsibilities: [
+      'Developed and customised frontend functionality for Clusterix by extending the ONLYOFFICE JavaScript codebase across document, spreadsheet and presentation editors',
+      'Built and modified interactive UI components: side panels, toolbar and ribbon actions, dropdown menus, layouts and Clusterix-specific components',
+      'Integrated frontend components with existing APIs and editor functionality while preserving document-editing behaviour',
+      'Debugged and extended a large-scale JavaScript codebase, tracing functionality across modules for new product requirements',
+      'Worked with the team on layouts and interactions toward a Google Docs-like editing experience',
+    ],
+    technologies: ['JavaScript', 'ONLYOFFICE', 'HTML', 'CSS/LESS'],
+    projectSlugs: ['clusterix'],
+  },
+  {
+    id: 'niveus',
+    chapter: 2,
+    kind: 'job',
+    organization: 'Niveus Solutions',
+    role: 'Cloud Associate (Backend Engineer)',
+    workMode: 'onsite',
+    location: 'Mangalore',
+    startDate: '2022-05',
+    endDate: '2025-08',
+    summary: 'Node.js/Express microservices for fintech onboarding and loan journeys.',
+    responsibilities: [
+      'Developed and maintained Node.js/Express REST APIs across fintech microservices: new endpoints, business logic, validation and customer onboarding workflows',
+      "Built the initial backend orchestration framework for the Customer Acquisition Platform (CAP), turning the solution architect's design into a reusable Node.js/Express structure",
+      'Orchestrated downstream APIs with database-driven configuration that returned UI components, controlled page navigation, and handled retries and errors',
+      'Co-owned end-to-end backend development of the Times Black premium credit-card onboarding journey',
+      'Owned backend development of a YEIDA digital loan journey through UAT',
+      'Worked with MySQL schema changes, joins, subqueries, transactions, indexes and stored procedures',
+      'Deployed microservices through Jenkins CI/CD and diagnosed UAT/production issues using GCP application logs',
+    ],
+    technologies: ['Node.js', 'Express', 'JavaScript', 'MySQL', 'REST APIs', 'Microservices', 'GCP', 'Jenkins'],
+    projectSlugs: ['times-black', 'yeida'],
+  },
+  {
+    id: 'btech',
+    chapter: 1,
+    kind: 'education',
+    organization: 'Shri Shankaracharya Engineering College',
+    role: 'B.Tech, Electronics & Telecom',
+    summary: 'Electronics and Telecommunication Engineering.',
+    location: 'Bhilai',
+    startDate: '2015-08',
+    endDate: '2019-06',
+    responsibilities: [],
+    technologies: [],
+  },
+]

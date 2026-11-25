@@ -1,0 +1,180 @@
+/* Shared styles for Phase 3 placeholder pages. Phases 4–6 replace these. */
+.stack {
+  display: grid;
+  gap: var(--s-5);
+}
+
+.wip {
+  display: grid;
+  gap: var(--s-3);
+}
+
+.wipLabel {
+  font-family: var(--font-mono);
+  font-size: var(--fs-micro);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.list {
+  display: grid;
+  gap: var(--s-3);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.row {
+  display: grid;
+  gap: var(--s-1);
+  padding-block: var(--s-3);
+  border-bottom: 1px solid color-mix(in srgb, currentColor 25%, transparent);
+}
+
+.rowHead {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--s-2) var(--s-3);
+}
+
+.rowTitle {
+  font-family: var(--font-display);
+  font-size: var(--fs-h3);
+  text-transform: uppercase;
+}
+
+.rowTitle a {
+  text-decoration: none;
+}
+
+.rowTitle a:hover {
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
+.meta {
+  font-family: var(--font-mono);
+  font-size: var(--fs-mono);
+  color: var(--text-on-paper-muted);
+}
+
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s-2);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.tag {
+  font-family: var(--font-mono);
+  font-size: var(--fs-micro);
+  padding: 2px var(--s-2);
+  background: var(--ink);
+  color: var(--neon-cyan);
+}
+
+.actions {
+  display: grid;
+  gap: var(--s-3);
+}
+
+@media (min-width: 480px) {
+  .actions {
+    display: flex;
+    flex-wrap: wrap;
+  }
+}
+
+.split {
+  display: grid;
+  gap: var(--s-5);
+  align-items: center;
+}
+
+@media (min-width: 768px) {
+  .split {
+    grid-template-columns: 1.2fr 1fr;
+  }
+}
+
+.mascot {
+  width: min(70vw, 320px);
+  margin-inline: auto;
+}
+
+.mascotSmall {
+  width: 140px;
+}
+
+/* Art column: mascot with its sound effect anchored to the art, never over text */
+.art {
+  position: relative;
+  justify-self: center;
+}
+
+.sfxArt {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.dl {
+  display: grid;
+  grid-template-columns: max-content 1fr;
+  gap: var(--s-2) var(--s-4);
+  margin: 0;
+}
+
+.dl dt {
+  font-family: var(--font-mono);
+  font-size: var(--fs-mono);
+  color: var(--text-on-paper-muted);
+}
+
+.dl dd {
+  margin: 0;
+  font-weight: 500;
+}
+
+.linkRow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s-2);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.linkRow a {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--s-2);
+  min-height: 44px;
+  padding: 0 var(--s-3);
+  border: var(--line-1) solid currentColor;
+  font-family: var(--font-mono);
+  text-decoration: none;
+}
+
+.linkRow a:hover {
+  background: var(--ink);
+  color: var(--neon-cyan);
+}
+
+.actionArt {
+  width: clamp(180px, 50vw, 260px);
+}
+
+/* Long headings need the full width until there is room beside the art */
+.splitArt {
+  grid-template-columns: minmax(0, 1fr);
+}
+
+@media (min-width: 1024px) {
+  .splitArt {
+    grid-template-columns: minmax(0, 1fr) auto;
+  }
+}

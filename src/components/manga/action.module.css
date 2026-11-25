@@ -1,0 +1,107 @@
+.action {
+  display: block;
+  overflow: visible;
+}
+
+.sfx {
+  font-family: var(--font-sfx);
+  font-size: 22px;
+  paint-order: stroke;
+  stroke: var(--ink);
+  stroke-width: 3px;
+}
+
+.offDuty use[data-mask='up'] {
+  display: none;
+}
+
+/* One-shot entrances; transform/opacity/clip-path only (spec §6). */
+.trail {
+  animation: trail var(--dur-dramatic) var(--ease-ink) both;
+}
+
+@keyframes trail {
+  from {
+    clip-path: inset(0 0 100% 0);
+    opacity: 0;
+  }
+}
+
+.fly {
+  animation: fly var(--dur-slow) var(--ease-impact) both;
+}
+
+@keyframes fly {
+  from {
+    opacity: 0;
+    transform: translateX(-30px);
+  }
+}
+
+.aura {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  animation: surge 1.6s ease-in-out infinite alternate;
+}
+
+@keyframes surge {
+  from {
+    opacity: 0.75;
+    transform: scale(0.97);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1.03);
+  }
+}
+
+.shards {
+  animation: rise 2.4s linear infinite;
+}
+
+@keyframes rise {
+  from {
+    transform: translateY(8px);
+    opacity: 0;
+  }
+  30% {
+    opacity: 1;
+  }
+  to {
+    transform: translateY(-14px);
+    opacity: 0;
+  }
+}
+
+.gleam {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: gleam 2.8s ease-in-out infinite;
+}
+
+@keyframes gleam {
+  0%,
+  70%,
+  100% {
+    opacity: 0;
+    transform: scale(0.4) rotate(0deg);
+  }
+  80% {
+    opacity: 1;
+    transform: scale(1) rotate(45deg);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .trail,
+  .fly,
+  .aura,
+  .shards,
+  .gleam {
+    animation: none;
+  }
+
+  .gleam {
+    opacity: 1;
+  }
+}

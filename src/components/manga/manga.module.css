@@ -1,0 +1,265 @@
+/* ---------- ChapterHeading ---------- */
+.chapter {
+  display: grid;
+  gap: var(--s-2);
+  margin-block-end: var(--s-5);
+}
+
+.kicker {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--s-2);
+  font-family: var(--font-mono);
+  font-size: var(--fs-mono);
+  color: var(--accent-hud);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+:global(.on-paper) .kicker {
+  color: var(--text-on-paper);
+}
+
+.kickerTag {
+  background: var(--neon-magenta);
+  color: var(--ink);
+  padding: 0 var(--s-2);
+}
+
+.chapterTitle {
+  font-size: var(--fs-h1);
+  line-height: var(--lh-tight);
+  text-transform: uppercase;
+  text-wrap: balance;
+  /* Safety net for very wide display glyphs on small screens. */
+  overflow-wrap: break-word;
+  min-width: 0;
+}
+
+.chapterTitleGlitch {
+  text-shadow:
+    calc(-1 * var(--neon-offset)) 0 0 var(--neon-cyan),
+    var(--neon-offset) 0 0 var(--neon-magenta);
+}
+
+:global(.on-paper) .chapterTitleGlitch {
+  text-shadow: var(--neon-offset) var(--neon-offset) 0 var(--neon-magenta);
+}
+
+.chapterLede {
+  color: var(--text-on-night-muted);
+}
+
+:global(.on-paper) .chapterLede {
+  color: var(--text-on-paper-muted);
+}
+
+/* ---------- MangaPanel ----------
+ * frame  : optional neon drop-shadow (must sit outside the clip)
+ * outer  : ink/neon "border" — a clipped background, so slanted edges stay crisp
+ * inner  : the panel surface, clipped to the same shape
+ */
+.frame {
+  position: relative;
+}
+
+.frameNeon {
+  filter: drop-shadow(calc(var(--neon-offset) * 2) calc(var(--neon-offset) * 2) 0 var(--neon-magenta));
+}
+
+.outer {
+  --slant-px: 0px;
+  --bw: var(--line-2);
+  background: var(--ink);
+  padding: var(--bw);
+  clip-path: var(--shape);
+}
+
+.inner {
+  position: relative;
+  isolation: isolate;
+  padding: var(--s-4);
+  clip-path: var(--shape-inner);
+}
+
+@media (min-width: 768px) {
+  .inner {
+    padding: var(--s-5);
+  }
+}
+
+.outer,
+.inner {
+  --shape: none;
+  --shape-inner: none;
+}
+
+.slantRight {
+  --slant-px: clamp(14px, 3vw, 36px);
+  --shape: polygon(0 0, 100% 0, 100% calc(100% - var(--slant-px)), 0 100%);
+}
+
+.slantRight > .inner {
+  --shape-inner: polygon(0 0, 100% 0, 100% calc(100% - var(--slant-px)), 0 100%);
+  padding-block-end: calc(var(--s-4) + var(--slant-px));
+}
+
+.slantLeft {
+  --slant-px: clamp(14px, 3vw, 36px);
+  --shape: polygon(0 0, 100% 0, 100% 100%, 0 calc(100% - var(--slant-px)));
+}
+
+.slantLeft > .inner {
+  --shape-inner: polygon(0 0, 100% 0, 100% 100%, 0 calc(100% - var(--slant-px)));
+  padding-block-end: calc(var(--s-4) + var(--slant-px));
+}
+
+.panelPaper > .inner {
+  background: var(--paper);
+  color: var(--text-on-paper);
+}
+
+.panelNight {
+  background: var(--neon-cyan);
+}
+
+.panelNight > .inner {
+  background: var(--ink-2);
+  color: var(--text-on-night);
+}
+
+.panelTone > .inner::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background-image: radial-gradient(var(--ink) 0.9px, transparent 1px);
+  background-size: 4px 4px;
+  opacity: 0.18;
+}
+
+.panelNight.panelTone > .inner::before {
+  background-image: radial-gradient(var(--neon-magenta) 1px, transparent 1.1px);
+  opacity: 0.25;
+}
+
+/* ---------- SpeechBubble ---------- */
+.bubble {
+  position: relative;
+  display: inline-block;
+  max-width: 34ch;
+  background: #fff;
+  color: var(--ink);
+  border: var(--line-1) solid var(--ink);
+  border-radius: 999px;
+  padding: var(--s-3) var(--s-5);
+  font-weight: 500;
+  line-height: 1.4;
+}
+
+.bubbleBox {
+  border-radius: 28px;
+}
+
+.bubble::after {
+  content: '';
+  position: absolute;
+  bottom: -12px;
+  width: 18px;
+  height: 14px;
+  background: #fff;
+  border-right: var(--line-1) solid var(--ink);
+  border-bottom: var(--line-1) solid var(--ink);
+  transform: skewX(35deg);
+}
+
+.tailLeft::after {
+  left: 22%;
+}
+
+.tailRight::after {
+  right: 22%;
+  transform: skewX(-35deg);
+  border-right: 0;
+  border-left: var(--line-1) solid var(--ink);
+}
+
+/* ---------- NarrationBox ---------- */
+.narration {
+  border: var(--line-1) solid currentColor;
+  padding: var(--s-3) var(--s-4);
+  background: var(--paper-2);
+  color: var(--ink);
+}
+
+.narrationNight {
+  background: var(--ink);
+  color: var(--text-on-night);
+  border-color: var(--neon-cyan);
+}
+
+/* ---------- Sfx ---------- */
+.sfx {
+  font-family: var(--font-sfx);
+  color: var(--neon-magenta);
+  -webkit-text-stroke: 1.5px var(--ink);
+  paint-order: stroke fill;
+  line-height: 1;
+  user-select: none;
+  pointer-events: none;
+}
+
+/* ---------- Stamp ---------- */
+.stamp {
+  display: inline-block;
+  font-family: var(--font-display);
+  font-size: var(--fs-micro);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 2px var(--s-2);
+  border: 2px solid currentColor;
+  transform: rotate(-3deg);
+}
+
+.stamp-in-development {
+  color: var(--neon-magenta);
+  background: var(--ink);
+}
+
+.stamp-shipped,
+.stamp-maintained,
+.stamp-done,
+.stamp-draft-ready {
+  color: var(--ink);
+  background: var(--neon-cyan);
+}
+
+.stamp-testing,
+.stamp-partly-done,
+.stamp-training {
+  color: var(--ink);
+  background: var(--neon-yellow);
+}
+
+.stamp-planned,
+.stamp-placeholder,
+.stamp-archived {
+  color: var(--text-on-night-muted);
+  background: var(--ink);
+  border-style: dashed;
+}
+
+/* ---------- NeedsInput (dev only) ---------- */
+.needsInput {
+  border: 2px dashed var(--neon-yellow);
+  background: color-mix(in srgb, var(--neon-yellow) 12%, var(--ink));
+  color: var(--neon-yellow);
+  font-family: var(--font-mono);
+  font-size: var(--fs-micro);
+  padding: var(--s-2) var(--s-3);
+}
+
+.needsInput ul {
+  margin: var(--s-1) 0 0;
+  padding-inline-start: var(--s-4);
+}
