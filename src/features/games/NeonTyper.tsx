@@ -40,7 +40,13 @@ export function NeonTyper() {
     setNewBest(false)
     setPhase('playing')
     nextRound(0, null)
-    requestAnimationFrame(() => input.current?.focus())
+    // Focus inside the tap itself: phones only open the keyboard for a focus that
+    // happens during the user's gesture, not one deferred to a later frame.
+    const el = input.current
+    if (el) {
+      el.readOnly = false
+      el.focus()
+    }
   }
 
   const end = (finalScore: number) => {
@@ -157,7 +163,8 @@ export function NeonTyper() {
         value={typed}
         onChange={onChange}
         onKeyDown={onKeyDown}
-        disabled={phase !== 'playing'}
+        readOnly={phase !== 'playing'}
+        aria-disabled={phase !== 'playing' || undefined}
         autoComplete="off"
         autoCapitalize="off"
         autoCorrect="off"
