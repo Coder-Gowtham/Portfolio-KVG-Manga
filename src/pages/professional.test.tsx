@@ -77,7 +77,7 @@ describe('Project detail', () => {
 
   it('renders a placeholder project as "coming soon" without invented details', async () => {
     renderAt('/projects/vector-mind')
-    expect(await screen.findByText(/coming soon/i)).toBeInTheDocument()
+    expect(await screen.findByText(/details coming soon/i)).toBeInTheDocument()
     expect(screen.queryByRole('heading', { name: /engineering notes/i })).not.toBeInTheDocument()
   })
 })
@@ -131,7 +131,10 @@ describe('Experience', () => {
     await screen.findByRole('heading', { level: 1, name: /the story so far/i })
     const timeline = screen.getByRole('list', { name: /career chapters/i })
     expect(timeline.querySelectorAll('article ul:not([aria-label$="technologies"])')).toHaveLength(0)
-    expect(screen.getByText('Aug 2018 – Aug 2020')).toBeInTheDocument()
+    expect(screen.getByText('2019 – 2020')).toBeInTheDocument()
+    expect(screen.getByText('Jan 2021 – Jun 2021')).toBeInTheDocument()
+    expect(screen.getByText(/i learned to listen first/i)).toBeInTheDocument()
+    expect(screen.getByText(/that question never left/i)).toBeInTheDocument()
     const niveus = screen.getByRole('heading', { name: /cloud associate/i }).closest('article')!
     expect(within(niveus).getByRole('link', { name: 'Times Black' })).toHaveAttribute('href', '/projects/times-black')
     expect(within(niveus).getByText('Savings Account')).toBeInTheDocument()

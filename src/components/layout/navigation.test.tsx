@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { render, screen, within } from '@testing-library/react'
+import { render, screen, waitFor, within } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { RouterProvider, createMemoryRouter } from 'react-router'
 import { routes } from '../../app/router'
@@ -13,7 +13,8 @@ function renderAt(path: string) {
 describe('navigation shell', () => {
   it('marks the current page in the bottom nav', async () => {
     renderAt('/projects')
-    const nav = screen.getByRole('navigation', { name: 'Primary' })
+    // Routes are lazy: wait for the page (and its shell) to load.
+    const nav = await screen.findByRole('navigation', { name: 'Primary' })
     const works = await within(nav).findByRole('link', { name: /works/i })
     expect(works).toHaveAttribute('aria-current', 'page')
     expect(within(nav).getByRole('link', { name: /home/i })).not.toHaveAttribute('aria-current')
@@ -37,7 +38,8 @@ describe('navigation shell', () => {
     const sheet = screen.getByRole('dialog', { name: /more chapters/i })
 
     await user.click(within(sheet).getByRole('link', { name: /contact/i }))
-    expect(router.state.location.pathname).toBe('/contact')
+    // Navigation resolves after the lazy Contact route loads.
+    await waitFor(() => expect(router.state.location.pathname).toBe('/contact'))
     expect(menuButton).toHaveAttribute('aria-expanded', 'false')
   })
 

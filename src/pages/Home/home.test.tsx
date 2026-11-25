@@ -77,7 +77,11 @@ describe('home page', () => {
 
   it('presents AI integration as an upcoming training arc, not a finished skill', async () => {
     await renderHome()
-    const arc = screen.getByRole('heading', { level: 3, name: /^ai integration$/i }).closest('article')!
+    // "AI integration" is also an Abilities group title; take the training-arc card.
+    const arc = screen
+      .getAllByRole('heading', { level: 3, name: /^ai integration$/i })
+      .find((h) => h.id === 'training-title')!
+      .closest('article')!
     expect(within(arc).getByText(/in training/i)).toBeInTheDocument()
     expect(within(arc).getByRole('link', { name: /loglens ai/i })).toHaveAttribute('href', '/projects/loglens-ai')
   })

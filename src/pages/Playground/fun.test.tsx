@@ -65,7 +65,7 @@ describe('Quick-draw', () => {
     const arena = screen.getByRole('button', { name: /tap to start/i })
     fireEvent.pointerDown(arena)
     fireEvent.pointerDown(arena)
-    expect(screen.getByText(/foul/i)).toBeInTheDocument()
+    expect(screen.getByText(/foul\. the bug saw you coming/i)).toBeInTheDocument()
   })
 
   it('measures a reaction and saves the best time (keyboard path)', () => {

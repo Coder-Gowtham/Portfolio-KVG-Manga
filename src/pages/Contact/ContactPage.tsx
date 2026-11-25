@@ -25,13 +25,15 @@ const COMMAND: Record<string, string> = {
  * Hover (mouse) or tap: he pulls the mask up and arms up, with a speed-line burst.
  */
 function ContactMascot({ className }: { className?: string }) {
-  const [ready, setReady] = useState(false)
+  // Hover (mouse) previews the mask-up; a click or tap toggles it on until clicked again.
+  const [hover, setHover] = useState(false)
+  const [locked, setLocked] = useState(false)
+  const ready = hover || locked
   return (
     <div
       className={cx(s.host, ready && s.ready, className)}
-      // Hover is for mice only; on touch screens a tap toggles (see the button).
-      onPointerEnter={(e) => e.pointerType === 'mouse' && setReady(true)}
-      onPointerLeave={(e) => e.pointerType === 'mouse' && setReady(false)}
+      onPointerEnter={(e) => e.pointerType === 'mouse' && setHover(true)}
+      onPointerLeave={(e) => e.pointerType === 'mouse' && setHover(false)}
     >
       <SpeechBubble tail="right" className={s.hostBubble}>
         <span key={String(ready)} className={s.hostLine}>
@@ -41,9 +43,9 @@ function ContactMascot({ className }: { className?: string }) {
       <button
         type="button"
         className={s.hostButton}
-        aria-pressed={ready}
+        aria-pressed={locked}
         aria-label="Netrunner: mask up"
-        onClick={() => setReady((r) => !r)}
+        onClick={() => setLocked((l) => !l)}
       >
         <SpeedLines className={s.hostLines} color="var(--neon-cyan)" count={40} inner={38} cy={55} />
         <Mascot className={s.mascot} mask={ready ? 'up' : 'down'} armed={ready} />
