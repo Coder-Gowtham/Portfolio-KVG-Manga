@@ -32,6 +32,23 @@
   color: var(--ink);
 }
 
+/* Phones: résumé button and order toggle span the column, centred and balanced */
+@media (max-width: 639px) {
+  .toolbar {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .toolbar > * {
+    justify-content: center;
+    text-align: center;
+  }
+
+  .order button {
+    flex: 1;
+  }
+}
+
 /* ---------- Timeline: left spine on mobile, centre spine on desktop ---------- */
 .timeline {
   --spine-x: 14px;
