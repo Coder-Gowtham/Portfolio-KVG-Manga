@@ -52,6 +52,18 @@
   width: min(78%, 300px);
 }
 
+/* Illustrated world fills the media area edge to edge */
+.mediaWorld {
+  aspect-ratio: 16 / 9;
+  min-height: 0;
+  padding: 0;
+  background: var(--ink);
+}
+
+.mediaWorld .lines {
+  display: none;
+}
+
 .img {
   width: 100%;
   height: auto;

@@ -13,6 +13,7 @@ import { CATEGORY_LABEL, CONTRIBUTION_LABEL, formatRange } from '../../utils/lab
 import { relatedProjects } from '../../utils/projectFilters'
 import NotFoundPage from '../NotFound/NotFoundPage'
 import s from './detail.module.css'
+import { ProjectWorld, hasWorld } from '../../components/worlds/ProjectWorld'
 
 function SectionTitle({ id, kicker, children }: { id: string; kicker: string; children: string }) {
   return (
@@ -132,6 +133,9 @@ export default function ProjectDetailPage() {
           </dl>
           <Sfx text="ドン" size="clamp(2rem, 6vw, 3.25rem)" className={s.splashSfx} />
         </header>
+
+        {/* 1b · Establishing shot: the project's illustrated world */}
+        {hasWorld(project.slug) && <ProjectWorld slug={project.slug} />}
 
         <NeedsInput items={project.needsInput} />
 

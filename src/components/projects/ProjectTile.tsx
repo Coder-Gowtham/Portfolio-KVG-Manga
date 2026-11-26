@@ -6,6 +6,7 @@ import type { TileSize } from '../../utils/projectFilters'
 import { Stamp } from '../manga'
 import { SpeedLines } from '../manga/art'
 import { MediaPlaceholder } from './MediaPlaceholder'
+import { ProjectWorld, hasWorld } from '../worlds/ProjectWorld'
 import { TechTags } from './TechTags'
 import s from './tile.module.css'
 
@@ -17,6 +18,8 @@ import s from './tile.module.css'
 export function ProjectTile({ project, size, index }: { project: Project; size: TileSize; index: number }) {
   const media = project.media?.find((m) => m.approvedForPublic && m.src) ?? project.media?.[0]
   const placeholder = project.status === 'placeholder'
+  // No approved screenshot yet: show the project's illustrated world, clearly tagged as an illustration.
+  const showWorld = !(media?.src && media.approvedForPublic) && hasWorld(project.slug)
 
   return (
     <article
@@ -26,10 +29,12 @@ export function ProjectTile({ project, size, index }: { project: Project; size: 
       {/* Target-lock brackets, shown on hover/focus */}
       <span className={s.lock} aria-hidden="true" />
       {!project.noMedia && (
-        <div className={s.media}>
+        <div className={cx(s.media, showWorld && s.mediaWorld)}>
           <SpeedLines className={s.lines} cx={index % 2 ? 80 : 20} cy={30} seed={index + 11} inner={18} />
           {media?.src && media.approvedForPublic ? (
             <img className={s.img} src={media.src} alt={media.alt} loading="lazy" decoding="async" />
+          ) : showWorld ? (
+            <ProjectWorld slug={project.slug} variant="tile" />
           ) : placeholder ? (
             <span className={s.soon} aria-hidden="true">
               ???

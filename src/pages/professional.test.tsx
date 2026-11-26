@@ -75,6 +75,15 @@ describe('Project detail', () => {
     expect(within(nav).getAllByRole('link')).toHaveLength(2)
   })
 
+  it('opens on the project world, labelled as an illustration and not a screenshot', async () => {
+    renderAt('/projects/times-black')
+    await screen.findByRole('heading', { level: 1, name: /times black/i })
+    const art = screen.getByRole('img', { name: /^illustration: an orchestrator hub/i })
+    const figure = art.closest('figure')!
+    expect(within(figure).getByText(/nexus/i)).toBeInTheDocument()
+    expect(within(figure).getByText(/not a product screenshot/i)).toBeInTheDocument()
+  })
+
   it('renders a placeholder project as "coming soon" without invented details', async () => {
     renderAt('/projects/vector-mind')
     expect(await screen.findByText(/details coming soon/i)).toBeInTheDocument()

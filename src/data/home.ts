@@ -5,10 +5,14 @@
 export const home = {
   status: ['KVG.SYS // ONLINE', 'Available for immediate joining', 'Next arc: AI integration'],
   cover: {
+    /** Hero title, split so the initials and the name can be styled apart. */
+    title: { initials: 'K.V.', name: 'Gowtham' },
+    /** Hero tagline: two short lines. */
+    tagline: ['Engineering the invisible.', 'Crafting the experience.'],
     issueLabel: 'CYBER ISSUE',
-    tagline: 'MANGA × CODE',
+    mastheadTag: 'MANGA × CODE',
     /** Cover lines shown over the art. Keep them short. */
-    lines: ['React.js', 'Node.js', 'Full stack', 'Fintech arc'],
+    lines: ['React.js', 'Node.js', 'Fintech arc'],
     newArc: { label: 'NEW ARC!', title: 'VSCC ERP', slug: 'vscc-erp' },
     /** The mascot's catchphrase, shown beside the name. */
     catchphrase: 'Relax. I only hunt bugs.',

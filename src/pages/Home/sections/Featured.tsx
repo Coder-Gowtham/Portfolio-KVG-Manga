@@ -1,12 +1,13 @@
 import { Link } from 'react-router'
 import { ChapterHeading, Stamp } from '../../../components/manga'
+import { ProjectWorld, hasWorld } from '../../../components/worlds/ProjectWorld'
 import { featuredProjects } from '../../../data/projects'
 import { CATEGORY_LABEL } from '../../../utils/labels'
 import s from '../home.module.css'
 
 const MAX_TAGS = 4
 
-/** Featured works: three text-first cards. No placeholder media until real screenshots exist. */
+/** Featured works: three cards, each opening on the project's illustrated world (tagged as an illustration). */
 export function Featured() {
   const list = featuredProjects()
     .filter((p) => p.status !== 'in-development')
@@ -18,6 +19,11 @@ export function Featured() {
         {list.map((p, i) => (
           <li key={p.id}>
             <article className={s.work} data-reveal-item>
+              {hasWorld(p.slug) && (
+                <div className={s.workWorld}>
+                  <ProjectWorld slug={p.slug} variant="tile" />
+                </div>
+              )}
               <p className={s.workKicker}>
                 <span aria-hidden="true">EP.{String(i + 1).padStart(2, '0')} · </span>
                 {CATEGORY_LABEL[p.category]}

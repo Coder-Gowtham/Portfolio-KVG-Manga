@@ -5,6 +5,7 @@ import { profile } from './profile'
 import { skills } from './skills'
 import { metaFor, prerenderPaths } from '../app/routes'
 import { contrast, logoColour, stack } from './stack'
+import { WORLDS } from '../components/worlds/ProjectWorld'
 
 /** Every user-facing string in a project, for content-rule checks. */
 const projectText = (p: (typeof projects)[number]) =>
@@ -158,5 +159,13 @@ describe('project media', () => {
     for (const p of projects)
       for (const m of p.media ?? [])
         if (m.kind === 'video' && m.src) expect(m.captions, `${p.slug}: ${m.alt}`).toMatch(/\.vtt$/)
+  })
+})
+
+describe('project worlds', () => {
+  it('only draws worlds for projects that exist, and never for YEIDA', () => {
+    const slugs = new Set(projects.map((p) => p.slug))
+    for (const slug of Object.keys(WORLDS)) expect(slugs.has(slug)).toBe(true)
+    expect(Object.keys(WORLDS).some((s) => /yeida/i.test(s))).toBe(false)
   })
 })
