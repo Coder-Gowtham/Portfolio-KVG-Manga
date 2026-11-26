@@ -1,6 +1,7 @@
 import { Link } from 'react-router'
 import { ChapterHeading, Stamp } from '../../../components/manga'
-import { ProjectWorld, hasWorld } from '../../../components/worlds/ProjectWorld'
+import { ProjectWorld } from '../../../components/worlds/ProjectWorld'
+import { hasWorld } from '../../../data/worlds'
 import { featuredProjects } from '../../../data/projects'
 import { CATEGORY_LABEL } from '../../../utils/labels'
 import s from '../home.module.css'

@@ -5,7 +5,7 @@ import { profile } from './profile'
 import { skills } from './skills'
 import { metaFor, prerenderPaths } from '../app/routes'
 import { contrast, logoColour, stack } from './stack'
-import { WORLDS } from '../components/worlds/ProjectWorld'
+import { WORLDS } from './worlds'
 
 /** Every user-facing string in a project, for content-rule checks. */
 const projectText = (p: (typeof projects)[number]) =>

@@ -1,52 +1,17 @@
 import { useEffect, useId, useLayoutEffect, useRef, useState, type ComponentType, type CSSProperties, type RefObject } from 'react'
 import { loadMotion, prefersReducedMotion } from '../../motion/gsap'
+import { WORLDS } from '../../data/worlds'
 import { cx } from '../../utils/cx'
 import { FoundationScene, IntelligenceScene, InterfaceScene, NexusScene, PresenceScene } from './scenes'
 import s from './worlds.module.css'
 
-interface World {
-  name: string
-  /** What the illustration shows, for screen readers. */
-  alt: string
-  accent: string
-  Scene: ComponentType<{ p: string }>
+const SCENES: Record<string, ComponentType<{ p: string }>> = {
+  'times-black': NexusScene,
+  clusterix: InterfaceScene,
+  'loglens-ai': IntelligenceScene,
+  'roshan-tiwari-consultants': PresenceScene,
+  'vscc-erp': FoundationScene,
 }
-
-/** One world per project slug. Projects without an entry fall back to their usual media. */
-export const WORLDS: Record<string, World> = {
-  'times-black': {
-    name: 'Nexus',
-    alt: 'an orchestrator hub routing data signals between API gateway, validation, auth, partner APIs and notifications',
-    accent: '#00e5ff',
-    Scene: NexusScene,
-  },
-  clusterix: {
-    name: 'Interface',
-    alt: 'a violet-lit document editor workspace with a toolbar of modules, a plugin panel and a cells module',
-    accent: '#7c5cfc',
-    Scene: InterfaceScene,
-  },
-  'loglens-ai': {
-    name: 'Intelligence',
-    alt: 'an observability room with a live log stream, an AI analysis radar and a severity histogram',
-    accent: '#ff2a6d',
-    Scene: IntelligenceScene,
-  },
-  'roshan-tiwari-consultants': {
-    name: 'Presence',
-    alt: 'a consultancy website shown on a desktop browser and, responsive, on a phone',
-    accent: '#ff2a6d',
-    Scene: PresenceScene,
-  },
-  'vscc-erp': {
-    name: 'Foundation',
-    alt: 'a construction site crane beside an ERP dashboard with attendance, payroll, approvals and billing, plus a site-report phone app',
-    accent: '#f5e500',
-    Scene: FoundationScene,
-  },
-}
-
-export const hasWorld = (slug: string) => slug in WORLDS
 
 /** True while the element is on screen; drives the looping micro-animations. */
 function useOnScreen(ref: RefObject<Element | null>) {
@@ -109,12 +74,12 @@ function useWorldEntrance(ref: RefObject<HTMLElement | null>, enabled: boolean) 
  */
 export function ProjectWorld({ slug, variant = 'scene', className }: { slug: string; variant?: 'scene' | 'tile'; className?: string }) {
   const world = WORLDS[slug]
+  const Scene = SCENES[slug]
   const p = `w${useId().replace(/[^a-zA-Z0-9]/g, '')}`
   const ref = useRef<HTMLElement>(null)
   const on = useOnScreen(ref)
   useWorldEntrance(ref, variant === 'scene')
-  if (!world) return null
-  const { Scene } = world
+  if (!world || !Scene) return null
   const decorative = variant === 'tile'
 
   return (

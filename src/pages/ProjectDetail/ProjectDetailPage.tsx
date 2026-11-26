@@ -13,7 +13,8 @@ import { CATEGORY_LABEL, CONTRIBUTION_LABEL, formatRange } from '../../utils/lab
 import { relatedProjects } from '../../utils/projectFilters'
 import NotFoundPage from '../NotFound/NotFoundPage'
 import s from './detail.module.css'
-import { ProjectWorld, hasWorld } from '../../components/worlds/ProjectWorld'
+import { ProjectWorld } from '../../components/worlds/ProjectWorld'
+import { hasWorld } from '../../data/worlds'
 
 function SectionTitle({ id, kicker, children }: { id: string; kicker: string; children: string }) {
   return (
