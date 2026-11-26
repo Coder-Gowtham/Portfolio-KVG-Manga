@@ -1,0 +1,407 @@
+
+ RUN  v3.2.7 /home/hi/projects/portfolio-kvg-manga
+
+ ✓ src/features/contact/contactForm.test.ts (9 tests) 7ms
+ ✓ src/utils/projectFilters.test.ts (10 tests) 21ms
+ ✓ src/features/fun.test.ts (28 tests) 35ms
+ ✓ src/data/data.test.ts (23 tests) 15ms
+stderr | src/components/layout/navigation.test.tsx > navigation shell > marks the current page in the bottom nav
+No `HydrateFallback` element provided to render during initial hydration
+
+stderr | src/pages/Home/home.test.tsx > home page > has a single H1 with the name and role, and the three hero actions
+No `HydrateFallback` element provided to render during initial hydration
+
+stderr | src/pages/professional.test.tsx > Works page > filters by category, updates the shareable URL and announces the count
+No `HydrateFallback` element provided to render during initial hydration
+
+stderr | src/pages/Playground/fun.test.tsx > Showdown hub > lists every registered module as a cabinet
+No `HydrateFallback` element provided to render during initial hydration
+
+ ✓ src/pages/Playground/fun.test.tsx (14 tests) 1309ms
+   ✓ Showdown hub > lists every registered module as a cabinet  370ms
+ ✓ src/pages/Home/home.test.tsx (11 tests) 1428ms
+   ✓ home page > has a single H1 with the name and role, and the three hero actions  456ms
+ ✓ src/components/layout/navigation.test.tsx (8 tests) 1457ms
+   ✓ navigation shell > marks the current page in the bottom nav  395ms
+   ✓ navigation shell > opens the menu sheet, then navigates and closes it  383ms
+ ❯ src/pages/professional.test.tsx (16 tests | 1 failed) 2178ms
+   ✓ Works page > filters by category, updates the shareable URL and announces the count  531ms
+   ✓ Works page > keeps technology chips behind a toggle until needed 226ms
+   ✓ Works page > restores filters from the URL and combines category + technology 61ms
+   ✓ Works page > shows an empty state that clears filters 236ms
+   ✓ Project detail > keeps planned VSCC modules out of the built list 108ms
+   ✓ Project detail > shows engineering notes, a confidentiality notice and episode navigation 103ms
+   ✓ Project detail > renders a placeholder project as "coming soon" without invented details 39ms
+   ✓ Screenshot gallery > opens approved screenshots in a lightbox and steps between them 69ms
+   ✓ Experience > switches between latest-first and from-the-beginning order 163ms
+   × Experience > keeps each chapter to a short summary, with no bullet lists 71ms
+     → Unable to find an element with the text: /feb 2021 · about 6 months/i. This could be because the text is broken up by multiple elements. In this case, you can provide a function for your text matcher to make your matcher more flexible.
+
+Ignored nodes: comments, script, style
+[36m<body>[39m
+  [36m<div>[39m
+    [36m<div[39m
+      [33mclass[39m=[32m"_shell_ffdd4a _shellRail_ffdd4a"[39m
+    [36m>[39m
+      [36m<a[39m
+        [33mclass[39m=[32m"_skip_ffdd4a no-print"[39m
+        [33mhref[39m=[32m"#main"[39m
+      [36m>[39m
+        [0mSkip to content[0m
+      [36m</a>[39m
+      [36m<svg[39m
+        [33maria-hidden[39m=[32m"true"[39m
+        [33mfocusable[39m=[32m"false"[39m
+        [33mheight[39m=[32m"0"[39m
+        [33mstyle[39m=[32m"position: absolute;"[39m
+        [33mwidth[39m=[32m"0"[39m
+      [36m>[39m
+        [36m<defs>[39m
+          [36m<symbol[39m
+            [33mid[39m=[32m"kvg-katana-back"[39m
+            [33moverflow[39m=[32m"visible"[39m
+            [33mviewBox[39m=[32m"0 0 120 140"[39m
+          [36m>[39m
+            [36m<path[39m
+              [33md[39m=[32m"M22 138 L98 54"[39m
+              [33mstroke[39m=[32m"#0A0A0F"[39m
+              [33mstroke-linecap[39m=[32m"round"[39m
+              [33mstroke-width[39m=[32m"7"[39m
+            [36m/>[39m
+            [36m<path[39m
+              [33md[39m=[32m"M22 138 L98 54"[39m
+              [33mstroke[39m=[32m"#1D1D27"[39m
+              [33mstroke-linecap[39m=[32m"round"[39m
+              [33mstroke-width[39m=[32m"4.5"[39m
+            [36m/>[39m
+            [36m<path[39m
+              [33md[39m=[32m"M30 128 L94 58"[39m
+              [33mstroke[39m=[32m"#00E5FF"[39m
+              [33mstroke-width[39m=[32m"0.8"[39m
+            [36m/>[39m
+            [36m<ellipse[39m
+              [33mcx[39m=[32m"99"[39m
+              [33mcy[39m=[32m"52"[39m
+              [33mfill[39m=[32m"#F5E500"[39m
+              [33mrx[39m=[32m"7"[39m
+              [33mry[39m=[32m"2.6"[39m
+              [33mstroke[39m=[32m"#0A0A0F"[39m
+              [33mstroke-width[39m=[32m"1.2"[39m
+              [33mtransform[39m=[32m"rotate(-48 99 52)"[39m
+            [36m/>[39m
+            [36m<path[39m
+              [33md[39m=[32m"M100 51 L114 30"[39m
+              [33mstroke[39m=[32m"#0A0A0F"[39m
+              [33mstroke-linecap[39m=[32m"round"[39m
+              [33mstroke-width[39m=[32m"6.5"[39m
+            [36m/>[39m
+            [36m<path[39m
+              [33md[39m=[32m"M102 47 L106 44 M104 43 L108 40 M106 39 L110 36 M108 35 L112 32"[39m
+              [33mstroke[39m=[32m"#FF2A6D"[39m
+              [33mstroke-width[39m=[32m"1.6"[39m
+            [36m/>[39m
+            [36m<circle[39m
+              [33mcx[39m=[32m"115"[39m
+              [33mcy[39m=[32m"28"[39m
+              [33mfill[39m=[32m"#FF2A6D"[39m
+              [33mr[39m=[32m"2.8"[39m
+              [33mstroke[39m=[32m"#0A0A0F"[39m
+              [33mstroke-width[39m=[32m"1"[39m
+            [36m/>[39m
+          [36m</symbol>[39m
+          [36m<symbol[39m
+            [33mid[39m=[32m"kvg-body"[39m
+            [33mviewBox[39m=[32m"0 0 120 140"[39m
+          [36m>[39m
+            [36m<path[39m
+              [33md[39m=[32m"M2 140 L10 106 L38 94 L60 108 L82 94 L110 106 L118 140 Z"[39m
+              [33mfill[39m=[32m"#0A0A0F"[39m
+              [33mstroke[39m=[32m"#00E5FF"[39m
+              [33mstroke-width[39m=[32m"1.4"[39m
+            [36m/>[39m
+            [36m<path[39m
+              [33md[39m=[32m"M10 106 L38 94 L34 114 L6 120 Z"[39m
+              [33mfill[39m=[32m"#1D1D27"[39m
+              [33mstroke[39m=[32m"#00E5FF"[39m
+              [33mstroke-width[39m=[32m"1.2"[39m
+            [36m/>[39m
+            [36m<path[39m
+              [33md[39m=[32m"M110 106 L82 94 L86 114 L114 120 Z"[39m
+              [33mfill[39m=[32m"#1D1D27"[39m
+              [33mstroke[39m=[32m"#00E5FF"[39m
+              [33mstroke-width[39m=[32m"1.2"[39m
+            [36m/>[39m
+            [36m<path[39m
+              [33md[39m=[32m"M34 116 L80 140"[39m
+              [33mstroke[39m=[32m"#FF2A6D"[39m
+              [33mstroke-width[39m=[32m"4"[39m
+            [36m/>[39m
+            [36m<polygon[39m
+              [33mfill[39m=[32m"none"[39m
+              [33mpoints[39m=[32m"74,118 80,114 86,118 86,125 80,129 74,125"[39m
+              [33mstroke[39m=[32m"#F5E500"[39m
+              [33mstroke-width[39m=[32m"1.2"[39m
+            [36m/>[39m
+            [36m<polygon[39m
+              [33mfill[39m=[32m"#16161E"[39m
+              [33mpoints[39m=[32m"36,96 44,74 60,84 76,74 84,96 60,110"[39m
+              [33mstroke[39m=[32m"#00E5FF"[39m
+              [33mstroke-width[39m=[32m"1.2"[39m
+            [36m/>[39m
+            [36m<polygon[39m
+              [33mfill[39m=[32m"#F4F1EA"[39m
+              [33mpoints[39m=[32m"40,40 41,62 49,76 60,80 71,76 79,62 80,40 60,33"[39m
+              [33mstroke[39m=[32m"#0A0A0F"[39m
+              [33mstroke-width[39m=[32m"2"[39m
+            [36m/>[39m
+          [36m</symbol>[39m
+          [36m<symbol[39m
+            [33mid[39m=[32m"kvg-kunai-strap"[39m
+            [33mviewBox[39m=[32m"0 0 120 140"[39m
+          [36m>[39m
+            [36m<g[39m
+              [33mfill[39m=[32m"#D8DBE3"[39m
+              [33mstroke[39m=[32m"#0A0A0F"[39m
+              [33mstroke-width[39m=[32m"0.7"[39m
+            [36m>[39m
+              [36m<path[39m
+                [33md[39m=[32m"M45 114 L47.5 121 L45 128 L42.5 121 Z"[39m
+              [36m/>[39m
+              [36m<path[39m
+                [33md[39m=[32m"M55 119 L57.5 126 L55 133 L52.5 126 Z"[39m
+              [36m/>[39m
+              [36m<path[39m
+                [33md[39m=[32m"M65 124 L67.5 131 L65 138 L62.5 131 Z"[39m
+              [36m/>[39m
+            [36m</g>[39m
+            [36m<g[39m
+              [33mstroke[39m=[32m"#00E5FF"[39m
+              [33mstroke-width[39m=[32m"0.6"[39m
+            [36m>[39m
+              [36m<line[39m
+                [33mx1[39m=[32m"45"[39m
+                [33mx2[39m=[32m"45"[39m
+                [33my1[39m=[32m"115"[39m
+                [33my2[39m=[32m"127"[39m
+              [36m/>[39m
+              [36m<line[39m
+                [33mx1[39m=[32m"55"[39m
+                [33mx2[39m=[32m"55"[39m
+                [33my1[39m=[32m"120"[39m
+                [33my2[39m=[32m"132"[39m
+              [36m/>[39m
+              [36m<line[39m
+                [33mx1[39m=[32m"65"[39m
+                [33mx2[39m=[32m"65"[39m
+                [33my1[39m=[32m"125"[39m
+                [33my2[39m=[32m"137"[39m
+              [36m/>[39m
+            [36m</g>[39m
+          [36m</symbol>[39m
+          [36m<symbol[39m
+            [33mid[39m=[32m"kvg-mask-up"[39m
+            [33mviewBox[39m=[32m"0 0 120 140"[39m
+          [36m>[39m
+            [36m<path[39m
+              [33md[39m=[32m"M41 61 L49 76 L60 80 L71 76 L79 61 L60 65 Z"[39m
+            ...
+   ✓ Contact quest board > fills the subject from a picked quest, and leaves a typed subject alone 197ms
+   ✓ Contact host mascot > pulls the mask up when tapped, and back down on a second tap 60ms
+   ✓ Recruiter > keeps résumé and email one tap away and Instagram off the page 59ms
+   ✓ Contact form > validates on submit and focuses the first invalid field 14ms
+   ✓ Contact form > opens the email app with a pre-filled message and says so honestly 212ms
+   ✓ Contact form > silently drops bot submissions caught by the honeypot 28ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  src/pages/professional.test.tsx > Experience > keeps each chapter to a short summary, with no bullet lists
+TestingLibraryElementError: Unable to find an element with the text: /feb 2021 · about 6 months/i. This could be because the text is broken up by multiple elements. In this case, you can provide a function for your text matcher to make your matcher more flexible.
+
+Ignored nodes: comments, script, style
+[36m<body>[39m
+  [36m<div>[39m
+    [36m<div[39m
+      [33mclass[39m=[32m"_shell_ffdd4a _shellRail_ffdd4a"[39m
+    [36m>[39m
+      [36m<a[39m
+        [33mclass[39m=[32m"_skip_ffdd4a no-print"[39m
+        [33mhref[39m=[32m"#main"[39m
+      [36m>[39m
+        [0mSkip to content[0m
+      [36m</a>[39m
+      [36m<svg[39m
+        [33maria-hidden[39m=[32m"true"[39m
+        [33mfocusable[39m=[32m"false"[39m
+        [33mheight[39m=[32m"0"[39m
+        [33mstyle[39m=[32m"position: absolute;"[39m
+        [33mwidth[39m=[32m"0"[39m
+      [36m>[39m
+        [36m<defs>[39m
+          [36m<symbol[39m
+            [33mid[39m=[32m"kvg-katana-back"[39m
+            [33moverflow[39m=[32m"visible"[39m
+            [33mviewBox[39m=[32m"0 0 120 140"[39m
+          [36m>[39m
+            [36m<path[39m
+              [33md[39m=[32m"M22 138 L98 54"[39m
+              [33mstroke[39m=[32m"#0A0A0F"[39m
+              [33mstroke-linecap[39m=[32m"round"[39m
+              [33mstroke-width[39m=[32m"7"[39m
+            [36m/>[39m
+            [36m<path[39m
+              [33md[39m=[32m"M22 138 L98 54"[39m
+              [33mstroke[39m=[32m"#1D1D27"[39m
+              [33mstroke-linecap[39m=[32m"round"[39m
+              [33mstroke-width[39m=[32m"4.5"[39m
+            [36m/>[39m
+            [36m<path[39m
+              [33md[39m=[32m"M30 128 L94 58"[39m
+              [33mstroke[39m=[32m"#00E5FF"[39m
+              [33mstroke-width[39m=[32m"0.8"[39m
+            [36m/>[39m
+            [36m<ellipse[39m
+              [33mcx[39m=[32m"99"[39m
+              [33mcy[39m=[32m"52"[39m
+              [33mfill[39m=[32m"#F5E500"[39m
+              [33mrx[39m=[32m"7"[39m
+              [33mry[39m=[32m"2.6"[39m
+              [33mstroke[39m=[32m"#0A0A0F"[39m
+              [33mstroke-width[39m=[32m"1.2"[39m
+              [33mtransform[39m=[32m"rotate(-48 99 52)"[39m
+            [36m/>[39m
+            [36m<path[39m
+              [33md[39m=[32m"M100 51 L114 30"[39m
+              [33mstroke[39m=[32m"#0A0A0F"[39m
+              [33mstroke-linecap[39m=[32m"round"[39m
+              [33mstroke-width[39m=[32m"6.5"[39m
+            [36m/>[39m
+            [36m<path[39m
+              [33md[39m=[32m"M102 47 L106 44 M104 43 L108 40 M106 39 L110 36 M108 35 L112 32"[39m
+              [33mstroke[39m=[32m"#FF2A6D"[39m
+              [33mstroke-width[39m=[32m"1.6"[39m
+            [36m/>[39m
+            [36m<circle[39m
+              [33mcx[39m=[32m"115"[39m
+              [33mcy[39m=[32m"28"[39m
+              [33mfill[39m=[32m"#FF2A6D"[39m
+              [33mr[39m=[32m"2.8"[39m
+              [33mstroke[39m=[32m"#0A0A0F"[39m
+              [33mstroke-width[39m=[32m"1"[39m
+            [36m/>[39m
+          [36m</symbol>[39m
+          [36m<symbol[39m
+            [33mid[39m=[32m"kvg-body"[39m
+            [33mviewBox[39m=[32m"0 0 120 140"[39m
+          [36m>[39m
+            [36m<path[39m
+              [33md[39m=[32m"M2 140 L10 106 L38 94 L60 108 L82 94 L110 106 L118 140 Z"[39m
+              [33mfill[39m=[32m"#0A0A0F"[39m
+              [33mstroke[39m=[32m"#00E5FF"[39m
+              [33mstroke-width[39m=[32m"1.4"[39m
+            [36m/>[39m
+            [36m<path[39m
+              [33md[39m=[32m"M10 106 L38 94 L34 114 L6 120 Z"[39m
+              [33mfill[39m=[32m"#1D1D27"[39m
+              [33mstroke[39m=[32m"#00E5FF"[39m
+              [33mstroke-width[39m=[32m"1.2"[39m
+            [36m/>[39m
+            [36m<path[39m
+              [33md[39m=[32m"M110 106 L82 94 L86 114 L114 120 Z"[39m
+              [33mfill[39m=[32m"#1D1D27"[39m
+              [33mstroke[39m=[32m"#00E5FF"[39m
+              [33mstroke-width[39m=[32m"1.2"[39m
+            [36m/>[39m
+            [36m<path[39m
+              [33md[39m=[32m"M34 116 L80 140"[39m
+              [33mstroke[39m=[32m"#FF2A6D"[39m
+              [33mstroke-width[39m=[32m"4"[39m
+            [36m/>[39m
+            [36m<polygon[39m
+              [33mfill[39m=[32m"none"[39m
+              [33mpoints[39m=[32m"74,118 80,114 86,118 86,125 80,129 74,125"[39m
+              [33mstroke[39m=[32m"#F5E500"[39m
+              [33mstroke-width[39m=[32m"1.2"[39m
+            [36m/>[39m
+            [36m<polygon[39m
+              [33mfill[39m=[32m"#16161E"[39m
+              [33mpoints[39m=[32m"36,96 44,74 60,84 76,74 84,96 60,110"[39m
+              [33mstroke[39m=[32m"#00E5FF"[39m
+              [33mstroke-width[39m=[32m"1.2"[39m
+            [36m/>[39m
+            [36m<polygon[39m
+              [33mfill[39m=[32m"#F4F1EA"[39m
+              [33mpoints[39m=[32m"40,40 41,62 49,76 60,80 71,76 79,62 80,40 60,33"[39m
+              [33mstroke[39m=[32m"#0A0A0F"[39m
+              [33mstroke-width[39m=[32m"2"[39m
+            [36m/>[39m
+          [36m</symbol>[39m
+          [36m<symbol[39m
+            [33mid[39m=[32m"kvg-kunai-strap"[39m
+            [33mviewBox[39m=[32m"0 0 120 140"[39m
+          [36m>[39m
+            [36m<g[39m
+              [33mfill[39m=[32m"#D8DBE3"[39m
+              [33mstroke[39m=[32m"#0A0A0F"[39m
+              [33mstroke-width[39m=[32m"0.7"[39m
+            [36m>[39m
+              [36m<path[39m
+                [33md[39m=[32m"M45 114 L47.5 121 L45 128 L42.5 121 Z"[39m
+              [36m/>[39m
+              [36m<path[39m
+                [33md[39m=[32m"M55 119 L57.5 126 L55 133 L52.5 126 Z"[39m
+              [36m/>[39m
+              [36m<path[39m
+                [33md[39m=[32m"M65 124 L67.5 131 L65 138 L62.5 131 Z"[39m
+              [36m/>[39m
+            [36m</g>[39m
+            [36m<g[39m
+              [33mstroke[39m=[32m"#00E5FF"[39m
+              [33mstroke-width[39m=[32m"0.6"[39m
+            [36m>[39m
+              [36m<line[39m
+                [33mx1[39m=[32m"45"[39m
+                [33mx2[39m=[32m"45"[39m
+                [33my1[39m=[32m"115"[39m
+                [33my2[39m=[32m"127"[39m
+              [36m/>[39m
+              [36m<line[39m
+                [33mx1[39m=[32m"55"[39m
+                [33mx2[39m=[32m"55"[39m
+                [33my1[39m=[32m"120"[39m
+                [33my2[39m=[32m"132"[39m
+              [36m/>[39m
+              [36m<line[39m
+                [33mx1[39m=[32m"65"[39m
+                [33mx2[39m=[32m"65"[39m
+                [33my1[39m=[32m"125"[39m
+                [33my2[39m=[32m"137"[39m
+              [36m/>[39m
+            [36m</g>[39m
+          [36m</symbol>[39m
+          [36m<symbol[39m
+            [33mid[39m=[32m"kvg-mask-up"[39m
+            [33mviewBox[39m=[32m"0 0 120 140"[39m
+          [36m>[39m
+            [36m<path[39m
+              [33md[39m=[32m"M41 61 L49 76 L60 80 L71 76 L79 61 L60 65 Z"[39m
+            ...
+ ❯ Object.getElementError node_modules/@testing-library/dom/dist/config.js:37:19
+ ❯ node_modules/@testing-library/dom/dist/query-helpers.js:76:38
+ ❯ node_modules/@testing-library/dom/dist/query-helpers.js:52:17
+ ❯ node_modules/@testing-library/dom/dist/query-helpers.js:95:19
+ ❯ src/pages/professional.test.tsx:147:19
+    145|       '/projects/roshan-tiwari-consultants',
+    146|     )
+    147|     expect(screen.getByText(/feb 2021 · about 6 months/i)).toBeInTheDo…
+       |                   ^
+    148|   })
+    149| })
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed | 7 passed (8)
+      Tests  1 failed | 118 passed (119)
+   Start at  16:47:33
+   Duration  3.36s (transform 887ms, setup 976ms, collect 1.95s, tests 6.45s, environment 3.27s, prepare 606ms)
+

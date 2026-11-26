@@ -26,9 +26,3 @@ export function prefersReducedMotion(): boolean {
     ? window.matchMedia('(prefers-reduced-motion: reduce)').matches
     : true
 }
-
-export function hasFinePointer(): boolean {
-  return typeof window !== 'undefined' && typeof window.matchMedia === 'function'
-    ? window.matchMedia('(hover: hover) and (pointer: fine)').matches
-    : false
-}

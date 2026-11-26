@@ -7,12 +7,10 @@ export const home = {
   cover: {
     /** Hero title, split so the initials and the name can be styled apart. */
     title: { initials: 'K.V.', name: 'Gowtham' },
-    /** Hero tagline: two short lines. */
-    tagline: ['Engineering the invisible.', 'Crafting the experience.'],
     issueLabel: 'CYBER ISSUE',
     mastheadTag: 'MANGA × CODE',
     /** Cover lines shown over the art. Keep them short. */
-    lines: ['React.js', 'Node.js', 'Fintech arc'],
+    lines: ['React.js', 'Node.js', 'Full stack', 'Fintech arc'],
     newArc: { label: 'NEW ARC!', title: 'VSCC ERP', slug: 'vscc-erp' },
     /** The mascot's catchphrase, shown beside the name. */
     catchphrase: 'Relax. I only hunt bugs.',

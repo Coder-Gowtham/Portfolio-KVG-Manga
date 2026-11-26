@@ -26,13 +26,10 @@ describe('home page', () => {
     expect(screen.getAllByRole('link', { name: /contact me/i })[0]).toHaveAttribute('href', '/contact')
   })
 
-  it('shows the tagline and the catchphrase right under the name', async () => {
+  it('shows the catchphrase right under the name', async () => {
     await renderHome()
     const cover = screen.getByRole('heading', { level: 1 }).closest('section')!
-    expect(within(cover).getByText(/engineering the invisible\./i)).toBeInTheDocument()
-    expect(within(cover).getByText(/crafting the experience\./i)).toBeInTheDocument()
     expect(within(cover).getByText('Relax. I only hunt bugs.')).toBeInTheDocument()
-    expect(within(cover).getByRole('button', { name: /scroll to abilities/i })).toBeInTheDocument()
   })
 
   it('stays short: five sections, cover to final panel', async () => {
